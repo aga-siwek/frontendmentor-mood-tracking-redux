@@ -1,0 +1,420 @@
+[
+  {
+    "mood_scale": -2,
+    "feels": [
+      "Excited",
+      "Overwhelmed"
+    ],
+    "reflection": "I felt like I was drowning."
+  },
+  {
+    "mood_scale": 1,
+    "feels": [
+      "Calm",
+      "Frustrated"
+    ],
+    "reflection": "Everything was in balance today."
+  },
+  {
+    "mood_scale": -1,
+    "feels": [
+      "Calm",
+      "Anxious",
+      "Disappointed",
+      "Frustrated"
+    ],
+    "reflection": "The worries crept in often."
+  },
+  {
+    "mood_scale": 0,
+    "feels": [
+      "Grateful",
+      "Confident",
+      "Down",
+      "Lonely"
+    ],
+    "reflection": "There were small things to appreciate."
+  },
+  {
+    "mood_scale": 1,
+    "feels": [
+      "Restless",
+      "Confident"
+    ],
+    "reflection": "I\u2019m proud of myself today."
+  },
+  {
+    "mood_scale": -1,
+    "feels": [
+      "Joyful",
+      "Grateful",
+      "Confident"
+    ],
+    "reflection": "Today was a mix of emotions."
+  },
+  {
+    "mood_scale": -1,
+    "feels": [
+      "Tired"
+    ],
+    "reflection": "I\u2019m drained in every way."
+  },
+  {
+    "mood_scale": -1,
+    "feels": [
+      "Confident",
+      "Optimistic",
+      "Calm"
+    ],
+    "reflection": "Today was a mix of emotions."
+  },
+  {
+    "mood_scale": -1,
+    "feels": [
+      "Frustrated",
+      "Optimistic"
+    ],
+    "reflection": "I hit a lot of walls today."
+  },
+  {
+    "mood_scale": 1,
+    "feels": [
+      "Peaceful",
+      "Excited"
+    ],
+    "reflection": "Today was pleasantly calm."
+  },
+  {
+    "mood_scale": 2,
+    "feels": [
+      "Hopeful",
+      "Anxious",
+      "Irritable",
+      "Joyful"
+    ],
+    "reflection": "The future feels incredibly bright."
+  },
+  {
+    "mood_scale": -2,
+    "feels": [
+      "Down",
+      "Irritable",
+      "Content"
+    ],
+    "reflection": "I couldn\u2019t shake the sadness."
+  },
+  {
+    "mood_scale": 0,
+    "feels": [
+      "Disappointed",
+      "Anxious"
+    ],
+    "reflection": "Today was a mix of emotions."
+  },
+  {
+    "mood_scale": 0,
+    "feels": [
+      "Optimistic"
+    ],
+    "reflection": "Today was a mix of emotions."
+  },
+  {
+    "mood_scale": 2,
+    "feels": [
+      "Peaceful",
+      "Grateful",
+      "Disappointed",
+      "Anxious"
+    ],
+    "reflection": "Everything feels just right today."
+  },
+  {
+    "mood_scale": 2,
+    "feels": [
+      "Irritable",
+      "Stressed",
+      "Disappointed"
+    ],
+    "reflection": "Today was a mix of emotions."
+  },
+  {
+    "mood_scale": -1,
+    "feels": [
+      "Optimistic"
+    ],
+    "reflection": "Today was a mix of emotions."
+  },
+  {
+    "mood_scale": -1,
+    "feels": [
+      "Tired",
+      "Grateful",
+      "Peaceful"
+    ],
+    "reflection": "I\u2019m drained in every way."
+  },
+  {
+    "mood_scale": 1,
+    "feels": [
+      "Overwhelmed",
+      "Tired"
+    ],
+    "reflection": "Today was a mix of emotions."
+  },
+  {
+    "mood_scale": 2,
+    "feels": [
+      "Tired",
+      "Motivated",
+      "Irritable"
+    ],
+    "reflection": "I\u2019m ready to conquer everything."
+  },
+  {
+    "mood_scale": -2,
+    "feels": [
+      "Frustrated",
+      "Optimistic"
+    ],
+    "reflection": "I struggled to see a way out."
+  },
+  {
+    "mood_scale": 1,
+    "feels": [
+      "Motivated"
+    ],
+    "reflection": "I'm feeling inspired to move forward."
+  },
+  {
+    "mood_scale": -1,
+    "feels": [
+      "Anxious",
+      "Lonely",
+      "Down",
+      "Frustrated"
+    ],
+    "reflection": "The worries crept in often."
+  },
+  {
+    "mood_scale": 1,
+    "feels": [
+      "Confident",
+      "Irritable"
+    ],
+    "reflection": "I\u2019m proud of myself today."
+  },
+  {
+    "mood_scale": 1,
+    "feels": [
+      "Motivated",
+      "Joyful",
+      "Restless"
+    ],
+    "reflection": "I'm feeling inspired to move forward."
+  },
+  {
+    "mood_scale": -2,
+    "feels": [
+      "Restless",
+      "Peaceful",
+      "Confident"
+    ],
+    "reflection": "Today was a mix of emotions."
+  },
+  {
+    "mood_scale": 0,
+    "feels": [
+      "Confident",
+      "Content",
+      "Lonely",
+      "Peaceful"
+    ],
+    "reflection": "Even an average day has its wins."
+  },
+  {
+    "mood_scale": -1,
+    "feels": [
+      "Peaceful",
+      "Frustrated",
+      "Calm",
+      "Anxious"
+    ],
+    "reflection": "I hit a lot of walls today."
+  },
+  {
+    "mood_scale": 2,
+    "feels": [
+      "Peaceful",
+      "Overwhelmed",
+      "Down"
+    ],
+    "reflection": "Everything feels just right today."
+  },
+  {
+    "mood_scale": -1,
+    "feels": [
+      "Peaceful",
+      "Overwhelmed"
+    ],
+    "reflection": "It was hard to keep up."
+  },
+  {
+    "mood_scale": 0,
+    "feels": [
+      "Confident"
+    ],
+    "reflection": "Even an average day has its wins."
+  },
+  {
+    "mood_scale": 2,
+    "feels": [
+      "Frustrated",
+      "Overwhelmed",
+      "Disappointed",
+      "Peaceful"
+    ],
+    "reflection": "Everything feels just right today."
+  },
+  {
+    "mood_scale": 1,
+    "feels": [
+      "Joyful",
+      "Irritable"
+    ],
+    "reflection": "There were so many happy moments."
+  },
+  {
+    "mood_scale": -2,
+    "feels": [
+      "Tired"
+    ],
+    "reflection": "I barely made it through."
+  },
+  {
+    "mood_scale": -1,
+    "feels": [
+      "Down"
+    ],
+    "reflection": "There was a gray cloud over everything."
+  },
+  {
+    "mood_scale": 1,
+    "feels": [
+      "Tired"
+    ],
+    "reflection": "Today was a mix of emotions."
+  },
+  {
+    "mood_scale": 0,
+    "feels": [
+      "Confident",
+      "Overwhelmed",
+      "Anxious"
+    ],
+    "reflection": "Even an average day has its wins."
+  },
+  {
+    "mood_scale": -2,
+    "feels": [
+      "Down"
+    ],
+    "reflection": "I couldn\u2019t shake the sadness."
+  },
+  {
+    "mood_scale": 0,
+    "feels": [
+      "Motivated",
+      "Optimistic",
+      "Joyful"
+    ],
+    "reflection": "Even in stillness, I felt the urge to grow."
+  },
+  {
+    "mood_scale": -2,
+    "feels": [
+      "Motivated",
+      "Confident",
+      "Excited",
+      "Anxious"
+    ],
+    "reflection": "Everything felt overwhelming."
+  },
+  {
+    "mood_scale": 0,
+    "feels": [
+      "Anxious"
+    ],
+    "reflection": "Today was a mix of emotions."
+  },
+  {
+    "mood_scale": 2,
+    "feels": [
+      "Frustrated"
+    ],
+    "reflection": "Today was a mix of emotions."
+  },
+  {
+    "mood_scale": -2,
+    "feels": [
+      "Anxious",
+      "Optimistic"
+    ],
+    "reflection": "Everything felt overwhelming."
+  },
+  {
+    "mood_scale": -2,
+    "feels": [
+      "Down"
+    ],
+    "reflection": "I couldn\u2019t shake the sadness."
+  },
+  {
+    "mood_scale": 0,
+    "feels": [
+      "Irritable"
+    ],
+    "reflection": "Today was a mix of emotions."
+  },
+  {
+    "mood_scale": 1,
+    "feels": [
+      "Grateful",
+      "Peaceful"
+    ],
+    "reflection": "I'm thankful for the little things."
+  },
+  {
+    "mood_scale": 2,
+    "feels": [
+      "Calm",
+      "Peaceful"
+    ],
+    "reflection": "Everything is flowing perfectly today."
+  },
+  {
+    "mood_scale": 2,
+    "feels": [
+      "Overwhelmed",
+      "Lonely",
+      "Content"
+    ],
+    "reflection": "I couldn\u2019t ask for more today."
+  },
+  {
+    "mood_scale": -2,
+    "feels": [
+      "Lonely",
+      "Confident",
+      "Overwhelmed"
+    ],
+    "reflection": "I felt completely alone."
+  },
+  {
+    "mood_scale": 2,
+    "feels": [
+      "Anxious",
+      "Restless"
+    ],
+    "reflection": "Today was a mix of emotions."
+  }
+]

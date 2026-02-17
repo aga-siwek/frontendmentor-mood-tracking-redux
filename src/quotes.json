@@ -1,0 +1,420 @@
+[
+  {
+    "mood_scale": -2,
+    "feels": [
+      "Excited",
+      "Overwhelmed"
+    ],
+    "quote": "Nothing made sense, but I kept going."
+  },
+  {
+    "mood_scale": 1,
+    "feels": [
+      "Calm",
+      "Frustrated"
+    ],
+    "quote": "Small victories made a big difference."
+  },
+  {
+    "mood_scale": -1,
+    "feels": [
+      "Calm",
+      "Anxious",
+      "Disappointed",
+      "Frustrated"
+    ],
+    "quote": "The struggle was constant, but I didn\u2019t stop."
+  },
+  {
+    "mood_scale": 0,
+    "feels": [
+      "Grateful",
+      "Confident",
+      "Down",
+      "Lonely"
+    ],
+    "quote": "There was a quiet simplicity in it all."
+  },
+  {
+    "mood_scale": 1,
+    "feels": [
+      "Restless",
+      "Confident"
+    ],
+    "quote": "I felt sparks of momentum in the quiet."
+  },
+  {
+    "mood_scale": -1,
+    "feels": [
+      "Joyful",
+      "Grateful",
+      "Confident"
+    ],
+    "quote": "Everything felt just a bit too much."
+  },
+  {
+    "mood_scale": -1,
+    "feels": [
+      "Tired"
+    ],
+    "quote": "I was tired, but still trying."
+  },
+  {
+    "mood_scale": -1,
+    "feels": [
+      "Confident",
+      "Optimistic",
+      "Calm"
+    ],
+    "quote": "The struggle was constant, but I didn\u2019t stop."
+  },
+  {
+    "mood_scale": -1,
+    "feels": [
+      "Frustrated",
+      "Optimistic"
+    ],
+    "quote": "I was tired, but still trying."
+  },
+  {
+    "mood_scale": 1,
+    "feels": [
+      "Peaceful",
+      "Excited"
+    ],
+    "quote": "Small victories made a big difference."
+  },
+  {
+    "mood_scale": 2,
+    "feels": [
+      "Hopeful",
+      "Anxious",
+      "Irritable",
+      "Joyful"
+    ],
+    "quote": "I felt deeply alive and aware."
+  },
+  {
+    "mood_scale": -2,
+    "feels": [
+      "Down",
+      "Irritable",
+      "Content"
+    ],
+    "quote": "It was hard to keep breathing through the weight."
+  },
+  {
+    "mood_scale": 0,
+    "feels": [
+      "Disappointed",
+      "Anxious"
+    ],
+    "quote": "I felt centered, even if only briefly."
+  },
+  {
+    "mood_scale": 0,
+    "feels": [
+      "Optimistic"
+    ],
+    "quote": "I noticed the small things today."
+  },
+  {
+    "mood_scale": 2,
+    "feels": [
+      "Peaceful",
+      "Grateful",
+      "Disappointed",
+      "Anxious"
+    ],
+    "quote": "There was light in every moment."
+  },
+  {
+    "mood_scale": 2,
+    "feels": [
+      "Irritable",
+      "Stressed",
+      "Disappointed"
+    ],
+    "quote": "Joy overflowed in unexpected ways."
+  },
+  {
+    "mood_scale": -1,
+    "feels": [
+      "Optimistic"
+    ],
+    "quote": "I wanted to rest, but couldn\u2019t find peace."
+  },
+  {
+    "mood_scale": -1,
+    "feels": [
+      "Tired",
+      "Grateful",
+      "Peaceful"
+    ],
+    "quote": "Some things felt okay, others didn\u2019t."
+  },
+  {
+    "mood_scale": 1,
+    "feels": [
+      "Overwhelmed",
+      "Tired"
+    ],
+    "quote": "I took steps forward and felt proud."
+  },
+  {
+    "mood_scale": 2,
+    "feels": [
+      "Tired",
+      "Motivated",
+      "Irritable"
+    ],
+    "quote": "I felt unstoppable, even in small things."
+  },
+  {
+    "mood_scale": -2,
+    "feels": [
+      "Frustrated",
+      "Optimistic"
+    ],
+    "quote": "I felt like I was disappearing beneath it all."
+  },
+  {
+    "mood_scale": 1,
+    "feels": [
+      "Motivated"
+    ],
+    "quote": "Small victories made a big difference."
+  },
+  {
+    "mood_scale": -1,
+    "feels": [
+      "Anxious",
+      "Lonely",
+      "Down",
+      "Frustrated"
+    ],
+    "quote": "It wasn\u2019t easy, but I managed."
+  },
+  {
+    "mood_scale": 1,
+    "feels": [
+      "Confident",
+      "Irritable"
+    ],
+    "quote": "I felt sparks of momentum in the quiet."
+  },
+  {
+    "mood_scale": 1,
+    "feels": [
+      "Motivated",
+      "Joyful",
+      "Restless"
+    ],
+    "quote": "There was something good in the ordinary."
+  },
+  {
+    "mood_scale": -2,
+    "feels": [
+      "Restless",
+      "Peaceful",
+      "Confident"
+    ],
+    "quote": "I barely made it through the day."
+  },
+  {
+    "mood_scale": 0,
+    "feels": [
+      "Confident",
+      "Content",
+      "Lonely",
+      "Peaceful"
+    ],
+    "quote": "Today was neither good nor bad, just there."
+  },
+  {
+    "mood_scale": -1,
+    "feels": [
+      "Peaceful",
+      "Frustrated",
+      "Calm",
+      "Anxious"
+    ],
+    "quote": "I was tired, but still trying."
+  },
+  {
+    "mood_scale": 2,
+    "feels": [
+      "Peaceful",
+      "Overwhelmed",
+      "Down"
+    ],
+    "quote": "Joy overflowed in unexpected ways."
+  },
+  {
+    "mood_scale": -1,
+    "feels": [
+      "Peaceful",
+      "Overwhelmed"
+    ],
+    "quote": "The struggle was constant, but I didn\u2019t stop."
+  },
+  {
+    "mood_scale": 0,
+    "feels": [
+      "Confident"
+    ],
+    "quote": "There was a quiet simplicity in it all."
+  },
+  {
+    "mood_scale": 2,
+    "feels": [
+      "Frustrated",
+      "Overwhelmed",
+      "Disappointed",
+      "Peaceful"
+    ],
+    "quote": "I embraced the energy and ran with it."
+  },
+  {
+    "mood_scale": 1,
+    "feels": [
+      "Joyful",
+      "Irritable"
+    ],
+    "quote": "There was something good in the ordinary."
+  },
+  {
+    "mood_scale": -2,
+    "feels": [
+      "Tired"
+    ],
+    "quote": "It was hard to keep breathing through the weight."
+  },
+  {
+    "mood_scale": -1,
+    "feels": [
+      "Down"
+    ],
+    "quote": "I wanted to rest, but couldn\u2019t find peace."
+  },
+  {
+    "mood_scale": 1,
+    "feels": [
+      "Tired"
+    ],
+    "quote": "There was something good in the ordinary."
+  },
+  {
+    "mood_scale": 0,
+    "feels": [
+      "Confident",
+      "Overwhelmed",
+      "Anxious"
+    ],
+    "quote": "I felt centered, even if only briefly."
+  },
+  {
+    "mood_scale": -2,
+    "feels": [
+      "Down"
+    ],
+    "quote": "I barely made it through the day."
+  },
+  {
+    "mood_scale": 0,
+    "feels": [
+      "Motivated",
+      "Optimistic",
+      "Joyful"
+    ],
+    "quote": "I felt centered, even if only briefly."
+  },
+  {
+    "mood_scale": -2,
+    "feels": [
+      "Motivated",
+      "Confident",
+      "Excited",
+      "Anxious"
+    ],
+    "quote": "Even the light felt heavy."
+  },
+  {
+    "mood_scale": 0,
+    "feels": [
+      "Anxious"
+    ],
+    "quote": "There was a quiet simplicity in it all."
+  },
+  {
+    "mood_scale": 2,
+    "feels": [
+      "Frustrated"
+    ],
+    "quote": "There was light in every moment."
+  },
+  {
+    "mood_scale": -2,
+    "feels": [
+      "Anxious",
+      "Optimistic"
+    ],
+    "quote": "I felt completely alone in the chaos."
+  },
+  {
+    "mood_scale": -2,
+    "feels": [
+      "Down"
+    ],
+    "quote": "I barely made it through the day."
+  },
+  {
+    "mood_scale": 0,
+    "feels": [
+      "Irritable"
+    ],
+    "quote": "There was a quiet simplicity in it all."
+  },
+  {
+    "mood_scale": 1,
+    "feels": [
+      "Grateful",
+      "Peaceful"
+    ],
+    "quote": "I felt sparks of momentum in the quiet."
+  },
+  {
+    "mood_scale": 2,
+    "feels": [
+      "Calm",
+      "Peaceful"
+    ],
+    "quote": "I felt deeply alive and aware."
+  },
+  {
+    "mood_scale": 2,
+    "feels": [
+      "Overwhelmed",
+      "Lonely",
+      "Content"
+    ],
+    "quote": "There was light in every moment."
+  },
+  {
+    "mood_scale": -2,
+    "feels": [
+      "Lonely",
+      "Confident",
+      "Overwhelmed"
+    ],
+    "quote": "Everything hit me at once, and I sank."
+  },
+  {
+    "mood_scale": 2,
+    "feels": [
+      "Anxious",
+      "Restless"
+    ],
+    "quote": "Everything clicked into place today."
+  }
+]
