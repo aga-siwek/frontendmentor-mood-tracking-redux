@@ -17,8 +17,8 @@ function TodaySleep({sleepTime=2}) {
         }
     }
     return (
-        <div className="flex flex-col justify-start items-start gap-4 bg-neutral-5 rounded-2xl p-5">
-            <div className="flex gap-4">
+        <div className="flex flex-col justify-start items-start gap-4 bg-neutral-5 rounded-2xl p-5 lg:h-1/3 ">
+            <div className="flex gap-4 justify-center items-center">
                 <ReactSVG src={sleepIcon} className="w-6"></ReactSVG>
                 <p className="text-neutral-2 text-[18px] leading-[1.2]">Sleep</p>
             </div>

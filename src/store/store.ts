@@ -1,9 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
-import gameReducer, { listenerMiddleware } from "./appSlice.ts";
+import appReducer, { listenerMiddleware } from "./appSlice.ts";
 
 export default configureStore({
   reducer: {
-    game: gameReducer,
+    app: appReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().prepend(listenerMiddleware.middleware),

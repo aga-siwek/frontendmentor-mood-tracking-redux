@@ -71,8 +71,8 @@ function AverageMood({averageMood=2, prevAverageMood=3}) {
 
     return (
         <div className="flex flex-col gap-3 w-full">
-            <div className="flex gap-2 min-5">
-                <p className="text-neutral-1 font-semibold text-[20px] leading-[1.4]">Average Mood</p>
+            <div className="flex gap-1 min-5">
+                <p className="text-neutral-1 font-semibold text-[18px] leading-[1.4]">Average Mood</p>
                 <p className="text-neutral-2 font-light text-[18px] leading-[1.4]">(Last 5 check-ins)</p>
             </div>
             <div className="flex flex-col justify-center items-start bg-detail-5 px-4 py-5 rounded-4xl min-h-36 gap-3 bg-[url(@/assets/bg-pattern-averages.svg)] bg-no-repeat bg-position-[right_-120px_center]">

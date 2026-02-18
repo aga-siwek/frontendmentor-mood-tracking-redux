@@ -22,7 +22,7 @@ function QuoteContainer({mood, feels}) {
                 [...feels].sort((a, b) => a - b).join(",")) {
                 selectQuote = quote.quote
                 return (
-                    <p className="text-neutral-1  font-light text-[18px] leading-[1.3] italic">"{selectQuote}"</p>
+                    <p className="text-neutral-1  font-light text-[18px] leading-[1.3] italic md:text-start ">"{selectQuote}"</p>
                 );
             }
         }
@@ -30,7 +30,7 @@ function QuoteContainer({mood, feels}) {
     if (selectQuote) {
         return (quoteSwitch)
     } else {
-        return (<p className="text-neutral-1 font-light text-[18px] leading-[1.3] italic">"{randomQuotes[randomNumber]}"</p>)
+        return (<div className="text-neutral-1 font-light text-[18px] leading-[1.3] italic">"{randomQuotes[randomNumber]}"</div>)
     }
 }
 

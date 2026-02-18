@@ -26,9 +26,9 @@ function TodayReflection({mood=2, feels=[
                 [...feels].sort((a, b) => a - b).join(",")) {
                 selectReflection = reflection.reflection
                 return (
-                    <div className="flex flex-col justify-start items-start gap-4 bg-neutral-5 rounded-2xl p-5">
+                    <div className="flex flex-col justify-start items-start gap-4 bg-neutral-5 rounded-2xl p-5 lg:h-full lg:justify-between">
                         <div className="flex flex-col justify-start items-start gap-4 bg-neutral-5 rounded-2xl p-5">
-                            <div className="flex gap-4">
+                            <div className="flex gap-4 items-center">
                                 <ReactSVG src={refIcon} className="w-6"/>
                                 <p className="">Reflection of the day</p>
                             </div>
@@ -44,9 +44,9 @@ function TodayReflection({mood=2, feels=[
         return (reflectionSwitch)
     } else {
         return (
-            <div className="flex flex-col justify-start items-start gap-4 bg-neutral-5 rounded-2xl p-5">
+            <div className="flex flex-col justify-start items-start gap-4 bg-neutral-5 rounded-2xl p-5 lg:h-full lg:justify-between">
                 <div className="flex flex-col gap-4">
-                    <div className="flex gap-4">
+                    <div className="flex gap-4 items-center">
                         <ReactSVG src={refIcon} className="w-6"/>
                         <p className="text-neutral-2 text-[18px] leading-[1.2]">Reflection of the day</p>
                     </div>

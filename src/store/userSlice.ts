@@ -1,17 +1,17 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-interface AuthState {
+interface UserState {
     token: string | null;
     userName: string | null;
 }
 
-const initialState: AuthState = {
+const initialState: UserState = {
     // Sprawdzamy localStorage, żeby user nie musiał się logować po odświeżeniu
     token: localStorage.getItem('token'),
     userName: null,
 };
 
-export const authSlice = createSlice({
+export const userSlice = createSlice({
     name: 'auth',
     initialState,
     reducers: {
@@ -30,9 +30,11 @@ export const authSlice = createSlice({
             state.token = null;
             state.userName = null;
             localStorage.removeItem('token');
+        },
+        register: (state, action) => {
         }
     }
 });
 
-export const { setToken, setUserName, logout } = authSlice.actions;
-export default authSlice.reducer;
+export const { setToken, setUserName, logout } = userSlice.actions;
+export default userSlice.reducer;

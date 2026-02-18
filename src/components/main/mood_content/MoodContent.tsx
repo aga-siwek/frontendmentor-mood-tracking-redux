@@ -6,8 +6,10 @@ function MoodContent () {
     return (
         <div className="flex flex-col gap-8">
             <Today />
+            <div className="flex flex-col gap-8 lg:flex-row">
             <Average />
             <Statistics />
+        </div>
         </div>
     )
 }

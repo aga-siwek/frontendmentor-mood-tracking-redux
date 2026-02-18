@@ -8,11 +8,17 @@ export const APP_STATE = {
     TODAY_LOG_NOT_ADDED: "today_log_not_added",
 };
 
+interface AppState {
+    appState: string;
+}
+
+const initialState: AppState = {
+    appState: APP_STATE.LOGOUT,
+};
+
 export const appSlice = createSlice({
   name: "app",
-  initialState: {
-    appState: APP_STATE.LOGOUT,
-  },
+initialState,
 
   reducers: {
       login: () => {},
@@ -23,7 +29,6 @@ export const appSlice = createSlice({
       deleteTodayMood: () => {},
       changeUserName: () => {},
       logout: () => {},
-
   },
 });
 export const listenerMiddleware = createListenerMiddleware();
