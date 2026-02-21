@@ -1,7 +1,5 @@
 function TodayQuote() {
-    return (
-        <div></div>
-    )
+  return <div></div>;
 }
 
-export default TodayQuote
+export default TodayQuote;

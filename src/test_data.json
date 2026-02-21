@@ -335,7 +335,7 @@
       "log_id": 9,
       "mood_id": 9,
       "mood_name": "Very Happy",
-      "mood_scale": 2
+      "mood_scale": -2
     },
     "sleep": {
       "log_id": 9,
@@ -374,7 +374,7 @@
       "log_id": 10,
       "mood_id": 10,
       "mood_name": "Happy",
-      "mood_scale": 1
+      "mood_scale": -1
     },
     "sleep": {
       "log_id": 10,
@@ -413,7 +413,7 @@
       "log_id": 11,
       "mood_id": 11,
       "mood_name": "Happy",
-      "mood_scale": 1
+      "mood_scale": -2
     },
     "sleep": {
       "log_id": 11,

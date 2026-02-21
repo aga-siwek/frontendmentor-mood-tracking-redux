@@ -2,12 +2,13 @@ import TodayNotAddedLog from "@/components/main/mood_content/today/TodayNotAdded
 import TodayAddedLog from "@/components/main/mood_content/today/TodayAddedLog.tsx";
 
 function Today() {
-    return (
-        <div
-        className="flex flex-col">
-            <TodayAddedLog />
-        </div>
-    )
+
+
+  return (
+    <div className="flex flex-col items-center ">
+      <TodayNotAddedLog/>
+    </div>
+  );
 }
 
-export default Today
+export default Today;

@@ -1,7 +1,5 @@
 function MoodTracking() {
-    return (
-        <div></div>
-    )
+  return <div></div>;
 }
 
-export default MoodTracking
+export default MoodTracking;
