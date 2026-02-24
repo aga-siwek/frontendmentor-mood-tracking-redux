@@ -38,13 +38,11 @@ function NewLog() {
                 </div>
                 <div className="flex flex-col gap-8 items-start w-full max-w-150 px-4 py-0 ">
                 <CardHeader className="flex flex-col text-start w-full text-neutral-1 px-0">
-                    <CardTitle className="font-bold text-[32px] leading-[1.4] tracking-[-0.3px]">Log your mood
+                    <CardTitle className="font-bold text-[32px] leading-[1.4] tracking-[-0.3px] lg:text-[40px]">Log your mood
                     </CardTitle>
                 </CardHeader>
                 <Process />
-                <CardContent className="flex flex-col gap-5 w-full justify-start px-0">
                     {showQuestionnaire()}
-                </CardContent>
                 </div>
             </Card>
         </div>

@@ -87,7 +87,7 @@ const initialState: AppState = {
   settingIsOpen: false,
   addNewLogIsOpen: false,
   settingMenuIsOpen: false,
-  process: 1
+  process: 2
 };
 
 export const appSlice = createSlice({
