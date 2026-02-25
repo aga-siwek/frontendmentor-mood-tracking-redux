@@ -7,16 +7,11 @@ import verySadIcon from "@/assets/icon-very-sad-color.svg"
 import * as React from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Controller, useForm } from "react-hook-form"
-import { toast } from "sonner"
 import * as z from "zod"
 import { Button } from "@/components/ui/button"
 import {
-    Card,
     CardContent,
-    CardDescription,
     CardFooter,
-    CardHeader,
-    CardTitle,
 } from "@/components/ui/card"
 import {
     Field,
@@ -25,7 +20,6 @@ import {
     FieldError,
     FieldGroup,
     FieldLabel,
-    FieldLegend,
     FieldSet,
     FieldTitle,
 } from "@/components/ui/field"
@@ -35,66 +29,53 @@ import {
 } from "@/components/ui/radio-group"
 import {ReactSVG} from "react-svg";
 
-const moods = [
+const moodsList = [
     {
         id: "veryHappy",
         title: "Very Happy",
         icon: <ReactSVG src={veryHappyIcon} className="h-6 w-6"/>,
-        value: 2,
+        value: "2",
     },
     {
         id: "happy",
         title: "Happy",
         icon: <ReactSVG src={happyIcon} className="h-6 w-6"/>,
-        value: 1,
+        value: "1",
     },
     {
         id: "neutral",
         title: "Neutral",
         icon: <ReactSVG src={neutralIcon} className="h-6 w-6"/>,
-        value: 0,
+        value: "0",
     },
     {
         id: "sad",
         title: "Sad",
         icon: <ReactSVG src={sadIcon} className="h-6 w-6"/>,
-        value: -1,
+        value: "-1",
     },
     {
         id: "verySad",
         title: "Very Sad",
         icon: <ReactSVG src={verySadIcon} className="h-6 w-6"/>,
-        value: -2,
+        value: "-2",
     },
 ] as const
 
 const formSchema = z.object({
-    mood: z.number().min(1, "You must select one today mood."),
+    mood: z.string().min(1, "You must select one today mood."),
 })
 
 export function NewMood() {
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            mood: 0,
+            mood: "",
         },
     })
 
     function onSubmit(data: z.infer<typeof formSchema>) {
-        toast("You submitted the following values:", {
-            icon: (
-                <pre className="bg-code text-code-foreground mt-2 w-[320px] overflow-x-auto rounded-md p-4">
-          <code>{JSON.stringify(data, null, 2)}</code>
-        </pre>
-            ),
-            position: "bottom-right",
-            classNames: {
-                content: "flex flex-col gap-2",
-            },
-            style: {
-                "--border-radius": "calc(var(--radius)  + 4px)",
-            } as React.CSSProperties,
-        })
+      console.log(data.mood)
     }
 
     return (
@@ -117,7 +98,7 @@ export function NewMood() {
                                         onValueChange={field.onChange}
                                         aria-invalid={fieldState.invalid}
                                     >
-                                        {moods.map((mood) => (
+                                        {moodsList.map((mood) => (
                                             <FieldLabel
                                                 key={mood.id}
                                                 htmlFor={`form-rhf-radiogroup-${mood.id}`}
@@ -131,12 +112,15 @@ export function NewMood() {
                                                         value={mood.value}
                                                         id={`form-rhf-radiogroup-${mood.id}`}
                                                         aria-invalid={fieldState.invalid}
+                                                        className="data-[state=checked]:border-accent-2 data-[state=checked]:border-4"
 
                                                     />
                                                     <FieldContent className="flex flex-row justify-between items-center">
                                                         <FieldTitle className="text-[24px] leading-[1.4]">{mood.title}</FieldTitle>
                                                         <FieldDescription>
+                                                            <div>
                                                             {mood.icon}
+                                                            </div>
                                                         </FieldDescription>
                                                     </FieldContent>
 
@@ -160,14 +144,12 @@ export function NewMood() {
                 >
                     <Button
                         type="submit"
-                        form="form-rhf-input"
-                        className="w-full bg-accent-2 font-medium text-[20px] leading-[1.4] py-6 rounded-md"
-                        onClick={onSubmit}
+                        form="form-rhf-radiogroup"
+                        className="w-full bg-accent-2 font-medium text-[20px] leading-[1.4] py-6 rounded-md cursor-pointer"
                     >
                         Continue
                     </Button>
                 </Field>
-
             </CardFooter>
         </div>
     )

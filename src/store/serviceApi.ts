@@ -6,7 +6,6 @@ export const serviceApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:5000/api",
     prepareHeaders: (headers, { getState }) => {
-      // ŁOPATOLOGICZNIE: Wyciągamy token z userSlice i wkładamy do paczki dla Flaska
       const token = (getState() as RootState).auth.token;
       if (token) {
         headers.set("authorization", `Bearer ${token}`);

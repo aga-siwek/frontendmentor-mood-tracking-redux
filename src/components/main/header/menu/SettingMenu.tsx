@@ -22,11 +22,11 @@ export function SettingMenu() {
         </div>
         <hr className="border-t border-solid border-accent-3"/>
         <div className="flex flex-col gap-3">
-          <div className="flex gap-2.5 cursor-pointer items-center hover:border hover:border-neutral-4 hover:rounded-md hover:py-2" onClick={onSettingClick}>
+          <div className="flex gap-2.5 cursor-pointer items-center hover:outline hover:outline-neutral-4 hover:rounded-md " onClick={onSettingClick}>
             <ReactSVG src={settingIcon} className="h-6 w-6 fill-black"/>
             <p>Setting</p>
           </div>
-          <div className="flex gap-2.5 cursor-pointer items-center hover:border hover:border-neutral-4 hover:rounded-md hover:py-2" onClick={onLogOutClick}>
+          <div className="flex gap-2.5 cursor-pointer items-center hover:outline hover:outline-neutral-4 hover:rounded-md " onClick={onLogOutClick}>
             <ReactSVG src={logOutIcon} className="h-6 w-6 fill-black"/>
             <p>Log out</p>
           </div>

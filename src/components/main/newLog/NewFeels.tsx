@@ -3,27 +3,19 @@
 import * as React from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Controller, useForm } from "react-hook-form"
-import { toast } from "sonner"
 import * as z from "zod"
 
 import { Button } from "@/components/ui/button"
 import {
-    Card,
     CardContent,
-    CardDescription,
     CardFooter,
-    CardHeader,
-    CardTitle,
 } from "@/components/ui/card"
 import { Checkbox } from "@/components/ui/checkbox"
 import {
     Field,
-    FieldDescription,
     FieldError,
     FieldGroup,
     FieldLabel,
-    FieldLegend,
-    FieldSeparator,
     FieldSet,
 } from "@/components/ui/field"
 
@@ -190,7 +182,7 @@ export function NewFeels() {
                     <Button
                         type="submit"
                         form="form-rhf-checkbox"
-                        className="w-full bg-accent-2 font-medium text-[20px] leading-[1.4] py-6 rounded-md"
+                        className="w-full bg-accent-2 font-medium text-[20px] leading-[1.4] py-6 rounded-md cursor-pointer"
                     >
                         Continue
                     </Button>

@@ -5,7 +5,7 @@ import NewMood from "./NewMood.jsx";
 import NewSleepTime from "./NewSleepTime.jsx";
 import { useSelector, useDispatch } from "react-redux";
 import {closeLogAdded} from "@/store/appSlice.ts";
-import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card.tsx";
+import {Card, CardHeader, CardTitle} from "@/components/ui/card.tsx";
 import Process from "@/components/main/newLog/Process.tsx";
 
 function NewLog() {
@@ -31,7 +31,7 @@ function NewLog() {
     }
 
     return (
-        <div className="flex flex-col gap-8 justify-center items-center bg-neutral-1-transparent p-2 fixed top-0 left-0 w-full h-full">
+        <div className="flex flex-col gap-8 justify-start md:justify-center items-center bg-neutral-1-transparent p-2 fixed top-0 left-0 w-full h-full overflow-y-auto overflow-x-hidden">
             <Card className="flex flex-col gap-1 items-start w-full max-w-150 px-4 py-10 bg-background">
                 <div className="flex justify-end w-full cursor-pointer" onClick={closeAddNewLog}>
                     <p className="text-base text-neutral-3">&#10005;</p>

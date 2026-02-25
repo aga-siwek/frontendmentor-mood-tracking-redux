@@ -27,6 +27,7 @@ function TodayDate() {
   let day;
   const month = months[today.getMonth()];
   const dayOfWeek = daysOfWeek[today.getDay() - 1];
+  console.log("dayofWeek", dayOfWeek, today.getDay());
   switch (today.getDate()) {
     case 1:
       day = `${today.getDate()}st`;
