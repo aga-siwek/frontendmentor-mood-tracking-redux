@@ -1,4 +1,8 @@
 "use client"
+
+
+
+import { useDispatch } from "react-redux";
 import * as React from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Controller, useForm } from "react-hook-form"
@@ -22,6 +26,7 @@ import {
     RadioGroup,
     RadioGroupItem,
 } from "@/components/ui/radio-group"
+import {addTodayLog} from "@/store/appSlice.ts";
 
 const timesList = [
     {
@@ -56,6 +61,7 @@ const formSchema = z.object({
 })
 
 export function NewSleepTime() {
+    const dispatch = useDispatch();
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -65,6 +71,7 @@ export function NewSleepTime() {
 
     function onSubmit(data: z.infer<typeof formSchema>) {
         console.log(data.time)
+        dispatch(addTodayLog(data.time))
     }
 
     return (

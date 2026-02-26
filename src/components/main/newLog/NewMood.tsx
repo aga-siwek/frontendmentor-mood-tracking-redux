@@ -1,4 +1,5 @@
 "use client"
+import { useDispatch } from "react-redux";
 import veryHappyIcon from "@/assets/icon-very-happy-color.svg"
 import happyIcon from "@/assets/icon-happy-color.svg"
 import neutralIcon from "@/assets/icon-neutral-color.svg"
@@ -28,6 +29,7 @@ import {
     RadioGroupItem,
 } from "@/components/ui/radio-group"
 import {ReactSVG} from "react-svg";
+import {addTodayLog} from "@/store/appSlice.ts";
 
 const moodsList = [
     {
@@ -67,6 +69,7 @@ const formSchema = z.object({
 })
 
 export function NewMood() {
+    const dispatch = useDispatch();
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -76,6 +79,7 @@ export function NewMood() {
 
     function onSubmit(data: z.infer<typeof formSchema>) {
       console.log(data.mood)
+        dispatch(addTodayLog(data.mood))
     }
 
     return (

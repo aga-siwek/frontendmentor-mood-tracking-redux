@@ -4,7 +4,7 @@ import NewDescription from "./NewDescription.jsx";
 import NewMood from "./NewMood.jsx";
 import NewSleepTime from "./NewSleepTime.jsx";
 import { useSelector, useDispatch } from "react-redux";
-import {closeLogAdded} from "@/store/appSlice.ts";
+import {addTodayLog, closeLogAdded} from "@/store/appSlice.ts";
 import {Card, CardHeader, CardTitle} from "@/components/ui/card.tsx";
 import Process from "@/components/main/newLog/Process.tsx";
 
@@ -16,14 +16,17 @@ function NewLog() {
         if (processLevel === 1) {
             return <NewMood/>
         }
-        if (processLevel === 2) {
+        else if (processLevel === 2) {
             return <NewFeels/>
         }
-        if (processLevel === 3) {
+        else if (processLevel === 3) {
             return <NewDescription/>
         }
-        if (processLevel === 4) {
+        else if (processLevel === 4) {
             return <NewSleepTime/>
+        }
+        else if (processLevel === 5) {
+            dispatch(addTodayLog("added"))
         }
     }
     const closeAddNewLog = () => {

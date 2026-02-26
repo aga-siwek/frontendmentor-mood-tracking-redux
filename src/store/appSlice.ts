@@ -62,12 +62,11 @@ export interface AppState {
   averageSleepTime?: number;
   previousAverageSleepTime?: number;
   todayLogAdded: boolean,
-
   settingIsOpen: boolean,
   addNewLogIsOpen: boolean,
   settingMenuIsOpen: boolean,
-
   process: number,
+  testData: [],
 }
 
 const initialState: AppState = {
@@ -87,7 +86,8 @@ const initialState: AppState = {
   settingIsOpen: false,
   addNewLogIsOpen: false,
   settingMenuIsOpen: false,
-  process: 2
+  process: 1,
+  testData: []
 };
 
 export const appSlice = createSlice({
@@ -109,21 +109,78 @@ export const appSlice = createSlice({
 
     isTodayMoodLogged: () => {},
 
-    addTodayLog: (state) => {
+    addTodayLog: (state, action) => {
+      console.log("addTodayLog start", state.process);
       if (!state.todayMood) {
-        state.process = 1
+        console.log("addTodayLog  today mood", state.process);
+        state.process = 2
+        state.todayMood = action.payload;
+        console.log("addTodayLog  today mood", state.process);
       }
       else if (state.todayFeels.length === 0)
-          {state.process = 2}
+          {state.process = 3
+            state.todayFeels=action.payload;}
 
       else if (!state.todayDescription) {
-        state.process = 3
+        state.process = 4
+        state.todayDescription = action.payload
       }
       else if (!state.todaySleepTime) {
-        state.process = 4
+        state.process = 5
+        state.todaySleepTime = action.payload;
       }
       else {
         state.process = 5
+        console.log("new log added placeholder")
+        const todayDate = new Date();
+        state.addNewLogIsOpen = false
+
+        const todayNewLog = {
+          "created_at": todayDate.getDate(),
+          "created_at_day": todayDate.getDay(),
+          "created_at_hour": todayDate.getHours(),
+          "created_at_minute": todayDate.getMinutes(),
+          "created_at_month": todayDate.getSeconds(),
+          "created_at_year": todayDate.getFullYear(),
+          "description": {
+            "description": state.todayDescription,
+            "description_id": 1,
+            "log_id": 1
+          },
+          "feels": [
+            {
+              "feel_id": 1,
+              "feel_name": "Calm",
+              "log_id": 1
+            },
+            {
+              "feel_id": 2,
+              "feel_name": "Frustrated",
+              "log_id": 1
+            }
+          ],
+          "log_id": 1,
+          "mood": {
+            "log_id": 1,
+            "mood_id": 1,
+            "mood_name": "Happy",
+            "mood_scale": Number(state.todayMood)
+          },
+          "sleep": {
+            "log_id": 1,
+            "sleep_id": Number(state.todaySleepTime),
+            "sleep_time_name": "5-6 hours",
+            "sleep_time_scale": 2
+          },
+          "user_id": 1
+        }
+        console.log(todayNewLog, "todayNewLog");
+        testData.push(todayNewLog);
+        state.process = 1;
+        state.todayMood = undefined;
+        state.todayFeels = []
+        state.todayDescription = undefined;
+        state.todaySleepTime = undefined;
       }
     },
     deleteTodayLog: () => {},
@@ -222,6 +279,7 @@ listenerMiddleware.startListening({
     listenerApi.dispatch(showPreviousAverageSleepTime())
   },
 });
+
 export const {
   login,
   register,

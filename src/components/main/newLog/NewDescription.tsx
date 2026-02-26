@@ -1,5 +1,5 @@
 "use client"
-
+import { useDispatch } from "react-redux";
 import * as React from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Controller, useForm } from "react-hook-form"
@@ -22,6 +22,7 @@ import {
     InputGroupText,
     InputGroupTextarea,
 } from "@/components/ui/input-group"
+import {addTodayLog} from "@/store/appSlice.ts";
 
 const formSchema = z.object({
     description: z
@@ -31,6 +32,7 @@ const formSchema = z.object({
 })
 
 export function NewDescription() {
+    const dispatch = useDispatch();
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -40,6 +42,7 @@ export function NewDescription() {
 
     function onSubmit(data: z.infer<typeof formSchema>) {
         console.log(data.description)
+        dispatch(addTodayLog(data.description))
     }
 
     return (
