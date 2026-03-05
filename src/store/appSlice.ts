@@ -1,6 +1,7 @@
-import { createListenerMiddleware, createSlice, isAnyOf } from "@reduxjs/toolkit";
+import { createListenerMiddleware, createSlice, isAnyOf, createAsyncThunk } from "@reduxjs/toolkit";
 import testData from "@/test_data.json"
-import averageMood from "@/components/main/mood_content/average/AverageMood.tsx";
+const API_URL = "http://127.0.0.1:5000"
+import axios, {isAxiosError} from "axios";
 
 export const APP_STATE = {
   LOGOUT: "logout",
@@ -67,6 +68,14 @@ export interface AppState {
   settingMenuIsOpen: boolean,
   process: number,
   testData: [],
+  logsData: any;
+  logsLoading: boolean;
+  logsError: string | null
+  loginLoading: boolean;
+  loginError: string | null
+  loginToken: string | null
+  newLogLoading: boolean;
+  newLogError: string | null
 }
 
 const initialState: AppState = {
@@ -87,16 +96,92 @@ const initialState: AppState = {
   addNewLogIsOpen: false,
   settingMenuIsOpen: false,
   process: 1,
-  testData: []
+  testData: [],
+  logsData: null,
+  logsLoading: false,
+  logsError: null,
+  newLoading: false,
+  logsError: null,
 };
+
+interface Log {
+  id: number;
+  title: string;
+}
+
+export const fetchLogs = createAsyncThunk(
+    'logs/users/me',
+    async (_, { rejectWithValue }) => {
+      try {
+        const token = localStorage.getItem('token');
+
+        const response = await axios.get(`${API_URL}/logs/users/me`, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+
+        return response.data;
+      } catch (err: any) {
+        return rejectWithValue(err.response?.data || 'Auth error');
+      }
+    }
+);
+
+export const fetchLogin = createAsyncThunk(
+    'auth/login',
+    async (loginData: AppState, { rejectWithValue }) => {
+      try {
+        const response = await axios.post(`${API_URL}/login/`, loginData);
+
+        console.log("Success", response.data);
+        return response.data;
+      } catch (err: any) {
+        return rejectWithValue(err.response?.data || 'Log Error');
+      }
+    }
+);
+
+export const fetchNewLog = createAsyncThunk(
+    'auth/fetchNewLog',
+    async (_, { getState, rejectWithValue }) => {
+      try {
+        const state = getState() as { app: AppState };
+        const appState = state.app;
+
+        const newLogData = {
+          feel: appState.todayFeels,
+          mood_scale: Number(appState.todayMood),
+          sleep_time_scale: Number(appState.todaySleepTime),
+          description: appState.todayDescription
+        };
+
+        const token =  localStorage.getItem('token');
+
+        const response = await axios.post(`${API_URL}/logs/`, newLogData, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+
+        console.log("Sukcess! Log in data base.", response.data);
+        return response.data;
+      } catch (err: any) {
+        return rejectWithValue(err.response?.data || 'new log error');
+      }
+    }
+);
+
 
 export const appSlice = createSlice({
   name: "app",
   initialState,
 
   reducers: {
-    login: () => {},
-    register: () => {},
+    login: (state, action) => {
+      const [email, password] = action.payload;
+    },
+    register: (state, action) => {},
     logout: (state) => {
       state.appState = APP_STATE.LOGOUT;
     },
@@ -110,12 +195,10 @@ export const appSlice = createSlice({
     isTodayMoodLogged: () => {},
 
     addTodayLog: (state, action) => {
-      console.log("addTodayLog start", state.process);
+
       if (!state.todayMood) {
-        console.log("addTodayLog  today mood", state.process);
         state.process = 2
         state.todayMood = action.payload;
-        console.log("addTodayLog  today mood", state.process);
       }
       else if (state.todayFeels.length === 0)
           {state.process = 3
@@ -131,7 +214,6 @@ export const appSlice = createSlice({
       }
       else {
         state.process = 5
-        console.log("new log added placeholder")
         const todayDate = new Date();
         state.addNewLogIsOpen = false
 
@@ -174,7 +256,6 @@ export const appSlice = createSlice({
           },
           "user_id": 1
         }
-        console.log(todayNewLog, "todayNewLog");
         testData.push(todayNewLog);
         state.process = 1;
         state.todayMood = undefined;
@@ -186,7 +267,7 @@ export const appSlice = createSlice({
     deleteTodayLog: () => {},
 
     showAverageMood: (state) => {
-      const logs = testData
+      const logs = state.logsData
       console.log(logs)
       if (logs.length >= 5) {
         let tempSumAverageMood:number = 0
@@ -195,11 +276,10 @@ export const appSlice = createSlice({
           tempSumAverageMood += log.mood.mood_scale
         })
         state.averageMood = Math.round(tempSumAverageMood/5)
-        console.log(state.averageMood, "average mood")
       }
     },
     showPreviousAverageMood: (state) => {
-      const logs = testData
+      const logs = state.logsData
       if (logs.length >= 10) {
         let tempSumPrevAverageMood:number = 0
         const lastPrev5logs = logs.slice(-10, -5)
@@ -207,12 +287,10 @@ export const appSlice = createSlice({
           tempSumPrevAverageMood += log.mood.mood_scale
         })
         state.previousAverageMood= Math.round(tempSumPrevAverageMood/5)
-        console.log(state.previousAverageMood, "previous average mood")
       }
     },
     showAverageSleepTime: (state) => {
-      const logs = testData
-      console.log(logs)
+      const logs = state.logsData
       if (logs.length >= 5) {
         let tempSumSleepTime:number = 0
         const last5logs = logs.slice(-5)
@@ -220,11 +298,10 @@ export const appSlice = createSlice({
           tempSumSleepTime += log.sleep.sleep_time_scale
         })
         state.averageSleepTime = Math.round(tempSumSleepTime/5)
-        console.log(state.averageSleepTime, "average sleep time")
       }
     },
     showPreviousAverageSleepTime: (state) => {
-      const logs = testData
+      const logs = state.logsData
       if (logs.length >= 10) {
         let tempSumPrevSleepTime:number = 0
         const lastPrev5logs = logs.slice(-10, -5)
@@ -232,7 +309,6 @@ export const appSlice = createSlice({
           tempSumPrevSleepTime += log.sleep.sleep_time_scale
         })
         state.previousAverageSleepTime= Math.round(tempSumPrevSleepTime/5)
-        console.log(state.previousAverageSleepTime, "previous sleep time")
       }
     },
 
@@ -262,23 +338,66 @@ export const appSlice = createSlice({
       state.appState = APP_STATE.LOGOUT;
     }
   },
+  extraReducers: (builder) => {
+    builder
+        .addCase(fetchLogs.pending, (state) => {
+          state.logsLoading = true;
+        })
+        .addCase(fetchLogs.fulfilled, (state, action) => {
+          state.logsLoading = false;
+          state.logsData = action.payload;
+        })
+        .addCase(fetchLogs.rejected, (state, action) => {
+          state.logsLoading = false;
+          state.logsError = action.payload as string;
+        })
+
+
+  .addCase(fetchLogin.pending, (state) => {
+      state.loginLoading = true;
+      state.loginError = null;
+    })
+        .addCase(fetchLogin.fulfilled, (state, action) => {
+          state.loginLoading = false;
+          state.loginToken = action.payload.access_token;
+          state.userEmail = action.payload.user_name; // lub e-mail
+
+          localStorage.setItem('token', action.payload.access_token);
+        })
+        .addCase(fetchLogin.rejected, (state, action) => {
+          state.loginLoading = false;
+          state.loginError = action.payload as string;
+        })
+
+  .addCase(fetchNewLog.pending, (state) => {
+      state.newLogLoading = true;
+      state.newLogError = null;
+    })
+        .addCase(fetchNewLog.fulfilled, (state, action) => {
+          state.newLogLoading = false;
+
+
+        })
+        .addCase(fetchNewLog.rejected, (state, action) => {
+          state.newLogLoading = false;
+          state.newLogError = action.payload as string;
+        });
+  },
 });
 export const listenerMiddleware = createListenerMiddleware();
 
 listenerMiddleware.startListening({
-  matcher: isAnyOf(
-      appSlice.actions.login,
-      appSlice.actions.register,
-      appSlice.actions.addTodayLog,
-      appSlice.actions.openLogAdded,
-      appSlice.actions.downloadLog),
-  effect: (action, listenerApi) => {
-   listenerApi.dispatch(showAverageMood());
-   listenerApi.dispatch(showAverageSleepTime());
-   listenerApi.dispatch(showPreviousAverageMood())
+  matcher: isAnyOf(fetchNewLog.fulfilled, appSlice.actions.login,),
+  effect: async (action, listenerApi) => {
+    await listenerApi.dispatch(fetchLogs());
+
+    listenerApi.dispatch(showAverageMood());
+    listenerApi.dispatch(showAverageSleepTime());
+    listenerApi.dispatch(showPreviousAverageMood())
     listenerApi.dispatch(showPreviousAverageSleepTime())
   },
 });
+
 
 export const {
   login,

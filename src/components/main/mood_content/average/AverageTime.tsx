@@ -9,8 +9,6 @@ import type {AppState} from "@/store/appSlice"
 function AverageTime() {
   const averageSleepTime= useSelector((state: {app:AppState}) => state.app.averageSleepTime)
   const prevAverageSleepTime= useSelector((state: {app:AppState}) => state.app.previousAverageMood)
-  console.log(prevAverageSleepTime, "prev sleep time")
-  console.log(averageSleepTime, "sleep time")
 
   const iconSwitch = () => {
     if (averageSleepTime === undefined) {

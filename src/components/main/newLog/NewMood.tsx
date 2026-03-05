@@ -78,7 +78,6 @@ export function NewMood() {
     })
 
     function onSubmit(data: z.infer<typeof formSchema>) {
-      console.log(data.mood)
         dispatch(addTodayLog(data.mood))
     }
 

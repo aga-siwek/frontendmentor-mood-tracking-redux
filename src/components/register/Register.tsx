@@ -71,7 +71,6 @@ function Register() {
         "--border-radius": "calc(var(--radius)  + 4px)",
       } as React.CSSProperties,
     });
-    console.log("username", data.username);
   }
 
   const onLogInClick = () => {

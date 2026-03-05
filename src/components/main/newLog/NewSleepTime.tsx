@@ -26,7 +26,8 @@ import {
     RadioGroup,
     RadioGroupItem,
 } from "@/components/ui/radio-group"
-import {addTodayLog} from "@/store/appSlice.ts";
+import {addTodayLog, fetchNewLog} from "@/store/appSlice.ts";
+import type {AppDispatch} from "@/store/store.ts";
 
 const timesList = [
     {
@@ -61,7 +62,7 @@ const formSchema = z.object({
 })
 
 export function NewSleepTime() {
-    const dispatch = useDispatch();
+    const dispatch = useDispatch<AppDispatch>();
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -72,6 +73,14 @@ export function NewSleepTime() {
     function onSubmit(data: z.infer<typeof formSchema>) {
         console.log(data.time)
         dispatch(addTodayLog(data.time))
+        console.log(localStorage.getItem('token'), "token from sleeptime")
+
+        dispatch(fetchNewLog({
+            feel: ["angry", "sad", "happy"],
+            mood_scale: -2,
+            sleep_time_scale: 0,
+            description: "TESTOWY OPIS: "
+        }))
     }
 
     return (

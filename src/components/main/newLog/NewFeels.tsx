@@ -123,7 +123,6 @@ export function NewFeels() {
     })
 
     function onSubmit(data: z.infer<typeof formSchema>) {
-        console.log(data.feels)
         dispatch(addTodayLog(data.feels))
     }
 

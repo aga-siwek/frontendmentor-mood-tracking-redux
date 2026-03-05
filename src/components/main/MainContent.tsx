@@ -5,8 +5,6 @@ import { useSelector } from "react-redux";
 import Setting from "@/components/main/setting/Setting.tsx";
 import NewLog from "@/components/main/newLog/NewLog.tsx";
 
-
-
 function MainContent() {
     const settingIsOpen = useSelector((state) => state.app.settingIsOpen)
     const addNewLogIsOpen = useSelector((state) => state.app.addNewLogIsOpen)

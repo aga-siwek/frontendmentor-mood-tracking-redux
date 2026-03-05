@@ -23,7 +23,7 @@ import {
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import Logo from "@/components/common/logo/Logo.tsx";
-import {goToRegister} from "@/store/appSlice.ts";
+import {fetchLogin, goToRegister} from "@/store/appSlice.ts";
 
 const formSchema = z.object({
   username: z
@@ -72,7 +72,7 @@ function Login() {
         "--border-radius": "calc(var(--radius)  + 4px)",
       } as React.CSSProperties,
     });
-    console.log("username", data.username);
+    dispatch(fetchLogin())
   }
 
   const onSignUpClick = () => {

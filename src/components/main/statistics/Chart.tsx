@@ -3,9 +3,11 @@ import { ReactSVG } from "react-svg";
 import sleepIcon from "../../../assets/icon-sleep.svg";
 import { useEffect, useRef } from "react";
 import testData from "@/test_data.json";
+import type { RootState, AppDispatch } from '@/store/store';
+import {useSelector} from "react-redux";
 
 function Chart() {
-  const logs = testData;
+  const logs = useSelector((state: RootState) => state.app.logsData)
 
   const scrollRef = useRef(null);
   useEffect(() => {
@@ -14,11 +16,6 @@ function Chart() {
     }
   }, []);
 
-  // useEffect(() => {
-  //     if (chartRef.current) {
-  //         chartRef.current.scrollLeft = chartRef.current.scrollWidth;
-  //     }
-  // }, [logs]);
 
   const showLog = () => {
     let shownLogs;

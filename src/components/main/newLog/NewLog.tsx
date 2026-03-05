@@ -10,7 +10,6 @@ import Process from "@/components/main/newLog/Process.tsx";
 
 function NewLog() {
     const processLevel = useSelector((state) => state.app.process)
-    console.log(processLevel, "process level from new log")
     const dispatch = useDispatch();
     const showQuestionnaire = () => {
         if (processLevel === 1) {

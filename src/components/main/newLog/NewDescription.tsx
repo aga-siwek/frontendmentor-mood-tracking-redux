@@ -41,9 +41,9 @@ export function NewDescription() {
     })
 
     function onSubmit(data: z.infer<typeof formSchema>) {
-        console.log(data.description)
         dispatch(addTodayLog(data.description))
     }
+
 
     return (
    <div className="flex flex-col gap-8 w-full p-0">
