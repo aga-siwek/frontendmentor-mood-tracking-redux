@@ -1,12 +1,12 @@
 import { Button } from "@/components/ui/button.tsx";
 import { useDispatch } from "react-redux";
-import {openLogAdded} from "@/store/appSlice.ts";
+import { openLogAdded } from "@/store/appSlice.ts";
 
 function TodayNotAddedLog() {
   const dispatch = useDispatch();
   const onLogAddClicked = () => {
-    dispatch(openLogAdded())
-  }
+    dispatch(openLogAdded());
+  };
   return (
     <Button
       type="submit"

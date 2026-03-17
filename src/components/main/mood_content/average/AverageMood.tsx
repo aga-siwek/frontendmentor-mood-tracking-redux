@@ -8,12 +8,18 @@ import decreaseIcon from "@/assets/icon-trend-decrease.svg";
 import equalIcon from "@/assets/icon-trend-same.svg";
 import { ReactSVG } from "react-svg";
 import { useSelector } from "react-redux";
-import type {AppState} from "@/store/appSlice"
-
+import type { AppState } from "@/store/appSlice";
 
 function AverageMood() {
-  const averageMood= useSelector((state: {app:AppState}) => state.app.averageMood)
-  const prevAverageMood= useSelector((state: {app:AppState}) => state.app.previousAverageMood)
+  const averageMood = useSelector(
+    (state: { app: AppState }) => state.app.averageMood,
+  );
+  const prevAverageMood = useSelector(
+    (state: { app: AppState }) => state.app.previousAverageMood,
+  );
+
+  console.log(prevAverageMood, "prevAverageMood");
+  console.log(averageMood, "averageMood");
 
   const iconSwitch = () => {
     switch (averageMood) {
@@ -27,6 +33,8 @@ function AverageMood() {
         return <ReactSVG src={sadIcon} className="w-6 h-6" />;
       case -2:
         return <ReactSVG src={verySad} className="w-6 h-6" />;
+      case undefined:
+        return null
       default:
         return null;
     }
@@ -74,7 +82,10 @@ function AverageMood() {
   };
 
   const feelIconChange = () => {
-    if (averageMood > prevAverageMood) {
+    if (averageMood === undefined) {
+      return null
+    }
+    else if (averageMood > prevAverageMood) {
       return <ReactSVG src={increaseIcon} className="w-6 h-6" />;
     } else if (averageMood === prevAverageMood) {
       return <ReactSVG src={equalIcon} className="w-6 h-6" />;
@@ -86,7 +97,12 @@ function AverageMood() {
   };
 
   const feelTextChange = () => {
-    if (averageMood > prevAverageMood) {
+    if (averageMood === undefined) {
+      <p className="text-start text-neutral-1 font-light text-[15px] tracking-[-0.3px]">
+        Log 5 check-ins to see your average mood.
+      </p>
+    }
+    else if (averageMood > prevAverageMood) {
       return (
         <p className="text-start text-neutral-1 font-light text-[15px] tracking-[-0.3px]">
           Increase from the previous 5 check-ins

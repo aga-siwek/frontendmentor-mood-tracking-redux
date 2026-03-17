@@ -4,11 +4,15 @@ import decreaseIcon from "@/assets/icon-trend-decrease-white.svg";
 import sleepIcon from "@/assets/icon-sleep-white.svg";
 import { ReactSVG } from "react-svg";
 import { useSelector } from "react-redux";
-import type {AppState} from "@/store/appSlice"
+import type { AppState } from "@/store/appSlice";
 
 function AverageTime() {
-  const averageSleepTime= useSelector((state: {app:AppState}) => state.app.averageSleepTime)
-  const prevAverageSleepTime= useSelector((state: {app:AppState}) => state.app.previousAverageMood)
+  const averageSleepTime = useSelector(
+    (state: { app: AppState }) => state.app.averageSleepTime,
+  );
+  const prevAverageSleepTime = useSelector(
+    (state: { app: AppState }) => state.app.previousAverageMood,
+  );
 
   const iconSwitch = () => {
     if (averageSleepTime === undefined) {
@@ -19,11 +23,11 @@ function AverageTime() {
   };
 
   const sleepIconChange = () => {
-    if (averageSleepTime===undefined) {
+    if (averageSleepTime === undefined) {
       return;
     }
 
-    if (averageSleepTime > prevAverageSleepTime) {
+    else if (averageSleepTime > prevAverageSleepTime) {
       return <ReactSVG src={increaseIcon} className="" />;
     } else if (averageSleepTime === prevAverageSleepTime) {
       return <ReactSVG src={equalIcon} className="" />;
@@ -35,13 +39,11 @@ function AverageTime() {
   };
 
   const sleepTextChange = () => {
-    if (averageSleepTime===undefined) {
+    if (averageSleepTime === undefined) {
       return <p className="">Track 5 nights to view average sleep.</p>;
-    }
-    else if (prevAverageSleepTime===undefined) {
+    } else if (prevAverageSleepTime === undefined) {
       return <p className="">Lack of data prev</p>;
-    }
-    else if (averageSleepTime > prevAverageSleepTime) {
+    } else if (averageSleepTime > prevAverageSleepTime) {
       return (
         <p className="text-start text-neutral-5 font-light text-[15px] tracking-[-0.3px]">
           Increase from the previous 5 check-ins

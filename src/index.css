@@ -178,7 +178,7 @@
 
 @layer base {
   * {
-    @apply border-border outline-ring/50 ;
+    @apply border-border outline-ring/50;
   }
   body {
     @apply text-foreground font-reddit min-h-screen bg-background;

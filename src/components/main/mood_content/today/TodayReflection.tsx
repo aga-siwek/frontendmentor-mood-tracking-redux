@@ -1,8 +1,11 @@
 import Reflections from "@/reflections.json";
 import { ReactSVG } from "react-svg";
 import refIcon from "@/assets/icon-reflection.svg";
+import {useSelector} from "react-redux";
 
-function TodayReflection({ mood = 2, feels = ["Joyful", "Down", "Anxious"] }) {
+function TodayReflection() {
+  const feels = useSelector((state) => state.app.todayFeels);
+  const mood = useSelector((state) => state.app.todayMood);
   const randomReflections = [
     "Every feeling is valid, even the quiet ones.",
     "You made it through today — and that matters.",

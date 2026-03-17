@@ -23,61 +23,44 @@ import {
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import Logo from "@/components/common/logo/Logo.tsx";
-import {fetchLogin, goToRegister} from "@/store/appSlice.ts";
+import {
+  fetchLogin,
+  goToRegister,
+} from "@/store/appSlice.ts";
+import type { AppDispatch } from "@/store/store.ts";
 
 const formSchema = z.object({
-  username: z
-    .string()
-    .min(3, "Username must be at least 3 characters.")
-    .max(10, "Username must be at most 10 characters.")
-    .regex(
-      /^[a-zA-Z0-9_]+$/,
-      "Username can only contain letters, numbers, and underscores.",
-    ),
   email: z.string().min(1, "Email is required.").email("Invalid email format."),
   password: z
     .string()
-    .min(8, "Password must be at least 8 characters.")
-    .max(100, "Password is too long.")
-    .regex(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-      "Password must include uppercase, lowercase, number, and special character.",
-    ),
+    .min(4, "Password must be at least 4 characters.")
+    .max(100, "Password is too long."),
 });
 
 function Login() {
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      username: "",
       email: "",
       password: "",
     },
   });
 
-  const onSubmit = (data: z.infer<typeof formSchema>) => {
-    toast("You submitted the following values:", {
-      icon: (
-        <pre className="bg-code text-code-foreground mt-2 w-[320px] overflow-x-auto rounded-md p-4">
-          <code>{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
-      position: "bottom-right",
-      classNames: {
-        content: "flex flex-col gap-2",
-      },
-      style: {
-        "--border-radius": "calc(var(--radius)  + 4px)",
-      } as React.CSSProperties,
-    });
-    dispatch(fetchLogin())
-  }
+  const onSubmit = (data) => {
+    const { email, password } = data;
+    dispatch(
+      fetchLogin({
+        user_email: email,
+        user_password: password,
+      }),
+    );
+  };
 
   const onSignUpClick = () => {
-    dispatch(goToRegister())
-  }
+    dispatch(goToRegister());
+  };
 
   return (
     <div className="flex flex-col gap-8 justify-center items-center w-full">
@@ -160,7 +143,14 @@ function Login() {
               Log In
             </Button>
             <p className="text-[18px] leading-[1.4] tracking-[-0.3px] text-neutral-2 font-light">
-              Haven't got an account? <a className="text-accent-2 cursor-pointer" onClick={onSignUpClick}>Sign up</a>.
+              Haven't got an account?{" "}
+              <a
+                className="text-accent-2 cursor-pointer"
+                onClick={onSignUpClick}
+              >
+                Sign up
+              </a>
+              .
             </p>
           </Field>
         </CardFooter>

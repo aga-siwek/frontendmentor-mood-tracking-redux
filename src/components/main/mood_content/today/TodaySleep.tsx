@@ -1,7 +1,9 @@
 import { ReactSVG } from "react-svg";
 import sleepIcon from "@/assets/icon-sleep.svg";
+import {useSelector} from "react-redux";
 
-function TodaySleep({ sleepTime = 2 }) {
+function TodaySleep() {
+  const sleepTime = useSelector((state) => state.app.todaySleepTime);
   const sleepTimeSwitch = () => {
     switch (sleepTime) {
       case 0:

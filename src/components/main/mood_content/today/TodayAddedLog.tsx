@@ -4,7 +4,7 @@ import TodayReflection from "@/components/main/mood_content/today/TodayReflectio
 
 function TodayAddedLog() {
   return (
-    <div className="flex flex-col lg:flex-row gap-5 lg:flex-row">
+    <div className="flex flex-col lg:flex-row gap-5 lg:flex-row w-full">
       <TodayFeeling />
       <div className="flex flex-col gap-5 lg:w-3/5">
         <TodaySleep />

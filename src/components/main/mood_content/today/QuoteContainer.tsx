@@ -1,6 +1,9 @@
 import Quotes from "@/quotes.json";
+import {useSelector} from "react-redux";
 
-function QuoteContainer({ mood, feels }) {
+function QuoteContainer() {
+  const mood = useSelector((state) => state.app.todayMood);
+  const feels = useSelector((state) => state.app.todayFeels);
   const randomQuotes = [
     "Feelings are visitors — let them come and go.",
     "This too shall pass.",

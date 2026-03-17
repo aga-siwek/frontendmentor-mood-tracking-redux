@@ -3,7 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
 import * as z from "zod";
-import { useDispatch } from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -21,7 +21,7 @@ import {
   FieldLabel,
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
-import {closeSetting} from "@/store/appSlice.ts";
+import {type AppState, changeUserName, closeSetting, fetchChangeUserName} from "@/store/appSlice.ts";
 
 const formSchema = z.object({
   username: z
@@ -42,19 +42,26 @@ function Setting() {
       username: "",
     },
   });
+  const userName = useSelector((state: AppState) => state.userName);
 
-  const onSubmit= () => {
-    console.log("personalize form submitted")
-  }
+  const onSubmit = (data) => {
+    console.log("personalize form submitted");
+    const {username} = data
+    console.log("personalize form submitted", username);
+    dispatch(fetchChangeUserName(username));
+  };
 
   const onClose = () => {
-    dispatch(closeSetting())
-  }
+    dispatch(closeSetting());
+  };
 
   return (
     <div className="flex flex-col gap-8 justify-center items-center bg-neutral-1-transparent p-2 fixed top-0 left-0 w-full h-full">
       <Card className="flex flex-col items-start w-full max-w-150 px-4 py-10 ">
-        <div className="flex justify-end w-full cursor-pointer" onClick={onClose}>
+        <div
+          className="flex justify-end w-full cursor-pointer"
+          onClick={onClose}
+        >
           <p className="text-base text-neutral-3">&#10005;</p>
         </div>
         <CardHeader className="flex flex-col text-start w-full text-neutral-1">
@@ -84,6 +91,7 @@ function Setting() {
                       id="form-rhf-input-username"
                       aria-invalid={fieldState.invalid}
                       autoComplete="username"
+                      placeholder={userName}
                     />
                     {fieldState.invalid && (
                       <FieldError errors={[fieldState.error]} />

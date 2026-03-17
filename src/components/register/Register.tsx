@@ -23,26 +23,14 @@ import {
 import { Input } from "@/components/ui/input";
 import Logo from "@/components/common/logo/Logo.tsx";
 import { useDispatch } from "react-redux";
-import {goToLogin} from "@/store/appSlice.ts";
+import { goToLogin } from "@/store/appSlice.ts";
 
 const formSchema = z.object({
-  username: z
-    .string()
-    .min(3, "Username must be at least 3 characters.")
-    .max(10, "Username must be at most 10 characters.")
-    .regex(
-      /^[a-zA-Z0-9_]+$/,
-      "Username can only contain letters, numbers, and underscores.",
-    ),
   email: z.string().min(1, "Email is required.").email("Invalid email format."),
   password: z
     .string()
     .min(8, "Password must be at least 8 characters.")
-    .max(100, "Password is too long.")
-    .regex(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-      "Password must include uppercase, lowercase, number, and special character.",
-    ),
+    .max(100, "Password is too long."),
 });
 
 function Register() {
@@ -50,13 +38,13 @@ function Register() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      username: "",
       email: "",
       password: "",
     },
   });
 
   function onSubmit(data: z.infer<typeof formSchema>) {
+    console.log("new register");
     toast("You submitted the following values:", {
       icon: (
         <pre className="bg-code text-code-foreground mt-2 w-[320px] overflow-x-auto rounded-md p-4">
@@ -74,8 +62,8 @@ function Register() {
   }
 
   const onLogInClick = () => {
-    dispatch(goToLogin())
-  }
+    dispatch(goToLogin());
+  };
 
   return (
     <div className="flex flex-col gap-8 justify-center items-center w-full">
@@ -157,7 +145,14 @@ function Register() {
               Sign up
             </Button>
             <p className="text-[18px] leading-[1.4] tracking-[-0.3px] text-neutral-2 font-light">
-              Already got an account? <a className="text-accent-2 cursor-pointer" onClick={onLogInClick}>Log in</a>.
+              Already got an account?{" "}
+              <a
+                className="text-accent-2 cursor-pointer"
+                onClick={onLogInClick}
+              >
+                Log in
+              </a>
+              .
             </p>
           </Field>
         </CardFooter>
