@@ -74,7 +74,7 @@ function Setting() {
             Update your profile
           </CardTitle>
           <CardDescription className="text-start text-neutral-2 font-normal text-[18px] leading-[1.4] tracking-[-0.3px]">
-            Personalize your account with your name and photo.
+            Personalize your account with your name.
           </CardDescription>
         </CardHeader>
         <CardContent className="flex flex-col gap-5 w-full justify-start">

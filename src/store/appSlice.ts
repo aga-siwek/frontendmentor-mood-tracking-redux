@@ -545,11 +545,8 @@ export const appSlice = createSlice({
         console.log("fetchChangeUserName.fulfilled");
         state.changeUserNameLoading = false;
         const userData = action.payload[0];
-
-        if (userData && userData.user_name) {
-          state.userName = userData.user_name;
-          console.log("data in Redux:", state.userName);
-        }
+        state.userName = userData.user_name;
+        console.log("data in Redux:", state.userName);
         state.settingIsOpen = false;
       })
       .addCase(fetchChangeUserName.rejected, (state, action) => {
