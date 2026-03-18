@@ -1,7 +1,7 @@
 import Reflections from "@/reflections.json";
 import { ReactSVG } from "react-svg";
 import refIcon from "@/assets/icon-reflection.svg";
-import {useSelector} from "react-redux";
+import { useSelector } from "react-redux";
 
 function TodayReflection() {
   const feels = useSelector((state) => state.app.todayFeels);

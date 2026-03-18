@@ -1,18 +1,16 @@
 import TodayDate from "@/components/main/mood_content/title/TodayDate.tsx";
-import {useSelector} from "react-redux";
-
+import { useSelector } from "react-redux";
 
 function Title() {
-    const userName = useSelector((state) => state.app.userName);
+  const userName = useSelector((state) => state.app.userName);
 
-    const showUserName = () => {
-        if (userName) {
-            return userName;
-        }
-        else {
-            return "Stranger"
-        }
+  const showUserName = () => {
+    if (userName) {
+      return userName;
+    } else {
+      return "Stranger";
     }
+  };
   return (
     <div className="flex flex-col justify-center items-center gap-3">
       <h3 className="font-semibold text-[28px] leading-[1.4] tracking-[-0.3px] text-accent-2">

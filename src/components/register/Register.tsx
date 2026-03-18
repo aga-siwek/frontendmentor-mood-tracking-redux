@@ -23,7 +23,7 @@ import {
 import { Input } from "@/components/ui/input";
 import Logo from "@/components/common/logo/Logo.tsx";
 import { useDispatch } from "react-redux";
-import { goToLogin } from "@/store/appSlice.ts";
+import { fetchRegister, goToLogin } from "@/store/appSlice.ts";
 
 const formSchema = z.object({
   email: z.string().min(1, "Email is required.").email("Invalid email format."),
@@ -43,23 +43,15 @@ function Register() {
     },
   });
 
-  function onSubmit(data: z.infer<typeof formSchema>) {
-    console.log("new register");
-    toast("You submitted the following values:", {
-      icon: (
-        <pre className="bg-code text-code-foreground mt-2 w-[320px] overflow-x-auto rounded-md p-4">
-          <code>{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
-      position: "bottom-right",
-      classNames: {
-        content: "flex flex-col gap-2",
-      },
-      style: {
-        "--border-radius": "calc(var(--radius)  + 4px)",
-      } as React.CSSProperties,
-    });
-  }
+  const onSubmit = (data) => {
+    const { email, password } = data;
+    dispatch(
+      fetchRegister({
+        user_email: email,
+        user_password: password,
+      }),
+    );
+  };
 
   const onLogInClick = () => {
     dispatch(goToLogin());

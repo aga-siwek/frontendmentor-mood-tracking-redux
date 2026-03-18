@@ -1,5 +1,5 @@
 import Quotes from "@/quotes.json";
-import {useSelector} from "react-redux";
+import { useSelector } from "react-redux";
 
 function QuoteContainer() {
   const mood = useSelector((state) => state.app.todayMood);

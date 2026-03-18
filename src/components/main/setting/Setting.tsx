@@ -3,7 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
 import * as z from "zod";
-import {useDispatch, useSelector} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -21,7 +21,12 @@ import {
   FieldLabel,
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
-import {type AppState, changeUserName, closeSetting, fetchChangeUserName} from "@/store/appSlice.ts";
+import {
+  type AppState,
+  changeUserName,
+  closeSetting,
+  fetchChangeUserName,
+} from "@/store/appSlice.ts";
 
 const formSchema = z.object({
   username: z
@@ -46,7 +51,7 @@ function Setting() {
 
   const onSubmit = (data) => {
     console.log("personalize form submitted");
-    const {username} = data
+    const { username } = data;
     console.log("personalize form submitted", username);
     dispatch(fetchChangeUserName(username));
   };

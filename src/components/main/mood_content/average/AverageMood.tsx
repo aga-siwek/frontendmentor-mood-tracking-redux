@@ -34,7 +34,7 @@ function AverageMood() {
       case -2:
         return <ReactSVG src={verySad} className="w-6 h-6" />;
       case undefined:
-        return null
+        return null;
       default:
         return null;
     }
@@ -83,9 +83,8 @@ function AverageMood() {
 
   const feelIconChange = () => {
     if (averageMood === undefined) {
-      return null
-    }
-    else if (averageMood > prevAverageMood) {
+      return null;
+    } else if (averageMood > prevAverageMood) {
       return <ReactSVG src={increaseIcon} className="w-6 h-6" />;
     } else if (averageMood === prevAverageMood) {
       return <ReactSVG src={equalIcon} className="w-6 h-6" />;
@@ -100,9 +99,8 @@ function AverageMood() {
     if (averageMood === undefined) {
       <p className="text-start text-neutral-1 font-light text-[15px] tracking-[-0.3px]">
         Log 5 check-ins to see your average mood.
-      </p>
-    }
-    else if (averageMood > prevAverageMood) {
+      </p>;
+    } else if (averageMood > prevAverageMood) {
       return (
         <p className="text-start text-neutral-1 font-light text-[15px] tracking-[-0.3px]">
           Increase from the previous 5 check-ins

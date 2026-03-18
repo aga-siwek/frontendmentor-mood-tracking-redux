@@ -2,7 +2,7 @@ import "./App.css";
 import MainContent from "@/components/main/MainContent.tsx";
 import Login from "@/components/login/Login.tsx";
 import Register from "@/components/register/Register.tsx";
-import { APP_STATE,  fetchLogs } from "@/store/appSlice.ts";
+import { APP_STATE, fetchLogs } from "@/store/appSlice.ts";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import type { RootState, AppDispatch } from "@/store/store";
@@ -27,7 +27,6 @@ function App() {
   useEffect(() => {
     dispatch(fetchLogs());
   }, []);
-
 
   if (loading) return <p>Loading data from API...</p>;
 

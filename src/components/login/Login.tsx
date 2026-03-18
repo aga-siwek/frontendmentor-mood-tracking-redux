@@ -23,10 +23,7 @@ import {
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import Logo from "@/components/common/logo/Logo.tsx";
-import {
-  fetchLogin,
-  goToRegister,
-} from "@/store/appSlice.ts";
+import { fetchLogin, goToRegister } from "@/store/appSlice.ts";
 import type { AppDispatch } from "@/store/store.ts";
 
 const formSchema = z.object({
@@ -38,7 +35,6 @@ const formSchema = z.object({
 });
 
 function Login() {
-
   const dispatch = useDispatch<AppDispatch>();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),

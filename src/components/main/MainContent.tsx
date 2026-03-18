@@ -1,11 +1,11 @@
 import Header from "@/components/main/header/Header.tsx";
 import Title from "@/components/main/mood_content/title/Title.tsx";
 import MoodContent from "@/components/main/mood_content/MoodContent.tsx";
-import {useDispatch, useSelector} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Setting from "@/components/main/setting/Setting.tsx";
 import NewLog from "@/components/main/newLog/NewLog.tsx";
 import type { RootState, AppDispatch } from "@/store/store";
-import {APP_STATE} from "@/store/appSlice.ts";
+import { APP_STATE } from "@/store/appSlice.ts";
 
 function MainContent() {
   const dispatch = useDispatch<AppDispatch>();
@@ -16,7 +16,11 @@ function MainContent() {
   const settingShown = () => {
     if (appState === APP_STATE.USER_NAME_NOT_ADDED) {
       return <Setting />;
-    } else {
+    }
+    else if (settingIsOpen){
+      return <Setting />;
+    }
+    else {
       return;
     }
   };
@@ -28,8 +32,6 @@ function MainContent() {
       return;
     }
   };
-
-
 
   return (
     <div className="">

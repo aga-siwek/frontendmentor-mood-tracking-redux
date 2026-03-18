@@ -3,7 +3,7 @@ import settingIcon from "@/assets/icon-settings.svg";
 import logOutIcon from "@/assets/icon-logout.svg";
 import { useSelector, useDispatch } from "react-redux";
 import { logout, openSetting } from "@/store/appSlice.ts";
-import type {RootState} from "@/store/store.ts";
+import type { RootState } from "@/store/store.ts";
 
 export function SettingMenu() {
   const dispatch = useDispatch();
@@ -19,22 +19,24 @@ export function SettingMenu() {
   };
 
   const showUserEmail = () => {
-    if (userEmail===undefined) {
+    if (userEmail === undefined) {
       return "No user email found";
     }
-    return userEmail
-  }
+    return userEmail;
+  };
 
   const showUserName = () => {
-    if (userName===undefined) {
+    if (userName === undefined) {
       return "Stranger";
     }
-    return userName
-  }
+    return userName;
+  };
   return (
     <div className="flex flex-col bg-neutral-5 absolute right-3 top-15 px-4 py-3 rounded-lg gap-3">
       <div className="flex flex-col gap-3">
-        <p className="text-[18px] leading-[1.2] text-neutral-1">{showUserName()}</p>
+        <p className="text-[18px] leading-[1.2] text-neutral-1">
+          {showUserName()}
+        </p>
         <p className="text-[15px] tracking-[-0.3px] text-neutral-3">
           {showUserEmail()}
         </p>

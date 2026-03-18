@@ -4,9 +4,9 @@ import {
   isAnyOf,
   createAsyncThunk,
 } from "@reduxjs/toolkit";
-const API_URL = "http://192.168.100.53:5001";
+const API_URL = "http://192.168.100.52:5001";
 import axios, { isAxiosError } from "axios";
-import {retry} from "@reduxjs/toolkit/query";
+import { retry } from "@reduxjs/toolkit/query";
 
 export const APP_STATE = {
   LOGOUT: "logout",
@@ -79,6 +79,8 @@ export interface AppState {
   loginError: string | null;
   loginToken: string | null;
   newLogLoading: boolean;
+  registerLoading: boolean;
+  registerError: string | null;
   newLogError: string | null;
   changeUserNameLoading: boolean;
   changeUserNameError: string | null;
@@ -107,7 +109,7 @@ const initialState: AppState = {
   logsLoading: false,
   logsError: null,
   changeUserNameLoading: false,
-  changeUserNameError: null
+  changeUserNameError: null,
 };
 
 interface Log {
@@ -143,41 +145,55 @@ export const fetchLogin = createAsyncThunk(
 
       console.log("Success login", response.data);
       return response.data;
-
     } catch (err: any) {
       return rejectWithValue(err.response?.data || "Log Error");
     }
   },
 );
 
+export const fetchRegister = createAsyncThunk(
+  "auth/register",
+  async (registerData: AppState, { rejectWithValue }) => {
+    try {
+      const response = await axios.post(`${API_URL}/register/`, registerData);
+
+      console.log("Success register", response.data);
+      return response.data;
+    } catch (err: any) {
+      return rejectWithValue(err.response?.data || "Register Error");
+    }
+  },
+);
+
 export const fetchChangeUserName = createAsyncThunk(
-    "auth/users/me",
-    async (newUserName: AppState, { getState, rejectWithValue }) => {
-      try {
-        console.log("start fetchChangeUserName");
-        const state = getState() as { app: AppState };
-        const appState = state.app;
-        console.log(appState.userName, "user name changeUserName")
+  "auth/changeUserName",
+  async (newUserName: string, { getState, rejectWithValue }) => {
+    try {
+      console.log("start fetchChangeUserName", newUserName);
+      const state = getState() as { app: AppState };
+      const appState = state.app;
+      console.log(appState.userName, "user name changeUserName");
 
-        const newUserData = {
-          user_name: newUserName,
-        };
+      const newUserData = {
+        user_name: newUserName,
+      };
 
-        const token = localStorage.getItem("token");
-        appState.settingIsOpen = false;
+      const token = localStorage.getItem("token");
+      // appState.settingIsOpen = false;
 
-        const response = await axios.put(`${API_URL}/users/me`, newUserData, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+      const response = await axios.put(`${API_URL}/users/me`, newUserData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
-        console.log("Sukcess! Change data in user name.", response.data);
-        return response.data;
-      } catch (err: any) {
-        return rejectWithValue(err.response?.data || "User put Error");
-      }
-    },
+      console.log("Sukcess! Change data in user name.", response.data);
+      return response.data;
+    } catch (err: any) {
+      console.log(err.response?.data || "user name change error");
+      return rejectWithValue(err.response?.data || "User put Error");
+    }
+  },
 );
 
 export const fetchNewLog = createAsyncThunk(
@@ -219,48 +235,56 @@ export const appSlice = createSlice({
       console.log("change state after login start", state.appState);
       if (state.appState === APP_STATE.LOGOUT) {
         console.log("state logout");
-        return
+        return;
       }
       if (state.appState === APP_STATE.REGISTER) {
         console.log("state register");
-        return
+        return;
       }
       const date = new Date();
-        console.log("change state after login  token is not null", state.userName)
-        if (!state.userName && state.appState) {
-          state.appState = APP_STATE.USER_NAME_NOT_ADDED;
-          state.settingIsOpen = true
-        }
-
-        else {
-          const lastLog = state.logsData?.at(-1);
-          console.log("changeStateAfterLogin last log", lastLog);
-          if (lastLog) {
-            console.log("lastLog.created_at_day", lastLog.created_at_day === date.getDate())
-            console.log("lastLog.created_at_month", lastLog.created_at_month, date.getMonth())
-            console.log("lastLog.created_at_year ", lastLog.created_at_year === date.getFullYear())
-            if (
-                lastLog.created_at_day === date.getDate() &&
-                lastLog.created_at_month === date.getMonth()+1 &&
-                lastLog.created_at_year === date.getFullYear()
-            ) {
-              console.log("today log added")
-              state.appState = APP_STATE.TODAY_LOG_ADDED;
-              return
-            }
-            else {
-              console.log("today log not added")
-              state.appState = APP_STATE.TODAY_LOG_NOT_ADDED;
-              return;
-            }
-          }
-          else {
+      console.log(
+        "change state after login  token is not null",
+        state.userName,
+      );
+      if (!state.userName && state.appState) {
+        state.appState = APP_STATE.USER_NAME_NOT_ADDED;
+        state.settingIsOpen = true;
+      } else {
+        const lastLog = state.logsData?.at(-1);
+        console.log("changeStateAfterLogin last log", lastLog);
+        if (lastLog) {
+          console.log(
+            "lastLog.created_at_day",
+            lastLog.created_at_day === date.getDate(),
+          );
+          console.log(
+            "lastLog.created_at_month",
+            lastLog.created_at_month,
+            date.getMonth(),
+          );
+          console.log(
+            "lastLog.created_at_year ",
+            lastLog.created_at_year === date.getFullYear(),
+          );
+          if (
+            lastLog.created_at_day === date.getDate() &&
+            lastLog.created_at_month === date.getMonth() + 1 &&
+            lastLog.created_at_year === date.getFullYear()
+          ) {
+            console.log("today log added");
+            state.appState = APP_STATE.TODAY_LOG_ADDED;
+            return;
+          } else {
+            console.log("today log not added");
             state.appState = APP_STATE.TODAY_LOG_NOT_ADDED;
             return;
           }
+        } else {
+          state.appState = APP_STATE.TODAY_LOG_NOT_ADDED;
+          return;
         }
+      }
       console.log("change state after login start end", state.appState);
-
     },
     login: (state, action) => {
       const [email, password] = action.payload;
@@ -287,29 +311,24 @@ export const appSlice = createSlice({
 
     isTodayMoodLogged: () => {},
     addTodayLog: (state, action) => {
-
       if (!state.todayMood) {
-        state.process = 2
+        state.process = 2;
         state.todayMood = action.payload;
-      }
-      else if (state.todayFeels.length === 0)
-      {state.process = 3
-        state.todayFeels=action.payload;}
-
-      else if (!state.todayDescription) {
-        state.process = 4
-        state.todayDescription = action.payload
-      }
-      else if (!state.todaySleepTime) {
-        state.process = 5
+      } else if (state.todayFeels.length === 0) {
+        state.process = 3;
+        state.todayFeels = action.payload;
+      } else if (!state.todayDescription) {
+        state.process = 4;
+        state.todayDescription = action.payload;
+      } else if (!state.todaySleepTime) {
+        state.process = 5;
         state.todaySleepTime = action.payload;
-      }
-      else {
-        state.process = 5
-        state.addNewLogIsOpen = false
+      } else {
+        state.process = 5;
+        state.addNewLogIsOpen = false;
         state.process = 1;
         state.todayMood = undefined;
-        state.todayFeels = []
+        state.todayFeels = [];
         state.todayDescription = undefined;
         state.todaySleepTime = undefined;
       }
@@ -326,7 +345,11 @@ export const appSlice = createSlice({
           tempSumAverageMood += log.mood.mood_scale;
         });
         state.averageMood = Math.round(tempSumAverageMood / 5);
-        console.log(state.averageMood, "sliceapi averageMood", state.averageMood);
+        console.log(
+          state.averageMood,
+          "sliceapi averageMood",
+          state.averageMood,
+        );
       }
     },
     showPreviousAverageMood: (state) => {
@@ -363,15 +386,20 @@ export const appSlice = createSlice({
           tempSumPrevSleepTime += log.sleep.sleep_time_scale;
         });
         state.previousAverageSleepTime = Math.round(tempSumPrevSleepTime / 5);
-        console.log(state.previousAverageSleepTime, "sliceapi previousAverageSleepTime");
+        console.log(
+          state.previousAverageSleepTime,
+          "sliceapi previousAverageSleepTime",
+        );
       }
     },
     showTodayLogs: (state) => {
-      state.todayFeels = []
+      state.todayFeels = [];
       state.todayMood = state.logsData?.at(-1)?.mood?.mood_scale;
-      state.todayDescription = state.logsData?.at(-1)?.description?.description
+      state.todayDescription = state.logsData?.at(-1)?.description?.description;
       state.todaySleepTime = state.logsData?.at(-1)?.sleep.sleep_time_scale;
-      state.logsData?.at(-1).feels.map((feel)=> {state.todayFeels.push(feel.feel_name)})
+      state.logsData?.at(-1).feels.map((feel) => {
+        state.todayFeels.push(feel.feel_name);
+      });
       console.log(state.todayFeels, "today feels form appslice");
     },
 
@@ -419,75 +447,84 @@ export const appSlice = createSlice({
         state.loginLoading = true;
         state.loginError = null;
       })
-        .addCase(fetchLogin.fulfilled, (state, action) => {
-          state.loginLoading = false;
-          state.loginToken = action.payload.access_token;
-          state.userName = action.payload.user_name
-          state.userEmail = action.payload.user_email
+      .addCase(fetchLogin.fulfilled, (state, action) => {
+        state.loginLoading = false;
+        state.loginToken = action.payload.access_token;
+        state.userName = action.payload.user_name;
+        state.userEmail = action.payload.user_email;
 
-          localStorage.setItem("token", action.payload.access_token);
-          console.log("change state after login start", state.appState);
+        localStorage.setItem("token", action.payload.access_token);
+        console.log("change state after login start", state.appState);
 
-          const todayDate = new Date();
-          console.log("change state after login token is not null")
+        const todayDate = new Date();
+        console.log("change state after login token is not null");
 
+        if (!state.userName) {
+          state.appState = APP_STATE.USER_NAME_NOT_ADDED;
+        } else {
+          const lastLog = state.logsData?.at(-1);
+          if (lastLog) {
+            if (
+              lastLog.created_at_day === todayDate.getDate() &&
+              lastLog.created_at_month === todayDate.getMonth() &&
+              lastLog.created_at_year === todayDate.getFullYear()
+            ) {
+              state.appState = APP_STATE.TODAY_LOG_ADDED;
+            } else {
+              state.appState = APP_STATE.TODAY_LOG_NOT_ADDED;
+            }
+          } else {
+            state.appState = APP_STATE.TODAY_LOG_NOT_ADDED;
+          }
+        }
+
+        console.log("change state after login end", state.appState);
+        console.log("change state after token", localStorage.getItem("token"));
+
+        const date = new Date();
+        if (localStorage.getItem("token") != null) {
+          console.log("change state after login  token is not null");
           if (!state.userName) {
             state.appState = APP_STATE.USER_NAME_NOT_ADDED;
-          }
-          else {
-            const lastLog = state.logsData?.at(-1);
-            if (lastLog) {
+          } else {
+            const lastLogRepeat = state.logsData?.at(-1);
+            if (lastLogRepeat) {
               if (
-                  lastLog.created_at_day === todayDate.getDate() &&
-                  lastLog.created_at_month === todayDate.getMonth() &&
-                  lastLog.created_at_year === todayDate.getFullYear()
+                lastLogRepeat.created_at_day === date.getDate() &&
+                lastLogRepeat.created_at_month === date.getMonth() &&
+                lastLogRepeat.created_at_year === date.getFullYear()
               ) {
                 state.appState = APP_STATE.TODAY_LOG_ADDED;
-              }
-              else {
+              } else {
                 state.appState = APP_STATE.TODAY_LOG_NOT_ADDED;
               }
-            }
-            else {
+            } else {
               state.appState = APP_STATE.TODAY_LOG_NOT_ADDED;
             }
           }
-
           console.log("change state after login end", state.appState);
-          console.log("change state after token", localStorage.getItem("token"));
-
-          const date = new Date();
-          if (localStorage.getItem("token") != null) {
-            console.log("change state after login  token is not null")
-            if (!state.userName) {
-              state.appState = APP_STATE.USER_NAME_NOT_ADDED;
-            }
-            else {
-              const lastLogRepeat = state.logsData?.at(-1);
-              if (lastLogRepeat) {
-                if (
-                    lastLogRepeat.created_at_day === date.getDate() &&
-                    lastLogRepeat.created_at_month === date.getMonth() &&
-                    lastLogRepeat.created_at_year === date.getFullYear()
-                ) {
-                  state.appState = APP_STATE.TODAY_LOG_ADDED;
-                }
-                else {
-                  state.appState = APP_STATE.TODAY_LOG_NOT_ADDED;
-                }
-              }
-              else {
-                state.appState = APP_STATE.TODAY_LOG_NOT_ADDED;
-              }
-            }
-            console.log("change state after login end", state.appState);
-          }
-          console.log("change state after login token is null", localStorage.getItem("token"));
-        })      .addCase(fetchLogin.rejected, (state, action) => {
+        }
+        console.log(
+          "change state after login token is null",
+          localStorage.getItem("token"),
+        );
+      })
+      .addCase(fetchLogin.rejected, (state, action) => {
         state.loginLoading = false;
         state.loginError = action.payload as string;
       })
-
+      .addCase(fetchRegister.pending, (state) => {
+        state.registerLoading = true;
+        state.registerError = null;
+      })
+      .addCase(fetchRegister.fulfilled, (state, action) => {
+        state.registerLoading = false;
+        state.appState = APP_STATE.LOGOUT;
+      })
+      .addCase(fetchRegister.rejected, (state, action) => {
+        state.registerLoading = false;
+        state.registerError = action.payload as string;
+      })
       .addCase(fetchNewLog.pending, (state) => {
         state.newLogLoading = true;
         state.newLogError = null;
@@ -499,43 +536,56 @@ export const appSlice = createSlice({
         state.newLogLoading = false;
         state.newLogError = action.payload as string;
       })
+      .addCase(fetchChangeUserName.pending, (state) => {
+        console.log("fetchChangeUserName.pending,");
+        state.changeUserNameLoading = true;
+        state.changeUserNameError = null;
+      })
+      .addCase(fetchChangeUserName.fulfilled, (state, action) => {
+        console.log("fetchChangeUserName.fulfilled");
+        state.changeUserNameLoading = false;
+        const userData = action.payload[0];
 
-  .addCase(fetchChangeUserName.pending, (state) => {
-    console.log("fetchChangeUserName.pending,")
-      state.changeUserNameLoading = true;
-      state.changeUserNameError = null;
-    })
-        .addCase(fetchChangeUserName.fulfilled, (state, action) => {
-          console.log("fetchChangeUserName.fulfilled")
-          state.changeUserNameLoading = false;
-          state.userName = action.payload.user_name
-        })
-        .addCase(fetchChangeUserName.rejected, (state, action) => {
-          console.log("fetchChangeUserName.rejected")
-          state.changeUserNameLoading = false;
-          state.changeUserNameError = action.payload as string;
-        });
+        if (userData && userData.user_name) {
+          state.userName = userData.user_name;
+          console.log("data in Redux:", state.userName);
+        }
+        state.settingIsOpen = false;
+      })
+      .addCase(fetchChangeUserName.rejected, (state, action) => {
+        console.log("fetchChangeUserName.rejected");
+        state.changeUserNameLoading = false;
+        state.changeUserNameError = action.payload as string;
+      });
   },
 });
 export const listenerMiddleware = createListenerMiddleware();
 
 listenerMiddleware.startListening({
-  matcher: isAnyOf(fetchNewLog.fulfilled, appSlice.actions.login, fetchLogin.fulfilled),
+  matcher: isAnyOf(
+    fetchNewLog.fulfilled,
+    appSlice.actions.login,
+    fetchLogin.fulfilled,
+  ),
   effect: async (action, listenerApi) => {
     await listenerApi.dispatch(fetchLogs());
   },
 });
 
 listenerMiddleware.startListening({
-  matcher: isAnyOf(fetchNewLog.fulfilled, appSlice.actions.login, fetchLogin.fulfilled, fetchLogs.fulfilled),
+  matcher: isAnyOf(
+    fetchNewLog.fulfilled,
+    appSlice.actions.login,
+    fetchLogin.fulfilled,
+    fetchLogs.fulfilled,
+  ),
   effect: async (action, listenerApi) => {
-
     listenerApi.dispatch(showAverageMood());
     listenerApi.dispatch(showAverageSleepTime());
     listenerApi.dispatch(showPreviousAverageMood());
     listenerApi.dispatch(showPreviousAverageSleepTime());
-    listenerApi.dispatch(changeStateAfterLogin())
-    listenerApi.dispatch(showTodayLogs())
+    listenerApi.dispatch(changeStateAfterLogin());
+    listenerApi.dispatch(showTodayLogs());
   },
 });
 
@@ -549,8 +599,6 @@ listenerMiddleware.startListening({
     }
   },
 });
-
-
 
 export const {
   login,
@@ -575,7 +623,7 @@ export const {
   showPreviousAverageMood,
   showAverageSleepTime,
   showPreviousAverageSleepTime,
-  showTodayLogs
+  showTodayLogs,
 } = appSlice.actions;
 
 export default appSlice.reducer;
