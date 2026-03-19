@@ -2,12 +2,12 @@ import ChartColumn from "./ChartColumn.jsx";
 import { ReactSVG } from "react-svg";
 import sleepIcon from "../../../assets/icon-sleep.svg";
 import { useEffect, useRef } from "react";
-import testData from "@/test_data.json";
-import type { RootState, AppDispatch } from "@/store/store";
+import type { RootState } from "@/store/store";
 import { useSelector } from "react-redux";
 
 function Chart() {
   const logs = useSelector((state: RootState) => state.app.logsData);
+  console.log(logs);
 
   const scrollRef = useRef(null);
   useEffect(() => {
@@ -27,7 +27,6 @@ function Chart() {
       }
       return shownLogs.map((log) => {
         const createdAt = log.created_at;
-        const createdAtYear = log.created_at_year;
         const createdAtMonth = log.created_at_month;
         const createdAtDay = log.created_at_day;
         const description = log.description.description;
@@ -38,7 +37,6 @@ function Chart() {
         return (
           <ChartColumn
             key={createdAt}
-            createdAtYear={createdAtYear}
             createdAtMonth={createdAtMonth}
             createdAtDay={createdAtDay}
             description={description}

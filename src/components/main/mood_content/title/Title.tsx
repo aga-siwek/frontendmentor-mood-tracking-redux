@@ -1,8 +1,9 @@
 import TodayDate from "@/components/main/mood_content/title/TodayDate.tsx";
 import { useSelector } from "react-redux";
+import type { RootState } from "@/store/store.ts";
 
 function Title() {
-  const userName = useSelector((state) => state.app.userName);
+  const userName = useSelector((state: RootState) => state.app.userName);
 
   const showUserName = () => {
     if (userName) {

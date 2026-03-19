@@ -1,8 +1,8 @@
 import { ReactSVG } from "react-svg";
 import placeholder from "@/assets/avatar-placeholder.svg";
 import icon_dropdown from "@/assets/icon-dropdown-arrow.svg";
-import { useDispatch, useSelector } from "react-redux";
-import { clickSettingMenu, goToLogin } from "@/store/appSlice.ts";
+import { useDispatch } from "react-redux";
+import { clickSettingMenu } from "@/store/appSlice.ts";
 
 function Profile() {
   const dispatch = useDispatch();

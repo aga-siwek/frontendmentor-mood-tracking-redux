@@ -5,7 +5,6 @@ import happyIcon from "@/assets/icon-happy-color.svg";
 import neutralIcon from "@/assets/icon-neutral-color.svg";
 import sadIcon from "@/assets/icon-sad-color.svg";
 import verySadIcon from "@/assets/icon-very-sad-color.svg";
-import * as React from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
 import * as z from "zod";
@@ -72,7 +71,6 @@ export function NewMood() {
   });
 
   function onSubmit(data: z.infer<typeof formSchema>) {
-    console.log(data.mood, "new mood onsumbit");
     dispatch(addTodayLog(data.mood));
   }
 

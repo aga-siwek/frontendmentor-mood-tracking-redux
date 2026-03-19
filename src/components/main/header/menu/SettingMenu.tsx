@@ -3,12 +3,12 @@ import settingIcon from "@/assets/icon-settings.svg";
 import logOutIcon from "@/assets/icon-logout.svg";
 import { useSelector, useDispatch } from "react-redux";
 import { logout, openSetting } from "@/store/appSlice.ts";
-import type { RootState } from "@/store/store.ts";
+import type { AppDispatch, RootState } from "@/store/store.ts";
 
 export function SettingMenu() {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const userName = useSelector((state: RootState) => state.app.userName);
-  const userEmail = useSelector((state) => state.app.userEmail);
+  const userEmail = useSelector((state: RootState) => state.app.userEmail);
 
   const onSettingClick = () => {
     dispatch(openSetting());

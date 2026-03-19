@@ -2,7 +2,6 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
-import { toast } from "sonner";
 import * as z from "zod";
 
 import { Button } from "@/components/ui/button";
@@ -24,6 +23,7 @@ import { Input } from "@/components/ui/input";
 import Logo from "@/components/common/logo/Logo.tsx";
 import { useDispatch } from "react-redux";
 import { fetchRegister, goToLogin } from "@/store/appSlice.ts";
+import type { AppDispatch } from "@/store/store.ts";
 
 const formSchema = z.object({
   email: z.string().min(1, "Email is required.").email("Invalid email format."),
@@ -34,7 +34,7 @@ const formSchema = z.object({
 });
 
 function Register() {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -43,7 +43,7 @@ function Register() {
     },
   });
 
-  const onSubmit = (data) => {
+  const onSubmit = (data: { email: string; password: string }) => {
     const { email, password } = data;
     dispatch(
       fetchRegister({
@@ -114,6 +114,7 @@ function Register() {
                       id="form-rhf-input-password"
                       aria-invalid={fieldState.invalid}
                       autoComplete="password"
+                      type="password"
                     />
                     {fieldState.invalid && (
                       <FieldError errors={[fieldState.error]} />

@@ -23,10 +23,10 @@ import {
 import { Input } from "@/components/ui/input";
 import {
   type AppState,
-  changeUserName,
   closeSetting,
   fetchChangeUserName,
 } from "@/store/appSlice.ts";
+import type { AppDispatch } from "@/store/store.ts";
 
 const formSchema = z.object({
   username: z
@@ -40,7 +40,7 @@ const formSchema = z.object({
 });
 
 function Setting() {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -49,10 +49,8 @@ function Setting() {
   });
   const userName = useSelector((state: AppState) => state.userName);
 
-  const onSubmit = (data) => {
-    console.log("personalize form submitted");
+  const onSubmit = (data: { username: string }) => {
     const { username } = data;
-    console.log("personalize form submitted", username);
     dispatch(fetchChangeUserName(username));
   };
 

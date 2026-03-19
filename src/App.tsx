@@ -9,7 +9,7 @@ import type { RootState, AppDispatch } from "@/store/store";
 
 function App() {
   const dispatch = useDispatch<AppDispatch>();
-  const appState = useSelector((state) => state.app.appState);
+  const appState = useSelector((state: RootState) => state.app.appState);
 
   const loading = useSelector((state: RootState) => state.app.logsLoading);
 
@@ -26,7 +26,7 @@ function App() {
 
   useEffect(() => {
     dispatch(fetchLogs());
-  }, []);
+  }, [dispatch]);
 
   if (loading) return <p>Loading data from API...</p>;
 

@@ -5,8 +5,7 @@ import {
   createAsyncThunk,
 } from "@reduxjs/toolkit";
 const API_URL = "http://192.168.100.52:5001";
-import axios, { isAxiosError } from "axios";
-import { retry } from "@reduxjs/toolkit/query";
+import axios, { type AxiosError } from "axios";
 
 export const APP_STATE = {
   LOGOUT: "logout",
@@ -84,6 +83,12 @@ export interface AppState {
   newLogError: string | null;
   changeUserNameLoading: boolean;
   changeUserNameError: string | null;
+  randomNumber: number;
+}
+
+interface UserData {
+  user_email: string;
+  user_password: string;
 }
 
 const initialState: AppState = {
@@ -110,12 +115,8 @@ const initialState: AppState = {
   logsError: null,
   changeUserNameLoading: false,
   changeUserNameError: null,
+  randomNumber: 0,
 };
-
-interface Log {
-  id: number;
-  title: string;
-}
 
 export const fetchLogs = createAsyncThunk(
   "logs/users/me",
@@ -128,70 +129,60 @@ export const fetchLogs = createAsyncThunk(
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log(response.data, "fetch data answer");
 
       return response.data;
-    } catch (err: any) {
-      return rejectWithValue(err.response?.data || "Auth error");
+    } catch (err) {
+      const error = err as AxiosError;
+      return rejectWithValue(error.response?.data || "Auth error");
     }
   },
 );
 
 export const fetchLogin = createAsyncThunk(
   "auth/login",
-  async (loginData: AppState, { rejectWithValue }) => {
+  async (loginData: UserData, { rejectWithValue }) => {
     try {
       const response = await axios.post(`${API_URL}/login/`, loginData);
-
-      console.log("Success login", response.data);
       return response.data;
-    } catch (err: any) {
-      return rejectWithValue(err.response?.data || "Log Error");
+    } catch (err) {
+      const error = err as AxiosError;
+      return rejectWithValue(error.response?.data || "Log Error");
     }
   },
 );
 
 export const fetchRegister = createAsyncThunk(
   "auth/register",
-  async (registerData: AppState, { rejectWithValue }) => {
+  async (registerData: UserData, { rejectWithValue }) => {
     try {
       const response = await axios.post(`${API_URL}/register/`, registerData);
-
-      console.log("Success register", response.data);
       return response.data;
-    } catch (err: any) {
-      return rejectWithValue(err.response?.data || "Register Error");
+    } catch (err) {
+      const error = err as AxiosError;
+      return rejectWithValue(error.response?.data || "Register Error");
     }
   },
 );
 
 export const fetchChangeUserName = createAsyncThunk(
   "auth/changeUserName",
-  async (newUserName: string, { getState, rejectWithValue }) => {
+  async (newUserName: string, { rejectWithValue }) => {
     try {
-      console.log("start fetchChangeUserName", newUserName);
-      const state = getState() as { app: AppState };
-      const appState = state.app;
-      console.log(appState.userName, "user name changeUserName");
-
       const newUserData = {
         user_name: newUserName,
       };
 
       const token = localStorage.getItem("token");
-      // appState.settingIsOpen = false;
 
       const response = await axios.put(`${API_URL}/users/me`, newUserData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-
-      console.log("Sukcess! Change data in user name.", response.data);
       return response.data;
-    } catch (err: any) {
-      console.log(err.response?.data || "user name change error");
-      return rejectWithValue(err.response?.data || "User put Error");
+    } catch (err) {
+      const error = err as AxiosError;
+      return rejectWithValue(error.response?.data || "User put Error");
     }
   },
 );
@@ -217,11 +208,10 @@ export const fetchNewLog = createAsyncThunk(
           Authorization: `Bearer ${token}`,
         },
       });
-
-      console.log("Sukcess! Log in data base.", response.data);
       return response.data;
-    } catch (err: any) {
-      return rejectWithValue(err.response?.data || "new log error");
+    } catch (err) {
+      const error = err as AxiosError;
+      return rejectWithValue(error.response?.data || "new log error");
     }
   },
 );
@@ -232,50 +222,27 @@ export const appSlice = createSlice({
 
   reducers: {
     changeStateAfterLogin: (state) => {
-      console.log("change state after login start", state.appState);
       if (state.appState === APP_STATE.LOGOUT) {
-        console.log("state logout");
         return;
       }
       if (state.appState === APP_STATE.REGISTER) {
-        console.log("state register");
         return;
       }
       const date = new Date();
-      console.log(
-        "change state after login  token is not null",
-        state.userName,
-      );
       if (!state.userName && state.appState) {
         state.appState = APP_STATE.USER_NAME_NOT_ADDED;
         state.settingIsOpen = true;
       } else {
         const lastLog = state.logsData?.at(-1);
-        console.log("changeStateAfterLogin last log", lastLog);
         if (lastLog) {
-          console.log(
-            "lastLog.created_at_day",
-            lastLog.created_at_day === date.getDate(),
-          );
-          console.log(
-            "lastLog.created_at_month",
-            lastLog.created_at_month,
-            date.getMonth(),
-          );
-          console.log(
-            "lastLog.created_at_year ",
-            lastLog.created_at_year === date.getFullYear(),
-          );
           if (
             lastLog.created_at_day === date.getDate() &&
             lastLog.created_at_month === date.getMonth() + 1 &&
             lastLog.created_at_year === date.getFullYear()
           ) {
-            console.log("today log added");
             state.appState = APP_STATE.TODAY_LOG_ADDED;
             return;
           } else {
-            console.log("today log not added");
             state.appState = APP_STATE.TODAY_LOG_NOT_ADDED;
             return;
           }
@@ -284,12 +251,7 @@ export const appSlice = createSlice({
           return;
         }
       }
-      console.log("change state after login start end", state.appState);
     },
-    login: (state, action) => {
-      const [email, password] = action.payload;
-    },
-    register: (state, action) => {},
     logout: (state) => {
       state.appState = APP_STATE.LOGOUT;
       state.logsData = null;
@@ -305,9 +267,7 @@ export const appSlice = createSlice({
 
     hasUserName: () => {},
     changeUserName: () => {},
-    downloadLog: () => {
-      console.log("downloadLog");
-    },
+    downloadLog: () => {},
 
     isTodayMoodLogged: () => {},
     addTodayLog: (state, action) => {
@@ -345,11 +305,6 @@ export const appSlice = createSlice({
           tempSumAverageMood += log.mood.mood_scale;
         });
         state.averageMood = Math.round(tempSumAverageMood / 5);
-        console.log(
-          state.averageMood,
-          "sliceapi averageMood",
-          state.averageMood,
-        );
       }
     },
     showPreviousAverageMood: (state) => {
@@ -361,7 +316,6 @@ export const appSlice = createSlice({
           tempSumPrevAverageMood += log.mood.mood_scale;
         });
         state.previousAverageMood = Math.round(tempSumPrevAverageMood / 5);
-        console.log(state.previousAverageMood, "sliceapi previousAverageMood");
       }
     },
     showAverageSleepTime: (state) => {
@@ -373,12 +327,10 @@ export const appSlice = createSlice({
           tempSumSleepTime += log.sleep.sleep_time_scale;
         });
         state.averageSleepTime = Math.round(tempSumSleepTime / 5);
-        console.log(state.averageSleepTime, "sliceapi averageSleepTime");
       }
     },
     showPreviousAverageSleepTime: (state) => {
       const logs = state.logsData;
-      console.log(state.logsData, "sliceapi PreviousAverageSleepTime data");
       if (logs.length >= 10) {
         let tempSumPrevSleepTime: number = 0;
         const lastPrev5logs = logs.slice(-10, -5);
@@ -386,10 +338,6 @@ export const appSlice = createSlice({
           tempSumPrevSleepTime += log.sleep.sleep_time_scale;
         });
         state.previousAverageSleepTime = Math.round(tempSumPrevSleepTime / 5);
-        console.log(
-          state.previousAverageSleepTime,
-          "sliceapi previousAverageSleepTime",
-        );
       }
     },
     showTodayLogs: (state) => {
@@ -400,7 +348,6 @@ export const appSlice = createSlice({
       state.logsData?.at(-1).feels.map((feel) => {
         state.todayFeels.push(feel.feel_name);
       });
-      console.log(state.todayFeels, "today feels form appslice");
     },
 
     openSetting: (state) => {
@@ -428,6 +375,9 @@ export const appSlice = createSlice({
     goToLogin: (state) => {
       state.appState = APP_STATE.LOGOUT;
     },
+    generateRandomNumber: (state) => {
+      state.randomNumber = Math.floor(Math.random() * 11);
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -454,10 +404,8 @@ export const appSlice = createSlice({
         state.userEmail = action.payload.user_email;
 
         localStorage.setItem("token", action.payload.access_token);
-        console.log("change state after login start", state.appState);
 
         const todayDate = new Date();
-        console.log("change state after login token is not null");
 
         if (!state.userName) {
           state.appState = APP_STATE.USER_NAME_NOT_ADDED;
@@ -478,12 +426,8 @@ export const appSlice = createSlice({
           }
         }
 
-        console.log("change state after login end", state.appState);
-        console.log("change state after token", localStorage.getItem("token"));
-
         const date = new Date();
         if (localStorage.getItem("token") != null) {
-          console.log("change state after login  token is not null");
           if (!state.userName) {
             state.appState = APP_STATE.USER_NAME_NOT_ADDED;
           } else {
@@ -502,12 +446,7 @@ export const appSlice = createSlice({
               state.appState = APP_STATE.TODAY_LOG_NOT_ADDED;
             }
           }
-          console.log("change state after login end", state.appState);
         }
-        console.log(
-          "change state after login token is null",
-          localStorage.getItem("token"),
-        );
       })
       .addCase(fetchLogin.rejected, (state, action) => {
         state.loginLoading = false;
@@ -517,7 +456,7 @@ export const appSlice = createSlice({
         state.registerLoading = true;
         state.registerError = null;
       })
-      .addCase(fetchRegister.fulfilled, (state, action) => {
+      .addCase(fetchRegister.fulfilled, (state) => {
         state.registerLoading = false;
         state.appState = APP_STATE.LOGOUT;
       })
@@ -537,20 +476,16 @@ export const appSlice = createSlice({
         state.newLogError = action.payload as string;
       })
       .addCase(fetchChangeUserName.pending, (state) => {
-        console.log("fetchChangeUserName.pending,");
         state.changeUserNameLoading = true;
         state.changeUserNameError = null;
       })
       .addCase(fetchChangeUserName.fulfilled, (state, action) => {
-        console.log("fetchChangeUserName.fulfilled");
         state.changeUserNameLoading = false;
         const userData = action.payload[0];
         state.userName = userData.user_name;
-        console.log("data in Redux:", state.userName);
         state.settingIsOpen = false;
       })
       .addCase(fetchChangeUserName.rejected, (state, action) => {
-        console.log("fetchChangeUserName.rejected");
         state.changeUserNameLoading = false;
         state.changeUserNameError = action.payload as string;
       });
@@ -559,11 +494,7 @@ export const appSlice = createSlice({
 export const listenerMiddleware = createListenerMiddleware();
 
 listenerMiddleware.startListening({
-  matcher: isAnyOf(
-    fetchNewLog.fulfilled,
-    appSlice.actions.login,
-    fetchLogin.fulfilled,
-  ),
+  matcher: isAnyOf(fetchNewLog.fulfilled, fetchLogin.fulfilled),
   effect: async (action, listenerApi) => {
     await listenerApi.dispatch(fetchLogs());
   },
@@ -572,7 +503,6 @@ listenerMiddleware.startListening({
 listenerMiddleware.startListening({
   matcher: isAnyOf(
     fetchNewLog.fulfilled,
-    appSlice.actions.login,
     fetchLogin.fulfilled,
     fetchLogs.fulfilled,
   ),
@@ -587,19 +517,22 @@ listenerMiddleware.startListening({
 });
 
 listenerMiddleware.startListening({
-  matcher: isAnyOf(appSlice.actions.login, fetchLogin.fulfilled),
+  matcher: isAnyOf(fetchNewLog.fulfilled, fetchLogin.fulfilled),
+  effect: async (action, listenerApi) => {
+    listenerApi.dispatch(generateRandomNumber());
+  },
+});
+
+listenerMiddleware.startListening({
+  matcher: isAnyOf(fetchLogin.fulfilled),
   effect: async (state, action, listenerApi) => {
-    console.log(state.userName, "listener");
     if (state.userName === null) {
-      console.log("userName is null");
       listenerApi.dispatch(openSetting());
     }
   },
 });
 
 export const {
-  login,
-  register,
   downloadLog,
   addTodayLog,
   deleteTodayLog,
@@ -621,6 +554,7 @@ export const {
   showAverageSleepTime,
   showPreviousAverageSleepTime,
   showTodayLogs,
+  generateRandomNumber,
 } = appSlice.actions;
 
 export default appSlice.reducer;

@@ -6,9 +6,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { addTodayLog, closeLogAdded } from "@/store/appSlice.ts";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card.tsx";
 import Process from "@/components/main/newLog/Process.tsx";
+import type { RootState } from "@/store/store.ts";
 
 function NewLog() {
-  const processLevel = useSelector((state) => state.app.process);
+  const processLevel = useSelector((state: RootState) => state.app.process);
   const dispatch = useDispatch();
   const showQuestionnaire = () => {
     if (processLevel === 1) {

@@ -2,9 +2,8 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
-import { toast } from "sonner";
 import * as z from "zod";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -44,7 +43,7 @@ function Login() {
     },
   });
 
-  const onSubmit = (data) => {
+  const onSubmit = (data: { email: string; password: string }) => {
     const { email, password } = data;
     dispatch(
       fetchLogin({
@@ -116,6 +115,7 @@ function Login() {
                       id="form-rhf-input-password"
                       aria-invalid={fieldState.invalid}
                       autoComplete="password"
+                      type="password"
                     />
                     {fieldState.invalid && (
                       <FieldError errors={[fieldState.error]} />

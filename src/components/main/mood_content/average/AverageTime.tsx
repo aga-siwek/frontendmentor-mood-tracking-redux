@@ -25,6 +25,8 @@ function AverageTime() {
   const sleepIconChange = () => {
     if (averageSleepTime === undefined) {
       return;
+    } else if (prevAverageSleepTime === undefined) {
+      return <ReactSVG src={equalIcon} className="" />;
     } else if (averageSleepTime > prevAverageSleepTime) {
       return <ReactSVG src={increaseIcon} className="" />;
     } else if (averageSleepTime === prevAverageSleepTime) {

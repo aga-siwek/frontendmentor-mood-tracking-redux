@@ -1,7 +1,6 @@
 "use client";
 
 import { useDispatch } from "react-redux";
-import * as React from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
 import * as z from "zod";
@@ -63,18 +62,9 @@ export function NewSleepTime() {
   });
 
   function onSubmit(data: z.infer<typeof formSchema>) {
-    console.log(data.time);
     dispatch(addTodayLog(data.time));
-    console.log(localStorage.getItem("token"), "token from sleeptime");
 
-    dispatch(
-      fetchNewLog({
-        feel: ["angry", "sad", "happy"],
-        mood_scale: -2,
-        sleep_time_scale: 0,
-        description: "TESTOWY OPIS: ",
-      }),
-    );
+    dispatch(fetchNewLog());
   }
 
   return (

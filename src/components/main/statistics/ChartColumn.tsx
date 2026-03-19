@@ -7,7 +7,6 @@ import { ReactSVG } from "react-svg";
 import ColumnInfo from "./ColumnInfo.jsx";
 
 function ChartColumn({
-  createdAtYear,
   createdAtMonth,
   createdAtDay,
   description,

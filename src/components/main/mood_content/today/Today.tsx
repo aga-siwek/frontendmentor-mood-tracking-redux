@@ -1,12 +1,11 @@
 import TodayNotAddedLog from "@/components/main/mood_content/today/TodayNotAddedLog.tsx";
 import TodayAddedLog from "@/components/main/mood_content/today/TodayAddedLog.tsx";
-import type { RootState, AppDispatch } from "@/store/store";
 import { useSelector } from "react-redux";
 import { APP_STATE } from "@/store/appSlice.ts";
+import type { RootState } from "@/store/store.ts";
 
 function Today() {
-  const appState = useSelector((state) => state.app.appState);
-  console.log(appState, "appstate today");
+  const appState = useSelector((state: RootState) => state.app.appState);
 
   const showTodayContent = () => {
     if (appState === APP_STATE.TODAY_LOG_ADDED) {
