@@ -50,8 +50,8 @@ function Chart() {
   };
 
   return (
-    <div className="flex w-full">
-      <div className="flex w-full h-90 overflow-x-auto overflow-y-hidden pb-2.5">
+      <div id="chart-anchor" className="relative flex w-full">
+        <div className="flex w-full h-90 overflow-x-auto overflow-y-hidden pb-2.5">
         <div className="flex flex-col gap-[calc(100%/6)] justify-start h-[263px] text-3 min-w-17 text-end mr-2 pb-8 px-1">
           <div className="flex gap-1">
             <ReactSVG src={sleepIcon} className="h-2.5 w-2.5" />
@@ -75,7 +75,7 @@ function Chart() {
           </div>
         </div>
         <div
-          className="flex h-78 w-[65vw] overflow-y-scroll pb-1"
+          className="flex h-78 w-[65vw]  pb-1"
           ref={scrollRef}
         >
           <div className="flex gap-3 items-end h-full px-2.5 ">{showLog()}</div>

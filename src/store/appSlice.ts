@@ -4,7 +4,7 @@ import {
   isAnyOf,
   createAsyncThunk,
 } from "@reduxjs/toolkit";
-const API_URL = "http://192.168.100.52:5001";
+const API_URL = "http://192.168.100.53:5001";
 import axios, { type AxiosError } from "axios";
 
 export const APP_STATE = {

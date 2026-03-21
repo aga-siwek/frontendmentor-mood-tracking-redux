@@ -4,6 +4,7 @@ import neutralIcon from "@/assets/icon-neutral-color.svg";
 import sadIcon from "@/assets/icon-sad-color.svg";
 import verySadIcon from "@/assets/icon-very-sad-color.svg";
 import { ReactSVG } from "react-svg";
+import { createPortal } from 'react-dom';
 
 function ColumnInfo({
   description = "unknow",
@@ -15,7 +16,7 @@ function ColumnInfo({
     switch (mood) {
       case -2:
         return (
-          <div className="flex gap-1">
+          <div id="chart-anchor" className="flex gap-1">
             <ReactSVG src={verySadIcon} className="w-4" />
             <p className="flex flex-col text-base leading-[1.4] tracking-[-0.3px]">
               Very Sad
