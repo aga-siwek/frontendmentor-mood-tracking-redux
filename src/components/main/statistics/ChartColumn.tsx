@@ -94,14 +94,13 @@ function ChartColumn({
   return (
     <div className="flex flex-col gap-3">
       <div
-        className={`flex flex-col items-center ${sleepClass} group relative cursor-pointer `}
+        className={`flex flex-col items-center ${sleepClass} group cursor-pointer `}
       >
         <div
-          className={`w-10 text-center text-neutral-5 h-full ${moodClass} relative rounded-full p-1`}
+          className={`w-10 text-center text-neutral-5 h-full ${moodClass}  rounded-full p-1`}
         >
           <ReactSVG src={moodIcon} />
-          {/*absolute bottom:50% left:0% lg:bottom-[10%] lg:left-1/2 -translate-x-[110%] whitespace-normal z-50 transition-opacity duration-300 lg:w-[219px] opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto group-active:opacity-100*/}
-          <div className="absolute whitespace-normal z-100 transition-opacity duration-300 lg:w-[219px] opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto group-active:opacity-100">
+          <div className="absolute z-300 -top-10 whitespace-normal  transition-opacity duration-300 lg:w-[219px] opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto group-active:opacity-100">
             <ColumnInfo
               description={description}
               mood={mood}

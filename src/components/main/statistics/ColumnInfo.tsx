@@ -4,7 +4,6 @@ import neutralIcon from "@/assets/icon-neutral-color.svg";
 import sadIcon from "@/assets/icon-sad-color.svg";
 import verySadIcon from "@/assets/icon-very-sad-color.svg";
 import { ReactSVG } from "react-svg";
-import { createPortal } from 'react-dom';
 
 function ColumnInfo({
   description = "unknow",
@@ -111,13 +110,13 @@ function ColumnInfo({
         <p className="text-s font-semibold text-neutral-2">Sleep</p>
         <div className="">{timeSwitch()}</div>
       </div>
-      <div className="flex flex-col gap-2 justify-start items-start">
+      <div className="flex flex-col gap-2 justify-start items-start flex-wrap">
         <p className="text-s font-semibold text-neutral-2">Reflection</p>
         <div className="">{description}</div>
       </div>
       <div className="flex flex-col gap-2 justify-start items-start">
         <p className="text-s font-semibold text-neutral-2">Tags</p>
-        <div className="flex gap-1">
+        <div className="flex flex-wrap gap-1">
           {feels.map((feel, index) => (
             <div
               key={feel + index}

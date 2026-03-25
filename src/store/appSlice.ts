@@ -4,7 +4,7 @@ import {
   isAnyOf,
   createAsyncThunk,
 } from "@reduxjs/toolkit";
-const API_URL = "http://192.168.100.53:5001";
+const API_URL = "http://192.168.100.52:5001";
 import axios, { type AxiosError } from "axios";
 
 export const APP_STATE = {
@@ -271,9 +271,12 @@ export const appSlice = createSlice({
 
     isTodayMoodLogged: () => {},
     addTodayLog: (state, action) => {
+      console.log(state.todayMood, state.todayMood, "on beginning");
       if (!state.todayMood) {
+        console.log("not today state");
         state.process = 2;
         state.todayMood = action.payload;
+        console.log(state.todayMood);
       } else if (state.todayFeels.length === 0) {
         state.process = 3;
         state.todayFeels = action.payload;
@@ -284,6 +287,7 @@ export const appSlice = createSlice({
         state.process = 5;
         state.todaySleepTime = action.payload;
       } else {
+        console.log("else add today log");
         state.process = 5;
         state.addNewLogIsOpen = false;
         state.process = 1;
@@ -340,15 +344,21 @@ export const appSlice = createSlice({
         state.previousAverageSleepTime = Math.round(tempSumPrevSleepTime / 5);
       }
     },
-    showTodayLogs: (state) => {
+    showTodayLogs: (state, action) => {
+      const date = new Date();
+      const lastLog = state.logsData?.at(-1);
+      if (
+          lastLog.created_at_day === date.getDate() &&
+          lastLog.created_at_month === date.getMonth() + 1 &&
+          lastLog.created_at_year === date.getFullYear()
+      ) {
       state.todayFeels = [];
-      state.todayMood = state.logsData?.at(-1)?.mood?.mood_scale;
-      state.todayDescription = state.logsData?.at(-1)?.description?.description;
-      state.todaySleepTime = state.logsData?.at(-1)?.sleep.sleep_time_scale;
+      state.todayMood = lastLog?.mood?.mood_scale;
+      state.todayDescription = lastLog?.description?.description;
+      state.todaySleepTime = lastLog?.sleep.sleep_time_scale;
       state.logsData?.at(-1).feels.map((feel) => {
-        state.todayFeels.push(feel.feel_name);
-      });
-    },
+        state.todayFeels.push(feel.feel_name);});
+    }},
 
     openSetting: (state) => {
       state.settingIsOpen = true;

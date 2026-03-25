@@ -7,7 +7,6 @@ import { useSelector } from "react-redux";
 
 function Chart() {
   const logs = useSelector((state: RootState) => state.app.logsData);
-  console.log(logs);
 
   const scrollRef = useRef(null);
   useEffect(() => {
@@ -50,8 +49,8 @@ function Chart() {
   };
 
   return (
-      <div id="chart-anchor" className="relative flex w-full">
-        <div className="flex w-full h-90 overflow-x-auto overflow-y-hidden pb-2.5">
+    <div id="chart-anchor" className="relative flex w-full">
+      <div className="flex w-full h-90 pb-2.5">
         <div className="flex flex-col gap-[calc(100%/6)] justify-start h-[263px] text-3 min-w-17 text-end mr-2 pb-8 px-1">
           <div className="flex gap-1">
             <ReactSVG src={sleepIcon} className="h-2.5 w-2.5" />
@@ -74,10 +73,7 @@ function Chart() {
             <p className="text-xs leading-[1.1] text-neutral-2">0-2 hours</p>
           </div>
         </div>
-        <div
-          className="flex h-78 w-[65vw]  pb-1"
-          ref={scrollRef}
-        >
+        <div className="flex h-78 w-[65vw] pb-1 overflow-x-auto overflow-y-hidden" ref={scrollRef}>
           <div className="flex gap-3 items-end h-full px-2.5 ">{showLog()}</div>
         </div>
       </div>
