@@ -1,73 +1,48 @@
-# React + TypeScript + Vite
+# 🌤️ Mood tracking app: Full-Stack Data-Driven Wellness Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## ## Project Description
+A full-stack tracking application that transforms daily emotional logs into actionable insights. The project focuses on **real-time data synchronization**, where every user interaction triggers a global update of analytics, charts, and personalized content based on a custom-built API.
 
-Currently, two official plugins are available:
+* **Language:** TypeScript
+* **Framework:** React
+* **State Management:** Redux Toolkit (AsyncThunks, ExtraReducers)
+* **Styling:** Tailwind
+* **Data Source:** Flask-based RESTful API (Python, Token Auth)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## ## Key Features
+* **Dynamic Analytics:** Real-time calculation of mood averages and sleep duration based on user history.
+* **Data Visualization:** Interactive charts reflecting emotional patterns and sleep trends over time.
+* **Smart UI Logic:** Component rendering changes dynamically based on whether a daily log has been submitted.
+* **Personalized Content:** Quote generation logic based on specific "feels" and user profile data.
+* **Secure Access:** Full authentication flow using token-based security and protected routes.
+* **Responsive UI:** Adaptive layout for mobile, tablet, and desktop screens.
+#
+## Preview
 
-## React Compiler
+Desktop
+![Mood Track Desktop](/public/mood_track_02.png)
+![Mood Track Desktop](/public/mood-track_main_02.png)
+![Mood Track Desktop](/public/mood_track_add_01.png)
+![Mood Track Desktop](/public/mood_track_add_02.png)
+![Mood Track Desktop](/public/mood_track_add_03.png)
+![Mood Track Desktop](/public/mood_track_add_04.png)
+![Mood Track Desktop](/public/mood_track_chart_01.png)
+![Mood Track Desktop](/public/mood_track_login_03.png)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
-## Expanding the ESLint configuration
+Mobile
+![Mood Track Mobile](/public/mood_track_mobile-01.png)
+![Mood Track Mobile](/public/mood_track_mobile_02.png)
+![Mood Track Mobile](/public/mood_track_mobile_03.png)
+![Mood Track Mobile](/public/mood_track_mobile_04.png)
+![Mood Track Mobile](/public/mood_track_login_mobile-03.png)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Development
+How to install project:
 
-```js
-export default defineConfig([
-  globalIgnores(["dist"]),
-  {
-    files: ["**/*.{ts,tsx}"],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
 ```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from "eslint-plugin-react-x";
-import reactDom from "eslint-plugin-react-dom";
-
-export default defineConfig([
-  globalIgnores(["dist"]),
-  {
-    files: ["**/*.{ts,tsx}"],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs["recommended-typescript"],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
+git clone https://github.com/aga-siwek/frontendmentor-mood-tracking-redux
+cd frontendmentor-mood-track-frontend
+npm install
+npm run dev
 ```

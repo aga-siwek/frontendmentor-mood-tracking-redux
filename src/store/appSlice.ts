@@ -4,7 +4,7 @@ import {
   isAnyOf,
   createAsyncThunk,
 } from "@reduxjs/toolkit";
-const API_URL = "http://192.168.100.52:5001";
+const API_URL = "http://192.168.100.53:5001";
 import axios, { type AxiosError } from "axios";
 
 export const APP_STATE = {
@@ -344,21 +344,23 @@ export const appSlice = createSlice({
         state.previousAverageSleepTime = Math.round(tempSumPrevSleepTime / 5);
       }
     },
-    showTodayLogs: (state, action) => {
+    showTodayLogs: (state) => {
       const date = new Date();
       const lastLog = state.logsData?.at(-1);
       if (
-          lastLog.created_at_day === date.getDate() &&
-          lastLog.created_at_month === date.getMonth() + 1 &&
-          lastLog.created_at_year === date.getFullYear()
+        lastLog.created_at_day === date.getDate() &&
+        lastLog.created_at_month === date.getMonth() + 1 &&
+        lastLog.created_at_year === date.getFullYear()
       ) {
-      state.todayFeels = [];
-      state.todayMood = lastLog?.mood?.mood_scale;
-      state.todayDescription = lastLog?.description?.description;
-      state.todaySleepTime = lastLog?.sleep.sleep_time_scale;
-      state.logsData?.at(-1).feels.map((feel) => {
-        state.todayFeels.push(feel.feel_name);});
-    }},
+        state.todayFeels = [];
+        state.todayMood = lastLog?.mood?.mood_scale;
+        state.todayDescription = lastLog?.description?.description;
+        state.todaySleepTime = lastLog?.sleep.sleep_time_scale;
+        state.logsData?.at(-1).feels.map((feel) => {
+          state.todayFeels.push(feel.feel_name);
+        });
+      }
+    },
 
     openSetting: (state) => {
       state.settingIsOpen = true;
@@ -412,6 +414,11 @@ export const appSlice = createSlice({
         state.loginToken = action.payload.access_token;
         state.userName = action.payload.user_name;
         state.userEmail = action.payload.user_email;
+        state.settingMenuIsOpen = false;
+        state.todayMood = undefined;
+        state.todayFeels = [];
+        state.todayDescription = undefined;
+        state.todaySleepTime = undefined;
 
         localStorage.setItem("token", action.payload.access_token);
 
@@ -478,7 +485,7 @@ export const appSlice = createSlice({
         state.newLogLoading = true;
         state.newLogError = null;
       })
-      .addCase(fetchNewLog.fulfilled, (state, action) => {
+      .addCase(fetchNewLog.fulfilled, (state) => {
         state.newLogLoading = false;
       })
       .addCase(fetchNewLog.rejected, (state, action) => {

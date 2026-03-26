@@ -73,7 +73,10 @@ function Chart() {
             <p className="text-xs leading-[1.1] text-neutral-2">0-2 hours</p>
           </div>
         </div>
-        <div className="flex h-78 w-[65vw] pb-1 overflow-x-auto overflow-y-hidden" ref={scrollRef}>
+        <div
+          className="flex h-78 w-[65vw] pb-1 overflow-x-auto overflow-y-hidden"
+          ref={scrollRef}
+        >
           <div className="flex gap-3 items-end h-full px-2.5 ">{showLog()}</div>
         </div>
       </div>
