@@ -74,7 +74,7 @@ function Chart() {
           </div>
         </div>
         <div
-          className="flex h-78 w-[65vw] pb-1 overflow-x-auto overflow-y-hidden"
+          className="flex h-78 flex-1 min-w-0 pb-1 overflow-x-auto overflow-y-hidden"
           ref={scrollRef}
         >
           <div className="flex gap-3 items-end h-full px-2.5 ">{showLog()}</div>
