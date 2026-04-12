@@ -5,6 +5,7 @@ import sadIcon from "../../../assets/icon-sad-white.svg";
 import verySadIcon from "../../../assets/icon-very-sad-white.svg";
 import { ReactSVG } from "react-svg";
 import ColumnInfo from "./ColumnInfo.jsx";
+import { useState, useEffect, useRef } from "react";
 
 function ChartColumn({
   createdAtMonth,
@@ -14,6 +15,20 @@ function ChartColumn({
   feels,
   sleepTime,
 }) {
+  const [isTooltipOpen, setIsTooltipOpen] = useState(false);
+  const columnRef = useRef(null);
+
+  useEffect(() => {
+    if (!isTooltipOpen) return;
+    const handleClickOutside = (e: MouseEvent) => {
+      if (columnRef.current && !columnRef.current.contains(e.target as Node)) {
+        setIsTooltipOpen(false);
+      }
+    };
+    document.addEventListener("click", handleClickOutside);
+    return () => document.removeEventListener("click", handleClickOutside);
+  }, [isTooltipOpen]);
+
   const months = [
     "January",
     "February",
@@ -92,15 +107,18 @@ function ChartColumn({
   showSleepTime();
 
   return (
-    <div className="flex flex-col gap-3">
+    <div className="flex flex-col gap-3" ref={columnRef}>
       <div
-        className={`lg:relative flex flex-col items-center ${sleepClass} group cursor-pointer `}
+        className={`lg:relative flex flex-col items-center ${sleepClass} cursor-pointer`}
+        onClick={() => setIsTooltipOpen((prev) => !prev)}
       >
         <div
-          className={`w-10 text-center text-neutral-5 h-full ${moodClass}  rounded-full p-1`}
+          className={`w-10 text-center text-neutral-5 h-full ${moodClass} rounded-full p-1`}
         >
           <ReactSVG src={moodIcon} />
-          <div className="fixed left-4 right-4 bottom-4 lg:absolute lg:left-auto lg:right-0 lg:right-auto lg:bottom-auto lg:-top-10 z-300 whitespace-normal transition-opacity duration-300 lg:w-[219px] opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto group-active:opacity-100">
+          <div
+            className={`fixed left-4 right-4 bottom-4 lg:absolute lg:left-auto lg:right-0 lg:bottom-auto lg:-top-10 z-300 whitespace-normal transition-opacity duration-300 lg:w-[219px] ${isTooltipOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}
+          >
             <ColumnInfo
               description={description}
               mood={mood}
@@ -112,11 +130,9 @@ function ChartColumn({
       </div>
       <div className="flex flex-col gap-1.5 justify-center items-center">
         <div className="text-[12px] leading-[1.1] text-neutral-2">
-          {" "}
           {showMonth()}
         </div>
         <div className="text-[12px] font-extrabold text-neutral-1">
-          {" "}
           {showDay()}
         </div>
       </div>
