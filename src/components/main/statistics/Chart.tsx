@@ -1,15 +1,16 @@
-import ChartColumn from "./ChartColumn.jsx";
-import ColumnInfo from "./ColumnInfo.jsx";
+import ChartColumn from "./ChartColumn";
+import ColumnInfo from "./ColumnInfo";
 import { ReactSVG } from "react-svg";
 import sleepIcon from "../../../assets/icon-sleep.svg";
 import { useEffect, useRef, useState } from "react";
 import { useAppSelector } from "@/store/store";
+import type { Log } from "@/store/slices/logsSlice";
 
 function Chart() {
   const logs = useAppSelector((state) => state.logs.logsData);
-  const [selectedColumn, setSelectedColumn] = useState(null);
-  const scrollRef = useRef(null);
-  const chartAnchorRef = useRef(null);
+  const [selectedColumn, setSelectedColumn] = useState<Log | null>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const chartAnchorRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (scrollRef.current) {
@@ -37,7 +38,6 @@ function Chart() {
         createdAtMonth={log.created_at_month}
         createdAtDay={log.created_at_day}
         mood={log.mood.mood_scale}
-        feels={log.feels}
         sleepTime={log.sleep.sleep_time_scale}
         onSelect={() =>
           setSelectedColumn((prev) =>

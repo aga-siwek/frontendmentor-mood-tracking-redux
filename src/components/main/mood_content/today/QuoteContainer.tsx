@@ -22,8 +22,7 @@ function QuoteContainer() {
   const matchedQuote = Quotes.find(
     (quote) =>
       quote.mood_scale === mood &&
-      [...quote.feels].sort((a, b) => a - b).join(",") ===
-        [...feels].sort((a, b) => a - b).join(","),
+      [...quote.feels].sort().join(",") === [...feels].sort().join(","),
   );
 
   if (matchedQuote) {

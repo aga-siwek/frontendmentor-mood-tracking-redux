@@ -5,21 +5,29 @@ import sadIcon from "../../../assets/icon-sad-white.svg";
 import verySadIcon from "../../../assets/icon-very-sad-white.svg";
 import { ReactSVG } from "react-svg";
 
+interface ChartColumnProps {
+  createdAtMonth: number;
+  createdAtDay: number;
+  mood: number;
+  sleepTime: number;
+  onSelect: () => void;
+}
+
 function ChartColumn({
   createdAtMonth,
   createdAtDay,
   mood,
   sleepTime,
   onSelect,
-}) {
+}: ChartColumnProps) {
   const months = [
     "January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December",
   ];
 
-  let moodIcon;
-  let moodClass;
-  let sleepClass;
+  let moodIcon = neutralIcon;
+  let moodClass = "bg-detail-4";
+  let sleepClass = "h-[calc((263px/5)*3)]";
 
   const showMonth = () => months[createdAtMonth - 1];
   const showDay = () => (createdAtDay < 10 ? "0" + createdAtDay : createdAtDay);

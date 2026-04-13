@@ -5,8 +5,23 @@ import type { AppState } from "@/store/store";
 
 const API_URL = "http://192.168.100.52:5003";
 
+export interface Feel {
+  feel_name: string;
+}
+
+export interface Log {
+  created_at: string;
+  created_at_day: number;
+  created_at_month: number;
+  created_at_year: number;
+  mood: { mood_scale: number };
+  sleep: { sleep_time_scale: number };
+  feels: Feel[];
+  description: { description: string };
+}
+
 export interface LogsState {
-  logsData: any;
+  logsData: Log[] | null;
   logsLoading: boolean;
   logsError: string | null;
   newLogLoading: boolean;

@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { logout } from "@/store/actions";
-import { fetchLogs } from "@/store/slices/logsSlice";
+import { fetchLogs, type Log } from "@/store/slices/logsSlice";
 
 export interface StatisticsState {
   averageMood?: number;
@@ -16,7 +16,7 @@ const initialState: StatisticsState = {
   previousAverageSleepTime: undefined,
 };
 
-const calcAverage = (logs: any[], key: (log: any) => number): number =>
+const calcAverage = (logs: Log[], key: (log: Log) => number): number =>
   Math.round(logs.reduce((sum, log) => sum + key(log), 0) / logs.length);
 
 const statisticsSlice = createSlice({

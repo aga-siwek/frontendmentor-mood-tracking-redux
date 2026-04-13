@@ -4,13 +4,16 @@ import neutralIcon from "@/assets/icon-neutral-color.svg";
 import sadIcon from "@/assets/icon-sad-color.svg";
 import verySadIcon from "@/assets/icon-very-sad-color.svg";
 import { ReactSVG } from "react-svg";
+import type { Feel } from "@/store/slices/logsSlice";
 
-function ColumnInfo({
-  description = "unknown",
-  mood = "unknown",
-  feels = ["a"],
-  sleepTime = "unknown",
-}) {
+interface ColumnInfoProps {
+  description: string;
+  mood: number;
+  feels: Feel[];
+  sleepTime: number;
+}
+
+function ColumnInfo({ description, mood, feels, sleepTime }: ColumnInfoProps) {
   const moodSwitch = () => {
     switch (mood) {
       case -2:
