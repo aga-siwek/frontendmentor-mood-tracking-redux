@@ -19,24 +19,19 @@ function QuoteContainer() {
   const randomNumber = useAppSelector(
     (state) => state.ui.randomNumber,
   );
-  let selectQuote;
-  const quoteSwitch = Quotes.map((quote) => {
-    if (quote.mood_scale === mood) {
-      if (
-        [...quote.feels].sort((a, b) => a - b).join(",") ===
-        [...feels].sort((a, b) => a - b).join(",")
-      ) {
-        selectQuote = quote.quote;
-        return (
-          <p className="text-neutral-1  font-light text-[18px] leading-[1.3] italic md:text-start ">
-            "{selectQuote}"
-          </p>
-        );
-      }
-    }
-  });
-  if (selectQuote) {
-    return quoteSwitch;
+  const matchedQuote = Quotes.find(
+    (quote) =>
+      quote.mood_scale === mood &&
+      [...quote.feels].sort((a, b) => a - b).join(",") ===
+        [...feels].sort((a, b) => a - b).join(","),
+  );
+
+  if (matchedQuote) {
+    return (
+      <p className="text-neutral-1  font-light text-[18px] leading-[1.3] italic md:text-start ">
+        "{matchedQuote.quote}"
+      </p>
+    );
   } else {
     return (
       <div className="text-neutral-1 font-light text-[18px] leading-[1.3] italic">
