@@ -1,12 +1,11 @@
 import Reflections from "@/reflections.json";
 import { ReactSVG } from "react-svg";
 import refIcon from "@/assets/icon-reflection.svg";
-import { useSelector } from "react-redux";
-import type { RootState } from "@/store/store.ts";
+import { useAppSelector } from "@/store/store";
 
 function TodayReflection() {
-  const feels = useSelector((state: RootState) => state.newLog.todayFeels);
-  const mood = useSelector((state: RootState) => state.newLog.todayMood);
+  const feels = useAppSelector((state) => state.newLog.todayFeels);
+  const mood = useAppSelector((state) => state.newLog.todayMood);
   const randomReflections = [
     "Every feeling is valid, even the quiet ones.",
     "You made it through today — and that matters.",
@@ -19,8 +18,8 @@ function TodayReflection() {
     "You can grow even in uncertainty.",
     "Name it, feel it, let it pass.",
   ];
-  const randomNumber = useSelector(
-    (state: RootState) => state.ui.randomNumber,
+  const randomNumber = useAppSelector(
+    (state) => state.ui.randomNumber,
   );
   let selectReflection;
   const reflectionSwitch = Reflections.map((reflection) => {

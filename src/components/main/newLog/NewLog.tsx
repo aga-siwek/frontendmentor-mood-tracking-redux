@@ -2,17 +2,16 @@ import NewFeels from "./NewFeels.jsx";
 import NewDescription from "./NewDescription.jsx";
 import NewMood from "./NewMood.jsx";
 import NewSleepTime from "./NewSleepTime.jsx";
-import { useSelector, useDispatch } from "react-redux";
+import { useAppSelector, useAppDispatch } from "@/store/store";
 import { useEffect } from "react";
 import { addTodayLog } from "@/store/slices/newLogSlice";
 import { closeLogAdded } from "@/store/slices/uiSlice";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card.tsx";
 import Process from "@/components/main/newLog/Process.tsx";
-import type { RootState } from "@/store/store.ts";
 
 function NewLog() {
-  const processLevel = useSelector((state: RootState) => state.newLog.process);
-  const dispatch = useDispatch();
+  const processLevel = useAppSelector((state) => state.newLog.process);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (processLevel === 5) {

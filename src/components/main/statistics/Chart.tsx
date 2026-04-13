@@ -3,11 +3,10 @@ import ColumnInfo from "./ColumnInfo.jsx";
 import { ReactSVG } from "react-svg";
 import sleepIcon from "../../../assets/icon-sleep.svg";
 import { useEffect, useRef, useState } from "react";
-import type { RootState } from "@/store/store";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "@/store/store";
 
 function Chart() {
-  const logs = useSelector((state: RootState) => state.logs.logsData);
+  const logs = useAppSelector((state) => state.logs.logsData);
   const [selectedColumn, setSelectedColumn] = useState(null);
   const scrollRef = useRef(null);
   const chartAnchorRef = useRef(null);

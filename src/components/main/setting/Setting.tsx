@@ -3,8 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
 import * as z from "zod";
-import { useDispatch, useSelector } from "react-redux";
-import type { RootState } from "@/store/store";
+import { useAppDispatch, useAppSelector } from "@/store/store";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -24,7 +23,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { closeSetting } from "@/store/slices/uiSlice";
 import { fetchChangeUserName } from "@/store/slices/authSlice";
-import type { AppDispatch } from "@/store/store.ts";
+
 
 const formSchema = z.object({
   username: z
@@ -38,14 +37,14 @@ const formSchema = z.object({
 });
 
 function Setting() {
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useAppDispatch();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       username: "",
     },
   });
-  const userName = useSelector((state: RootState) => state.auth.userName);
+  const userName = useAppSelector((state) => state.auth.userName);
 
   const onSubmit = (data: { username: string }) => {
     const { username } = data;

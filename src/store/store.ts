@@ -1,4 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
+import { useSelector, useDispatch } from "react-redux";
 import authReducer from "@/store/slices/authSlice";
 import logsReducer from "@/store/slices/logsSlice";
 import newLogReducer from "@/store/slices/newLogSlice";
@@ -21,5 +22,8 @@ export const store = configureStore({
 export type AppState = ReturnType<typeof store.getState>;
 export type RootState = AppState;
 export type AppDispatch = typeof store.dispatch;
+
+export const useAppSelector = useSelector.withTypes<RootState>();
+export const useAppDispatch = useDispatch.withTypes<AppDispatch>();
 
 export default store;

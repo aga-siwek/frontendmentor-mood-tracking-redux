@@ -3,15 +3,14 @@ import equalIcon from "@/assets/icon-trend-same-white.svg";
 import decreaseIcon from "@/assets/icon-trend-decrease-white.svg";
 import sleepIcon from "@/assets/icon-sleep-white.svg";
 import { ReactSVG } from "react-svg";
-import { useSelector } from "react-redux";
-import type { RootState } from "@/store/store";
+import { useAppSelector } from "@/store/store";
 
 function AverageTime() {
-  const averageSleepTime = useSelector(
-    (state: RootState) => state.statistics.averageSleepTime,
+  const averageSleepTime = useAppSelector(
+    (state) => state.statistics.averageSleepTime,
   );
-  const prevAverageSleepTime = useSelector(
-    (state: RootState) => state.statistics.previousAverageSleepTime,
+  const prevAverageSleepTime = useAppSelector(
+    (state) => state.statistics.previousAverageSleepTime,
   );
 
   const iconSwitch = () => {

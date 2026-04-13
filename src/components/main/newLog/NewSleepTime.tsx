@@ -1,6 +1,6 @@
 "use client";
 
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "@/store/store";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
 import * as z from "zod";
@@ -54,7 +54,7 @@ const formSchema = z.object({
 });
 
 export function NewSleepTime() {
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useAppDispatch();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {

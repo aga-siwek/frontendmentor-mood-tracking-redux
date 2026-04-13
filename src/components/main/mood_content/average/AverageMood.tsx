@@ -7,15 +7,14 @@ import increaseIcon from "@/assets/icon-trend-increase.svg";
 import decreaseIcon from "@/assets/icon-trend-decrease.svg";
 import equalIcon from "@/assets/icon-trend-same.svg";
 import { ReactSVG } from "react-svg";
-import { useSelector } from "react-redux";
-import type { RootState } from "@/store/store";
+import { useAppSelector } from "@/store/store";
 
 function AverageMood() {
-  const averageMood = useSelector(
-    (state: RootState) => state.statistics.averageMood,
+  const averageMood = useAppSelector(
+    (state) => state.statistics.averageMood,
   );
-  const prevAverageMood = useSelector(
-    (state: RootState) => state.statistics.previousAverageMood,
+  const prevAverageMood = useAppSelector(
+    (state) => state.statistics.previousAverageMood,
   );
 
   const iconSwitch = () => {

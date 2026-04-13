@@ -1,11 +1,11 @@
 import { ReactSVG } from "react-svg";
 import placeholder from "@/assets/avatar-placeholder.svg";
 import icon_dropdown from "@/assets/icon-dropdown-arrow.svg";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "@/store/store";
 import { clickSettingMenu } from "@/store/slices/uiSlice";
 
 function Profile() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const onProfileClick = () => {
     dispatch(clickSettingMenu());
   };

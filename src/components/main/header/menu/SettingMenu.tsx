@@ -1,15 +1,14 @@
 import { ReactSVG } from "react-svg";
 import settingIcon from "@/assets/icon-settings.svg";
 import logOutIcon from "@/assets/icon-logout.svg";
-import { useSelector, useDispatch } from "react-redux";
+import { useAppSelector, useAppDispatch } from "@/store/store";
 import { logout } from "@/store/actions";
 import { openSetting } from "@/store/slices/uiSlice";
-import type { AppDispatch, RootState } from "@/store/store.ts";
 
 export function SettingMenu() {
-  const dispatch = useDispatch<AppDispatch>();
-  const userName = useSelector((state: RootState) => state.auth.userName);
-  const userEmail = useSelector((state: RootState) => state.auth.userEmail);
+  const dispatch = useAppDispatch();
+  const userName = useAppSelector((state) => state.auth.userName);
+  const userEmail = useAppSelector((state) => state.auth.userEmail);
 
   const onSettingClick = () => {
     dispatch(openSetting());

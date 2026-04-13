@@ -1,5 +1,5 @@
 "use client";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "@/store/store";
 import * as React from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
@@ -29,7 +29,7 @@ const formSchema = z.object({
 });
 
 export function NewDescription() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {

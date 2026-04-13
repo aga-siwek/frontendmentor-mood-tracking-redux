@@ -1,10 +1,10 @@
 import Logo from "@/components/common/logo/Logo.tsx";
 import Profile from "@/components/main/header/Profile.tsx";
 import SettingMenu from "@/components/main/header/menu/SettingMenu.tsx";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "@/store/store";
 
 function Header() {
-  const settingMenuIsOpen = useSelector((state) => state.ui.settingMenuIsOpen);
+  const settingMenuIsOpen = useAppSelector((state) => state.ui.settingMenuIsOpen);
 
   const showSettingMenu = () => {
     if (settingMenuIsOpen) {

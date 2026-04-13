@@ -6,11 +6,10 @@ import neutralIcon from "@/assets/icon-neutral-color.svg";
 import sadIcon from "@/assets/icon-sad-color.svg";
 import verySad from "@/assets/icon-very-sad-color.svg";
 import QuoteContainer from "./QuoteContainer.jsx";
-import { useSelector } from "react-redux";
-import type { RootState } from "@/store/store.ts";
+import { useAppSelector } from "@/store/store";
 
 function TodayFeeling() {
-  const mood = useSelector((state: RootState) => state.newLog.todayMood);
+  const mood = useAppSelector((state) => state.newLog.todayMood);
 
   const iconSwitch = () => {
     switch (mood) {

@@ -3,7 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
 import * as z from "zod";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "@/store/store";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -23,7 +23,6 @@ import {
 import { Input } from "@/components/ui/input";
 import Logo from "@/components/common/logo/Logo.tsx";
 import { fetchLogin, goToRegister } from "@/store/slices/authSlice";
-import type { AppDispatch } from "@/store/store.ts";
 
 const formSchema = z.object({
   email: z.string().min(1, "Email is required.").email("Invalid email format."),
@@ -34,7 +33,7 @@ const formSchema = z.object({
 });
 
 function Login() {
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useAppDispatch();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {

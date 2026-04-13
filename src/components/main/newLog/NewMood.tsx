@@ -1,5 +1,5 @@
 "use client";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "@/store/store";
 import veryHappyIcon from "@/assets/icon-very-happy-color.svg";
 import happyIcon from "@/assets/icon-happy-color.svg";
 import neutralIcon from "@/assets/icon-neutral-color.svg";
@@ -62,7 +62,7 @@ const formSchema = z.object({
 });
 
 export function NewMood() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
