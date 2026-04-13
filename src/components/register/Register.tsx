@@ -89,7 +89,7 @@ function Register() {
                       aria-invalid={fieldState.invalid}
                       placeholder="name@mail.com"
                       autoComplete="email"
-                      className="font-light ext-[18px] leading-[1.4] tracking-[-0.3px]"
+                      className="font-light text-[18px] leading-[1.4] tracking-[-0.3px]"
                     />
                     {fieldState.invalid && (
                       <FieldError errors={[fieldState.error]} />

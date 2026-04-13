@@ -1,4 +1,4 @@
-// Barrel re-exports — zachowane dla kompatybilności wstecznej
+// Barrel re-exports — kept for backwards compatibility
 export { APP_STATE, MOOD, SLEEP_TIME, FEELS_LIST } from "./constants";
 export { logout } from "./actions";
 export {

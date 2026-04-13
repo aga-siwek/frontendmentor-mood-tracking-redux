@@ -6,10 +6,10 @@ import verySadIcon from "@/assets/icon-very-sad-color.svg";
 import { ReactSVG } from "react-svg";
 
 function ColumnInfo({
-  description = "unknow",
-  mood = "unknow",
+  description = "unknown",
+  mood = "unknown",
   feels = ["a"],
-  sleepTime = "unknow",
+  sleepTime = "unknown",
 }) {
   const moodSwitch = () => {
     switch (mood) {

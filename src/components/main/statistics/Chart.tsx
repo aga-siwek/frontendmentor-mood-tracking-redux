@@ -84,7 +84,7 @@ function Chart() {
 
       {selectedColumn && (
         <>
-          {/* mobile: fixed do dołu ekranu */}
+          {/* mobile: fixed to bottom of screen */}
           <div className="fixed left-4 right-4 bottom-4 z-300 md:hidden">
             <ColumnInfo
               description={selectedColumn.description.description}

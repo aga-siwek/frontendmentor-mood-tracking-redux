@@ -41,11 +41,11 @@ function TodayDate() {
       day = `${today.getDate()}th`;
   }
 
-  const formatedDate = `${dayOfWeek}, ${month} ${day}, ${year}`;
+  const formattedDate = `${dayOfWeek}, ${month} ${day}, ${year}`;
 
   return (
     <p className="font-light text-[18px] leading-[1.2] text-neutral-3">
-      {formatedDate}
+      {formattedDate}
     </p>
   );
 }
