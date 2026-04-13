@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import type { RootState } from "@/store/store.ts";
 
 function TodaySleep() {
-  const sleepTime = useSelector((state: RootState) => state.app.todaySleepTime);
+  const sleepTime = useSelector((state: RootState) => state.newLog.todaySleepTime);
   const sleepTimeSwitch = () => {
     switch (sleepTime) {
       case 0:

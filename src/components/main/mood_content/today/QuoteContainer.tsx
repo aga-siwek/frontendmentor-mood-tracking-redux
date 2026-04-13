@@ -3,8 +3,8 @@ import { useSelector } from "react-redux";
 import type { RootState } from "@/store/store.ts";
 
 function QuoteContainer() {
-  const mood = useSelector((state: RootState) => state.app.todayMood);
-  const feels = useSelector((state: RootState) => state.app.todayFeels);
+  const mood = useSelector((state: RootState) => state.newLog.todayMood);
+  const feels = useSelector((state: RootState) => state.newLog.todayFeels);
   const randomQuotes = [
     "Feelings are visitors — let them come and go.",
     "This too shall pass.",
@@ -18,7 +18,7 @@ function QuoteContainer() {
     "Your story is still unfolding.",
   ];
   const randomNumber = useSelector(
-    (state: RootState) => state.app.randomNumber,
+    (state: RootState) => state.ui.randomNumber,
   );
   let selectQuote;
   const quoteSwitch = Quotes.map((quote) => {

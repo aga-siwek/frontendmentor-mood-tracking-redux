@@ -8,14 +8,14 @@ import decreaseIcon from "@/assets/icon-trend-decrease.svg";
 import equalIcon from "@/assets/icon-trend-same.svg";
 import { ReactSVG } from "react-svg";
 import { useSelector } from "react-redux";
-import type { AppState } from "@/store/appSlice";
+import type { RootState } from "@/store/store";
 
 function AverageMood() {
   const averageMood = useSelector(
-    (state: { app: AppState }) => state.app.averageMood,
+    (state: RootState) => state.statistics.averageMood,
   );
   const prevAverageMood = useSelector(
-    (state: { app: AppState }) => state.app.previousAverageMood,
+    (state: RootState) => state.statistics.previousAverageMood,
   );
 
   const iconSwitch = () => {

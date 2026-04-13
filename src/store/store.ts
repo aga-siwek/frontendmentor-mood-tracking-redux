@@ -1,15 +1,25 @@
 import { configureStore } from "@reduxjs/toolkit";
-import appReducer, { listenerMiddleware } from "./appSlice.ts";
+import authReducer from "@/store/slices/authSlice";
+import logsReducer from "@/store/slices/logsSlice";
+import newLogReducer from "@/store/slices/newLogSlice";
+import statisticsReducer from "@/store/slices/statisticsSlice";
+import uiReducer from "@/store/slices/uiSlice";
+import { listenerMiddleware } from "@/store/listenerMiddleware";
 
 export const store = configureStore({
   reducer: {
-    app: appReducer,
+    auth: authReducer,
+    logs: logsReducer,
+    newLog: newLogReducer,
+    statistics: statisticsReducer,
+    ui: uiReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().prepend(listenerMiddleware.middleware),
 });
 
-export type RootState = ReturnType<typeof store.getState>;
+export type AppState = ReturnType<typeof store.getState>;
+export type RootState = AppState;
 export type AppDispatch = typeof store.dispatch;
 
 export default store;

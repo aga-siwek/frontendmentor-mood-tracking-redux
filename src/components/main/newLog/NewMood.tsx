@@ -22,7 +22,7 @@ import {
 } from "@/components/ui/field";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { ReactSVG } from "react-svg";
-import { addTodayLog } from "@/store/appSlice.ts";
+import { addTodayLog } from "@/store/slices/newLogSlice";
 
 const moodsList = [
   {

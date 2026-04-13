@@ -7,7 +7,7 @@ import type { RootState } from "@/store/store";
 import { useSelector } from "react-redux";
 
 function Chart() {
-  const logs = useSelector((state: RootState) => state.app.logsData);
+  const logs = useSelector((state: RootState) => state.logs.logsData);
   const [selectedColumn, setSelectedColumn] = useState(null);
   const scrollRef = useRef(null);
   const chartAnchorRef = useRef(null);

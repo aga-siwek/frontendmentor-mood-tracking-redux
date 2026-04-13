@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import type { RootState } from "@/store/store.ts";
 
 function Title() {
-  const userName = useSelector((state: RootState) => state.app.userName);
+  const userName = useSelector((state: RootState) => state.auth.userName);
 
   const showUserName = () => {
     if (userName) {

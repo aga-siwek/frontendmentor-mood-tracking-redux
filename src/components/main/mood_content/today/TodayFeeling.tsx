@@ -10,7 +10,7 @@ import { useSelector } from "react-redux";
 import type { RootState } from "@/store/store.ts";
 
 function TodayFeeling() {
-  const mood = useSelector((state: RootState) => state.app.todayMood);
+  const mood = useSelector((state: RootState) => state.newLog.todayMood);
 
   const iconSwitch = () => {
     switch (mood) {

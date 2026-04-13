@@ -4,16 +4,16 @@ import MoodContent from "@/components/main/mood_content/MoodContent.tsx";
 import { useSelector } from "react-redux";
 import Setting from "@/components/main/setting/Setting.tsx";
 import NewLog from "@/components/main/newLog/NewLog.tsx";
-import { APP_STATE } from "@/store/appSlice.ts";
+import { APP_STATE } from "@/store/constants";
 import type { RootState } from "@/store/store.ts";
 
 function MainContent() {
   const settingIsOpen = useSelector(
-    (state: RootState) => state.app.settingIsOpen,
+    (state: RootState) => state.ui.settingIsOpen,
   );
-  const appState = useSelector((state: RootState) => state.app.appState);
+  const appState = useSelector((state: RootState) => state.auth.appState);
   const addNewLogIsOpen = useSelector(
-    (state: RootState) => state.app.addNewLogIsOpen,
+    (state: RootState) => state.ui.addNewLogIsOpen,
   );
 
   const settingShown = () => {

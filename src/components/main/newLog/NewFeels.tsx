@@ -15,7 +15,7 @@ import {
   FieldLabel,
   FieldSet,
 } from "@/components/ui/field";
-import { addTodayLog } from "@/store/appSlice.ts";
+import { addTodayLog } from "@/store/slices/newLogSlice";
 
 const feelsList = [
   {

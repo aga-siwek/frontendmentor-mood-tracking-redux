@@ -4,7 +4,7 @@ import SettingMenu from "@/components/main/header/menu/SettingMenu.tsx";
 import { useSelector } from "react-redux";
 
 function Header() {
-  const settingMenuIsOpen = useSelector((state) => state.app.settingMenuIsOpen);
+  const settingMenuIsOpen = useSelector((state) => state.ui.settingMenuIsOpen);
 
   const showSettingMenu = () => {
     if (settingMenuIsOpen) {

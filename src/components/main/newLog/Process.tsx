@@ -1,9 +1,9 @@
 import { useSelector } from "react-redux";
-import type { AppState } from "@/store/appSlice";
+import type { RootState } from "@/store/store";
 
 function Process() {
   const processLevel = useSelector(
-    (state: { app: AppState }) => state.app.process,
+    (state: RootState) => state.newLog.process,
   );
   return (
     <div className="flex gap-4 w-full max-w-150">

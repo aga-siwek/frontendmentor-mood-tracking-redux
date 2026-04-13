@@ -19,7 +19,7 @@ import {
   InputGroupText,
   InputGroupTextarea,
 } from "@/components/ui/input-group";
-import { addTodayLog } from "@/store/appSlice.ts";
+import { addTodayLog } from "@/store/slices/newLogSlice";
 
 const formSchema = z.object({
   description: z

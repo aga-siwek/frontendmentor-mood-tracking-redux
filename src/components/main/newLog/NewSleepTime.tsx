@@ -17,7 +17,8 @@ import {
   FieldTitle,
 } from "@/components/ui/field";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { addTodayLog, fetchNewLog } from "@/store/appSlice.ts";
+import { addTodayLog } from "@/store/slices/newLogSlice";
+import { fetchNewLog } from "@/store/slices/logsSlice";
 import type { AppDispatch } from "@/store/store.ts";
 
 const timesList = [

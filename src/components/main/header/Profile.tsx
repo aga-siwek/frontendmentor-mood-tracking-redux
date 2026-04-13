@@ -2,7 +2,7 @@ import { ReactSVG } from "react-svg";
 import placeholder from "@/assets/avatar-placeholder.svg";
 import icon_dropdown from "@/assets/icon-dropdown-arrow.svg";
 import { useDispatch } from "react-redux";
-import { clickSettingMenu } from "@/store/appSlice.ts";
+import { clickSettingMenu } from "@/store/slices/uiSlice";
 
 function Profile() {
   const dispatch = useDispatch();

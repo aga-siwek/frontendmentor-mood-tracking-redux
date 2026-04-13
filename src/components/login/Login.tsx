@@ -22,7 +22,7 @@ import {
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import Logo from "@/components/common/logo/Logo.tsx";
-import { fetchLogin, goToRegister } from "@/store/appSlice.ts";
+import { fetchLogin, goToRegister } from "@/store/slices/authSlice";
 import type { AppDispatch } from "@/store/store.ts";
 
 const formSchema = z.object({

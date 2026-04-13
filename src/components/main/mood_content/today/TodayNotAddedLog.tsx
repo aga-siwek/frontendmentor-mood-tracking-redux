@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button.tsx";
 import { useDispatch } from "react-redux";
-import { openLogAdded } from "@/store/appSlice.ts";
+import { openLogAdded } from "@/store/slices/uiSlice";
 
 function TodayNotAddedLog() {
   const dispatch = useDispatch();

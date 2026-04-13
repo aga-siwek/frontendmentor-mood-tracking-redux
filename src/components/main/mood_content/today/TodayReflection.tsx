@@ -5,8 +5,8 @@ import { useSelector } from "react-redux";
 import type { RootState } from "@/store/store.ts";
 
 function TodayReflection() {
-  const feels = useSelector((state: RootState) => state.app.todayFeels);
-  const mood = useSelector((state: RootState) => state.app.todayMood);
+  const feels = useSelector((state: RootState) => state.newLog.todayFeels);
+  const mood = useSelector((state: RootState) => state.newLog.todayMood);
   const randomReflections = [
     "Every feeling is valid, even the quiet ones.",
     "You made it through today — and that matters.",
@@ -20,7 +20,7 @@ function TodayReflection() {
     "Name it, feel it, let it pass.",
   ];
   const randomNumber = useSelector(
-    (state: RootState) => state.app.randomNumber,
+    (state: RootState) => state.ui.randomNumber,
   );
   let selectReflection;
   const reflectionSwitch = Reflections.map((reflection) => {

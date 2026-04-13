@@ -2,16 +2,17 @@ import "./App.css";
 import MainContent from "@/components/main/MainContent.tsx";
 import Login from "@/components/login/Login.tsx";
 import Register from "@/components/register/Register.tsx";
-import { APP_STATE, fetchLogs } from "@/store/appSlice.ts";
+import { APP_STATE } from "@/store/constants";
+import { fetchLogs } from "@/store/slices/logsSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import type { RootState, AppDispatch } from "@/store/store";
 
 function App() {
   const dispatch = useDispatch<AppDispatch>();
-  const appState = useSelector((state: RootState) => state.app.appState);
+  const appState = useSelector((state: RootState) => state.auth.appState);
 
-  const loading = useSelector((state: RootState) => state.app.logsLoading);
+  const loading = useSelector((state: RootState) => state.logs.logsLoading);
 
   const showContent = () => {
     if (appState === APP_STATE.LOGOUT) {

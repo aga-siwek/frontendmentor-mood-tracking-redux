@@ -22,7 +22,7 @@ import {
 import { Input } from "@/components/ui/input";
 import Logo from "@/components/common/logo/Logo.tsx";
 import { useDispatch } from "react-redux";
-import { fetchRegister, goToLogin } from "@/store/appSlice.ts";
+import { fetchRegister, goToLogin } from "@/store/slices/authSlice";
 import type { AppDispatch } from "@/store/store.ts";
 
 const formSchema = z.object({

@@ -4,6 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
 import * as z from "zod";
 import { useDispatch, useSelector } from "react-redux";
+import type { RootState } from "@/store/store";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -21,11 +22,8 @@ import {
   FieldLabel,
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
-import {
-  type AppState,
-  closeSetting,
-  fetchChangeUserName,
-} from "@/store/appSlice.ts";
+import { closeSetting } from "@/store/slices/uiSlice";
+import { fetchChangeUserName } from "@/store/slices/authSlice";
 import type { AppDispatch } from "@/store/store.ts";
 
 const formSchema = z.object({
@@ -47,7 +45,7 @@ function Setting() {
       username: "",
     },
   });
-  const userName = useSelector((state: AppState) => state.userName);
+  const userName = useSelector((state: RootState) => state.auth.userName);
 
   const onSubmit = (data: { username: string }) => {
     const { username } = data;
