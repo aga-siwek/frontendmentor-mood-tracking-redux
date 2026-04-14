@@ -21,6 +21,7 @@ export interface AuthState {
   registerError: string | null;
   changeUserNameLoading: boolean;
   changeUserNameError: string | null;
+  sessionLoading: boolean;
 }
 
 const initialState: AuthState = {
@@ -35,6 +36,7 @@ const initialState: AuthState = {
   registerError: null,
   changeUserNameLoading: false,
   changeUserNameError: null,
+  sessionLoading: false,
 };
 
 const resolveAppState = (state: AuthState, logs: any[]) => {
@@ -89,6 +91,22 @@ export const fetchRegister = createAsyncThunk(
     } catch (err) {
       const error = err as AxiosError;
       return rejectWithValue(error.response?.data || "Register Error");
+    }
+  },
+);
+
+export const fetchCurrentUser = createAsyncThunk(
+  "auth/fetchCurrentUser",
+  async (_, { rejectWithValue }) => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await axios.get(`${API_URL}/users/me`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      return response.data;
+    } catch (err) {
+      const error = err as AxiosError;
+      return rejectWithValue(error.response?.data || "Session error");
     }
   },
 );
@@ -150,6 +168,21 @@ const authSlice = createSlice({
       .addCase(fetchLogin.rejected, (state, action) => {
         state.loginLoading = false;
         state.loginError = action.payload as string;
+      })
+      .addCase(fetchCurrentUser.pending, (state) => {
+        state.sessionLoading = true;
+      })
+      .addCase(fetchCurrentUser.fulfilled, (state, action) => {
+        state.sessionLoading = false;
+        state.loginToken = localStorage.getItem("token");
+        state.userName = action.payload.user_name;
+        state.userEmail = action.payload.user_email;
+        state.appState = APP_STATE.TODAY_LOG_NOT_ADDED;
+      })
+      .addCase(fetchCurrentUser.rejected, (state) => {
+        state.sessionLoading = false;
+        localStorage.removeItem("token");
+        state.appState = APP_STATE.LOGOUT;
       })
       .addCase(fetchRegister.pending, (state) => {
         state.registerLoading = true;
