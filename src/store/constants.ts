@@ -1,3 +1,5 @@
+export const API_URL = "https://frontendmentor-mood-tracking-backend.onrender.com";
+
 export const APP_STATE = {
   LOGOUT: "logout",
   REGISTER: "register",

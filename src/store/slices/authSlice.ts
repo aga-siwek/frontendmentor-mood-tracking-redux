@@ -2,9 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios, { type AxiosError } from "axios";
 import { logout } from "@/store/actions";
 import { fetchLogs } from "@/store/slices/logsSlice";
-import { APP_STATE } from "@/store/constants";
-
-const API_URL = "http://192.168.100.52:5003";
+import { APP_STATE, API_URL } from "@/store/constants";
 
 interface UserData {
   user_email: string;

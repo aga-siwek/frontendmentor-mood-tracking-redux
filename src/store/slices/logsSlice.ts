@@ -2,8 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios, { type AxiosError } from "axios";
 import { logout } from "@/store/actions";
 import type { AppState } from "@/store/store";
-
-const API_URL = "http://192.168.100.52:5003";
+import { API_URL } from "@/store/constants";
 
 export interface Feel {
   feel_name: string;
