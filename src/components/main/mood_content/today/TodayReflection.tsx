@@ -21,34 +21,28 @@ function TodayReflection() {
   const randomNumber = useAppSelector(
     (state) => state.ui.randomNumber,
   );
-  let selectReflection;
-  const reflectionSwitch = Reflections.map((reflection) => {
-    if (reflection.mood_scale === mood) {
-      if (
-        [...reflection.feels].sort((a, b) => a - b).join(",") ===
-        [...feels].sort((a, b) => a - b).join(",")
-      ) {
-        selectReflection = reflection.reflection;
-        return (
-          <div className="flex flex-col justify-start items-start gap-4 bg-neutral-5 rounded-2xl p-5 lg:h-full lg:justify-between">
-            <div className="flex flex-col justify-start items-start gap-4 bg-neutral-5 rounded-2xl p-5">
-              <div className="flex gap-4 items-center">
-                <ReactSVG src={refIcon} className="w-6" />
-                <p className="">Reflection of the day</p>
-              </div>
-              <p className="text-neutral-1 font-light text-[18px] leading-[1.2] text-start">
-                {" "}
-                {selectReflection}
-              </p>
-            </div>
-            <div className=""></div>
+  const matchedReflection = Reflections.find(
+    (reflection) =>
+      reflection.mood_scale === mood &&
+      [...reflection.feels].sort().join(",") === [...feels].sort().join(","),
+  );
+
+  if (matchedReflection) {
+    return (
+      <div className="flex flex-col justify-start items-start gap-4 bg-neutral-5 rounded-2xl p-5 lg:h-full lg:justify-between">
+        <div className="flex flex-col justify-start items-start gap-4 bg-neutral-5 rounded-2xl p-5">
+          <div className="flex gap-4 items-center">
+            <ReactSVG src={refIcon} className="w-6" />
+            <p className="">Reflection of the day</p>
           </div>
-        );
-      }
-    }
-  });
-  if (selectReflection) {
-    return reflectionSwitch;
+          <p className="text-neutral-1 font-light text-[18px] leading-[1.2] text-start">
+            {" "}
+            {matchedReflection.reflection}
+          </p>
+        </div>
+        <div className=""></div>
+      </div>
+    );
   } else {
     return (
       <div className="flex flex-col justify-start items-start gap-4 bg-neutral-5 rounded-2xl p-5 lg:h-full lg:justify-between">

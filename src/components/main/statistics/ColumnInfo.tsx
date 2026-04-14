@@ -122,7 +122,7 @@ function ColumnInfo({ description, mood, feels, sleepTime }: ColumnInfoProps) {
         <div className="flex flex-wrap gap-1">
           {feels.map((feel, index) => (
             <div
-              key={feel + index}
+              key={feel.feel_name + index}
               className="text-base leading-[1.4] tracking-[-0.3px]"
             >
               {feel.feel_name}
