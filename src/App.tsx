@@ -6,6 +6,7 @@ import { APP_STATE } from "@/store/constants";
 import { fetchLogs } from "@/store/slices/logsSlice";
 import { useAppSelector, useAppDispatch } from "@/store/store";
 import { useEffect } from "react";
+import { Toaster } from "sonner";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -32,6 +33,7 @@ function App() {
 
   return (
     <div className="flex flex-col max-w-7xl p-4 justify-center w-full">
+      <Toaster />
       {showContent()}
     </div>
   );

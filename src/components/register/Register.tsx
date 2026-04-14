@@ -23,6 +23,7 @@ import { Input } from "@/components/ui/input";
 import Logo from "@/components/common/logo/Logo.tsx";
 import { useAppDispatch } from "@/store/store";
 import { fetchRegister, goToLogin } from "@/store/slices/authSlice";
+import { toast } from "sonner";
 
 const formSchema = z.object({
   email: z.string().min(1, "Email is required.").email("Invalid email format."),
@@ -49,7 +50,9 @@ function Register() {
         user_email: email,
         user_password: password,
       }),
-    );
+    )
+      .unwrap()
+      .then(() => toast.success("Account created! You can now log in."));
   };
 
   const onLogInClick = () => {
