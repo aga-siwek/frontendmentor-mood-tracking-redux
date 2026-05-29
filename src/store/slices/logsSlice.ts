@@ -103,8 +103,17 @@ const logsSlice = createSlice({
         state.newLogLoading = true;
         state.newLogError = null;
       })
-      .addCase(fetchNewLog.fulfilled, (state) => {
+      .addCase(fetchNewLog.fulfilled, (state, action) => {
         state.newLogLoading = false;
+        const { new_log, new_mood, new_sleep, new_description, new_feels } = action.payload;
+        const optimisticLog: Log = {
+          ...new_log,
+          mood: new_mood,
+          sleep: new_sleep,
+          description: new_description,
+          feels: (new_feels as string[]).map((f) => ({ feel_name: f })),
+        };
+        state.logsData = [...(state.logsData ?? []), optimisticLog];
       })
       .addCase(fetchNewLog.rejected, (state, action) => {
         state.newLogLoading = false;

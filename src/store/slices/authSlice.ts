@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios, { type AxiosError } from "axios";
 import { logout } from "@/store/actions";
-import { fetchLogs } from "@/store/slices/logsSlice";
+import { fetchLogs, fetchNewLog } from "@/store/slices/logsSlice";
 import { APP_STATE, API_URL } from "@/store/constants";
 
 interface UserData {
@@ -202,7 +202,7 @@ const authSlice = createSlice({
       })
       .addCase(fetchChangeUserName.fulfilled, (state, action) => {
         state.changeUserNameLoading = false;
-        state.userName = action.payload[0].user_name;
+        state.userName = action.payload.user_name;
         if (state.appState === APP_STATE.USER_NAME_NOT_ADDED) {
           state.appState = APP_STATE.TODAY_LOG_NOT_ADDED;
         }
@@ -210,6 +210,9 @@ const authSlice = createSlice({
       .addCase(fetchChangeUserName.rejected, (state, action) => {
         state.changeUserNameLoading = false;
         state.changeUserNameError = action.payload as string;
+      })
+      .addCase(fetchNewLog.fulfilled, (state) => {
+        state.appState = APP_STATE.TODAY_LOG_ADDED;
       })
       // Resolves appState after logs are loaded (payload = logsData)
       .addCase(fetchLogs.fulfilled, (state, action) => {
