@@ -202,7 +202,7 @@ const authSlice = createSlice({
       })
       .addCase(fetchChangeUserName.fulfilled, (state, action) => {
         state.changeUserNameLoading = false;
-        state.userName = action.payload[0].user_name;
+        state.userName = action.payload.user_name;
         if (state.appState === APP_STATE.USER_NAME_NOT_ADDED) {
           state.appState = APP_STATE.TODAY_LOG_NOT_ADDED;
         }
