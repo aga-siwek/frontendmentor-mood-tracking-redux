@@ -211,8 +211,11 @@ const authSlice = createSlice({
         state.changeUserNameLoading = false;
         state.changeUserNameError = action.payload as string;
       })
-      .addCase(fetchNewLog.fulfilled, (state) => {
+      .addCase(fetchNewLog.pending, (state) => {
         state.appState = APP_STATE.TODAY_LOG_ADDED;
+      })
+      .addCase(fetchNewLog.rejected, (state) => {
+        state.appState = APP_STATE.TODAY_LOG_NOT_ADDED;
       })
       // Resolves appState after logs are loaded (payload = logsData)
       .addCase(fetchLogs.fulfilled, (state, action) => {
