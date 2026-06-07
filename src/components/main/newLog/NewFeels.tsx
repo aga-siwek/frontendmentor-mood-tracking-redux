@@ -124,7 +124,7 @@ export function NewFeels() {
 
   return (
     <div className="flex flex-col gap-8 w-full">
-      <CardContent className="">
+      <CardContent className="px-0">
         <form id="form-rhf-checkbox" onSubmit={form.handleSubmit(onSubmit)}>
           <FieldGroup>
             <Controller
@@ -133,13 +133,13 @@ export function NewFeels() {
               render={({ field, fieldState }) => (
                 <FieldGroup>
                   <FieldSet data-invalid={fieldState.invalid}>
-                    <FieldGroup data-slot="checkbox-group">
+                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 w-full">
                       {feelsList.map((feel) => (
                         <Field
                           key={feel.id}
                           orientation="horizontal"
                           data-invalid={fieldState.invalid}
-                          className="w-fit bg-neutral-5 px-4 py-3 rounded-[10px] has-[[data-state=checked]]:outline-2 has-[[data-state=checked]]:outline-accent-2"
+                          className="w-full bg-neutral-5 px-2 min-[375px]:px-3 py-3 rounded-[10px] has-[[data-state=checked]]:outline-2 has-[[data-state=checked]]:outline-accent-2"
                         >
                           <Checkbox
                             id={`form-rhf-checkbox-${feel.id}`}
@@ -158,13 +158,13 @@ export function NewFeels() {
                           />
                           <FieldLabel
                             htmlFor={`form-rhf-checkbox-${feel.id}`}
-                            className="font-normal w-fit text-[18px] leading-[1.4] tracking-[-0.3px]"
+                            className="font-normal w-fit text-[12px] min-[375px]:text-[14px] leading-[1.4] tracking-[-0.3px]"
                           >
                             {feel.label}
                           </FieldLabel>
                         </Field>
                       ))}
-                    </FieldGroup>
+                    </div>
                   </FieldSet>
                   {fieldState.invalid && (
                     <FieldError errors={[fieldState.error]} />
@@ -175,7 +175,7 @@ export function NewFeels() {
           </FieldGroup>
         </form>
       </CardContent>
-      <CardFooter>
+      <CardFooter className="p-0">
         <Field orientation="horizontal">
           <Button
             type="submit"
