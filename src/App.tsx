@@ -7,6 +7,7 @@ import { fetchCurrentUser } from "@/store/slices/authSlice";
 import { useAppSelector, useAppDispatch } from "@/store/store";
 import { useEffect } from "react";
 import { Toaster } from "sonner";
+import { Spinner } from "@/components/ui/spinner";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -33,7 +34,7 @@ function App() {
     }
   }, [dispatch]);
 
-  if (sessionLoading || logsLoading) return <p>Loading data from API...</p>;
+  if (sessionLoading || logsLoading) return <div className="flex h-screen w-full items-center justify-center"><Spinner /></div>;
 
   return (
     <div className="flex flex-col max-w-7xl p-4 justify-center w-full">
