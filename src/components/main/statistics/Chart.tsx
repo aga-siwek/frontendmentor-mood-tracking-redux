@@ -1,16 +1,14 @@
 import ChartColumn from "./ChartColumn";
-import ColumnInfo from "./ColumnInfo";
+import DayDetailModal from "./DayDetailModal";
 import { ReactSVG } from "react-svg";
 import sleepIcon from "../../../assets/icon-sleep.svg";
 import { useEffect, useRef, useState } from "react";
 import { useAppSelector } from "@/store/store";
-import type { Log } from "@/store/slices/logsSlice";
 
 function Chart() {
   const logs = useAppSelector((state) => state.logs.logsData);
-  const [selectedColumn, setSelectedColumn] = useState<Log | null>(null);
+  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
-  const chartAnchorRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (scrollRef.current) {
@@ -18,38 +16,24 @@ function Chart() {
     }
   }, []);
 
-  useEffect(() => {
-    if (!selectedColumn) return;
-    const handleClickOutside = (e: MouseEvent) => {
-      if (chartAnchorRef.current && !chartAnchorRef.current.contains(e.target as Node)) {
-        setSelectedColumn(null);
-      }
-    };
-    document.addEventListener("click", handleClickOutside);
-    return () => document.removeEventListener("click", handleClickOutside);
-  }, [selectedColumn]);
-
   const showLog = () => {
     if (!logs) return;
     const shownLogs = logs.length >= 11 ? logs.slice(-11) : logs;
-    return shownLogs.map((log) => (
+    const offset = logs.length >= 11 ? logs.length - 11 : 0;
+    return shownLogs.map((log, i) => (
       <ChartColumn
         key={log.created_at}
         createdAtMonth={log.created_at_month}
         createdAtDay={log.created_at_day}
         mood={log.mood.mood_scale}
         sleepTime={log.sleep.sleep_time_scale}
-        onSelect={() =>
-          setSelectedColumn((prev) =>
-            prev?.created_at === log.created_at ? null : log
-          )
-        }
+        onSelect={() => setSelectedIndex(offset + i)}
       />
     ));
   };
 
   return (
-    <div id="chart-anchor" className="relative flex w-full" ref={chartAnchorRef}>
+    <div className="relative flex w-full">
       <div className="flex w-full h-90 pb-2.5">
         <div className="flex flex-col gap-[calc(100%/6)] justify-start h-[263px] text-3 min-w-17 text-end mr-2 pb-8 px-1">
           <div className="flex gap-1">
@@ -81,27 +65,14 @@ function Chart() {
         </div>
       </div>
 
-      {selectedColumn && (
-        <>
-          {/* mobile: fixed to bottom of screen */}
-          <div className="fixed left-4 right-4 bottom-4 z-300 md:hidden">
-            <ColumnInfo
-              description={selectedColumn.description.description}
-              mood={selectedColumn.mood.mood_scale}
-              feels={selectedColumn.feels}
-              sleepTime={selectedColumn.sleep.sleep_time_scale}
-            />
-          </div>
-          {/* tablet/desktop: wycentrowany w charcie */}
-          <div className="hidden md:block absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-300 w-[219px]">
-            <ColumnInfo
-              description={selectedColumn.description.description}
-              mood={selectedColumn.mood.mood_scale}
-              feels={selectedColumn.feels}
-              sleepTime={selectedColumn.sleep.sleep_time_scale}
-            />
-          </div>
-        </>
+      {selectedIndex !== null && logs && (
+        <DayDetailModal
+          logs={logs}
+          selectedIndex={selectedIndex}
+          onClose={() => setSelectedIndex(null)}
+          onPrev={() => setSelectedIndex((i) => (i !== null && i > 0 ? i - 1 : i))}
+          onNext={() => setSelectedIndex((i) => (i !== null && i < logs.length - 1 ? i + 1 : i))}
+        />
       )}
     </div>
   );
