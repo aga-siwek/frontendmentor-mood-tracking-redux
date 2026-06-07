@@ -32,7 +32,7 @@ export function SettingMenu() {
     return userName;
   };
   return (
-    <div className="flex flex-col bg-neutral-5 absolute right-3 top-15 px-4 py-3 rounded-lg gap-3">
+    <div className="flex flex-col bg-neutral-5 absolute right-3 top-15 px-4 py-3 rounded-lg gap-3 z-20">
       <div className="flex flex-col gap-3">
         <p className="text-[18px] leading-[1.2] text-neutral-1">
           {showUserName()}
