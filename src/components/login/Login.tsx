@@ -3,7 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
 import * as z from "zod";
-import { useAppDispatch } from "@/store/store";
+import { useAppDispatch, useAppSelector } from "@/store/store";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -34,6 +34,7 @@ const formSchema = z.object({
 
 function Login() {
   const dispatch = useAppDispatch();
+  const loginError = useAppSelector((state) => state.auth.loginError);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -137,6 +138,9 @@ function Login() {
             >
               Log In
             </Button>
+            {loginError && (
+              <p className="text-destructive text-sm">Invalid email or password.</p>
+            )}
             <p className="text-[18px] leading-[1.4] tracking-[-0.3px] text-neutral-2 font-light">
               Haven't got an account?{" "}
               <a

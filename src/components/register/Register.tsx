@@ -21,7 +21,7 @@ import {
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import Logo from "@/components/common/logo/Logo.tsx";
-import { useAppDispatch } from "@/store/store";
+import { useAppDispatch, useAppSelector } from "@/store/store";
 import { fetchRegister, goToLogin } from "@/store/slices/authSlice";
 import { toast } from "sonner";
 
@@ -35,6 +35,7 @@ const formSchema = z.object({
 
 function Register() {
   const dispatch = useAppDispatch();
+  const registerError = useAppSelector((state) => state.auth.registerError);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -139,6 +140,9 @@ function Register() {
             >
               Sign up
             </Button>
+            {registerError && (
+              <p className="text-destructive text-sm">An account with this email already exists.</p>
+            )}
             <p className="text-[18px] leading-[1.4] tracking-[-0.3px] text-neutral-2 font-light">
               Already got an account?{" "}
               <a
