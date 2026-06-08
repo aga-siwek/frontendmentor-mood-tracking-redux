@@ -80,11 +80,11 @@
   --accent-3: oklch(0.85 0.046 257.65);
   --accent-4: oklch(0.916 0.024 257.5);
   --detail-1: oklch(0.537 0.219 26.04);
-  --detail-2: oklch(0.778 0.129 18.06);
-  --detail-3: oklch(0.868 0.046 257.65);
-  --detail-4: oklch(0.778 0.088 274.05);
-  --detail-5: oklch(0.816 0.088 238.25);
-  --detail-6: oklch(0.864 0.165 142.06);
+  --detail-2: oklch(0.792 0.120 21.35);
+  --detail-3: oklch(0.795 0.110 287.74);
+  --detail-4: oklch(0.815 0.100 244.05);
+  --detail-5: oklch(0.845 0.165 142.13);
+  --detail-6: oklch(0.868 0.113 75.18);
   --detail-7: oklch(0.85 0.119 72.84);
 
   --card: oklch(1 0 0);
