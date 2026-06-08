@@ -49,22 +49,21 @@ const newLogSlice = createSlice({
       .addCase(logout, () => initialState)
       .addCase(fetchLogs.fulfilled, (state, action) => {
         const logs = action.payload;
-        const lastLog = logs?.at(-1);
-        if (!lastLog) return;
-
         const date = new Date();
-        const isTodayLog =
-          lastLog.created_at_day === date.getDate() &&
-          lastLog.created_at_month === date.getMonth() + 1 &&
-          lastLog.created_at_year === date.getFullYear();
+        const todayLog = logs?.find(
+          (log: { created_at_day: number; created_at_month: number; created_at_year: number }) =>
+            log.created_at_day === date.getDate() &&
+            log.created_at_month === date.getMonth() + 1 &&
+            log.created_at_year === date.getFullYear()
+        );
 
-        if (!isTodayLog) return;
+        if (!todayLog) return;
 
-        state.todayMood = lastLog.mood?.mood_scale;
-        state.todayDescription = lastLog.description?.description;
-        state.todaySleepTime = lastLog.sleep?.sleep_time_scale;
+        state.todayMood = todayLog.mood?.mood_scale;
+        state.todayDescription = todayLog.description?.description;
+        state.todaySleepTime = todayLog.sleep?.sleep_time_scale;
         state.todayFeels = [];
-        lastLog.feels?.forEach((feel: { feel_name: string }) => {
+        todayLog.feels?.forEach((feel: { feel_name: string }) => {
           state.todayFeels.push(feel.feel_name);
         });
       });

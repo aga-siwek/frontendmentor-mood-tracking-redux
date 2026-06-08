@@ -18,8 +18,13 @@ function Chart() {
 
   const showLog = () => {
     if (!logs) return;
-    const shownLogs = logs.length >= 11 ? logs.slice(-11) : logs;
-    const offset = logs.length >= 11 ? logs.length - 11 : 0;
+    const sorted = [...logs].sort((a, b) => {
+      const da = new Date(a.created_at_year, a.created_at_month - 1, a.created_at_day).getTime();
+      const db = new Date(b.created_at_year, b.created_at_month - 1, b.created_at_day).getTime();
+      return da - db;
+    });
+    const shownLogs = sorted.length >= 31 ? sorted.slice(-31) : sorted;
+    const offset = sorted.length >= 31 ? sorted.length - 31 : 0;
     return shownLogs.map((log, i) => (
       <ChartColumn
         key={log.created_at}

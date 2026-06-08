@@ -52,21 +52,16 @@ const resolveAppState = (state: AuthState, logs: any[]) => {
   }
 
   const date = new Date();
-  const lastLog = logs?.at(-1);
-  if (!lastLog) {
-    state.appState = APP_STATE.TODAY_LOG_NOT_ADDED;
-    return;
-  }
+  const todayLog = logs?.find(
+    (log) =>
+      log.created_at_day === date.getDate() &&
+      log.created_at_month === date.getMonth() + 1 &&
+      log.created_at_year === date.getFullYear()
+  );
 
-  if (
-    lastLog.created_at_day === date.getDate() &&
-    lastLog.created_at_month === date.getMonth() + 1 &&
-    lastLog.created_at_year === date.getFullYear()
-  ) {
-    state.appState = APP_STATE.TODAY_LOG_ADDED;
-  } else {
-    state.appState = APP_STATE.TODAY_LOG_NOT_ADDED;
-  }
+  state.appState = todayLog
+    ? APP_STATE.TODAY_LOG_ADDED
+    : APP_STATE.TODAY_LOG_NOT_ADDED;
 };
 
 export const fetchLogin = createAsyncThunk(
