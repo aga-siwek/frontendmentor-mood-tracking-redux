@@ -1,6 +1,7 @@
 import Today from "@/components/main/mood_content/today/Today.tsx";
 import Average from "@/components/main/mood_content/average/Average.tsx";
 import Statistics from "@/components/main/statistics/Statistics.tsx";
+import MoodHeatmap from "@/components/main/statistics/MoodHeatmap";
 
 function MoodContent() {
   return (
@@ -10,6 +11,7 @@ function MoodContent() {
         <Average />
         <Statistics />
       </div>
+      <MoodHeatmap />
     </div>
   );
 }
