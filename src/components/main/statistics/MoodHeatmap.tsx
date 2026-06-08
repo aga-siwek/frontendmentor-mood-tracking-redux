@@ -84,12 +84,29 @@ function MoodHeatmap() {
 
   return (
     <div className="flex flex-col gap-4 w-full bg-neutral-5 rounded-2xl py-5 px-4">
-      <p className="font-semibold text-[28px] leading-[1.3] tracking-[-0.3px] text-neutral-1">
-        Mood history
-      </p>
+      <div className="flex items-center justify-between">
+        <p className="font-semibold text-[28px] leading-[1.3] tracking-[-0.3px] text-neutral-1">
+          Mood history
+        </p>
+        <select
+          value={selectedYear}
+          onChange={(e) => setSelectedYear(Number(e.target.value))}
+          className="text-sm font-medium px-3 py-2 rounded-md bg-accent-4 text-neutral-1 cursor-pointer border-none outline-none"
+        >
+          {availableYears.map((year) => (
+            <option key={year} value={year}>{year}</option>
+          ))}
+        </select>
+      </div>
 
-      <div className="flex gap-4 items-start">
-        <div className="flex flex-col gap-1 flex-1 min-w-0">
+      <div
+        className="overflow-x-auto [&::-webkit-scrollbar]:hidden"
+        style={{ scrollbarWidth: 'none' }}
+      >
+        <div
+          className="flex flex-col gap-1 w-full"
+          style={{ minWidth: `${28 + weeks.length * 11 + (weeks.length - 1) * 4}px` }}
+        >
           <div
             className="grid gap-1 mb-1"
             style={{ gridTemplateColumns: `28px repeat(${weeks.length}, 1fr)` }}
@@ -133,20 +150,6 @@ function MoodHeatmap() {
                 );
               })}
             </div>
-          ))}
-        </div>
-
-        <div className="flex flex-col gap-2 shrink-0">
-          {availableYears.map((year) => (
-            <button
-              key={year}
-              onClick={() => setSelectedYear(year)}
-              className={`text-sm font-medium px-3 py-1 rounded-md cursor-pointer transition-colors ${
-                year === selectedYear ? "bg-accent-2 text-neutral-5" : "text-neutral-3 hover:text-neutral-1"
-              }`}
-            >
-              {year}
-            </button>
           ))}
         </div>
       </div>
