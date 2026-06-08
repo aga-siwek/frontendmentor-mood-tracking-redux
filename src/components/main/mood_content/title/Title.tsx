@@ -13,7 +13,7 @@ function Title() {
   };
   return (
     <div className="flex flex-col justify-center items-center gap-3">
-      <h3 className="font-semibold text-[28px] leading-[1.4] tracking-[-0.3px] text-accent-2">
+      <h3 className="font-semibold text-[28px] leading-[1.4] tracking-[-0.3px] text-accent-2 text-center">
         Hello, {showUserName()}!
       </h3>
       <h1 className="font-semibold text-[46px] leading-[1.2] tracking-[-0.2px] text-neutral-1 text-center">
