@@ -36,7 +36,7 @@ function MoodHeatmap() {
   const currentYear = new Date().getFullYear();
   const [selectedYear, setSelectedYear] = useState(currentYear);
 
-  if (!logs || logs.length <= 31) return null;
+  if (!logs) return null;
 
   const sorted = sortByDisplayDate(logs);
   const availableYears = [...new Set(sorted.map((log) => log.created_at_year))].sort((a, b) => b - a);
