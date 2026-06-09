@@ -89,18 +89,25 @@ function MoodHeatmap() {
         <p className="font-semibold text-[28px] leading-[1.3] tracking-[-0.3px] text-neutral-1">
           Mood history
         </p>
-        <div className="relative">
-          <select
-            value={selectedYear}
-            onChange={(e) => setSelectedYear(Number(e.target.value))}
-            className="text-sm font-medium pl-3 pr-8 py-2 rounded-md bg-accent-4 text-neutral-1 cursor-pointer border-none outline-none appearance-none"
-          >
-            {availableYears.map((year) => (
-              <option key={year} value={year}>{year}</option>
-            ))}
-          </select>
-          <ChevronDown className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-2" />
-        </div>
+        {availableYears.length > 1 && (
+          <div className="relative">
+            <select
+              value={selectedYear}
+              onChange={(e) => setSelectedYear(Number(e.target.value))}
+              className="text-sm font-medium pl-3 pr-8 py-2 rounded-md bg-accent-4 text-neutral-1 cursor-pointer border-none outline-none appearance-none"
+            >
+              {availableYears.map((year) => (
+                <option key={year} value={year}>{year}</option>
+              ))}
+            </select>
+            <ChevronDown className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-2" />
+          </div>
+        )}
+        {availableYears.length <= 1 && (
+          <span className="text-sm font-medium px-3 py-2 rounded-md bg-accent-4 text-neutral-1">
+            {currentYear}
+          </span>
+        )}
       </div>
 
       <div
