@@ -16,6 +16,10 @@ A full-stack tracking application that transforms daily emotional logs into acti
 * **Personalized Content:** Quote generation logic based on specific "feels" and user profile data.
 * **Secure Access:** Full authentication flow using token-based security and protected routes.
 * **Responsive UI:** Adaptive layout for mobile, tablet, and desktop screens.
+* **Demo Mode:** One-click demo login with pre-generated data — no registration required. Demo accounts and all their data are automatically deleted on logout.
+
+## Demo
+Try the app instantly without creating an account — click **Try Demo** on the login screen. A temporary account with pre-filled mood and sleep data is generated automatically, giving a full overview of all features including charts, heatmap, and analytics. A banner is displayed throughout the demo session as a reminder that the data is temporary.
 
 ## Requirements
 * Node.js 18+
