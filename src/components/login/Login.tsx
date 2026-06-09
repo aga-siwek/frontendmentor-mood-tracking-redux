@@ -22,7 +22,8 @@ import {
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import Logo from "@/components/common/logo/Logo.tsx";
-import { fetchLogin, goToRegister } from "@/store/slices/authSlice";
+import { Spinner } from "@/components/ui/spinner";
+import { fetchLogin, fetchDemoLogin, goToRegister } from "@/store/slices/authSlice";
 
 const formSchema = z.object({
   email: z.string().min(1, "Email is required.").email("Invalid email format."),
@@ -35,6 +36,8 @@ const formSchema = z.object({
 function Login() {
   const dispatch = useAppDispatch();
   const loginError = useAppSelector((state) => state.auth.loginError);
+  const demoLoginLoading = useAppSelector((state) => state.auth.demoLoginLoading);
+  const demoLoginError = useAppSelector((state) => state.auth.demoLoginError);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -55,6 +58,10 @@ function Login() {
 
   const onSignUpClick = () => {
     dispatch(goToRegister());
+  };
+
+  const onDemoClick = () => {
+    dispatch(fetchDemoLogin());
   };
 
   return (
@@ -140,6 +147,33 @@ function Login() {
             </Button>
             {loginError && (
               <p className="text-destructive text-sm">Invalid email or password.</p>
+            )}
+            <div className="flex items-center gap-3 w-full">
+              <div className="flex-1 h-px bg-neutral-3" />
+              <span className="text-neutral-2 text-[14px] font-light">or</span>
+              <div className="flex-1 h-px bg-neutral-3" />
+            </div>
+            <Button
+              type="button"
+              className="w-full font-light text-[16px] leading-[1.4] py-3 px-6 rounded-md border border-neutral-3 bg-transparent text-neutral-2 hover:border-accent-2 hover:bg-accent-2/10 hover:text-accent-2 transition-colors"
+              onClick={onDemoClick}
+              disabled={demoLoginLoading}
+            >
+              {demoLoginLoading ? (
+                <>
+                  <Spinner className="size-4" />
+                  Generating demo data...
+                </>
+              ) : (
+                "Try Demo"
+              )}
+            </Button>
+            {demoLoginError && (
+              <p className="text-destructive text-sm">
+                {demoLoginError === "rate_limited"
+                  ? "Too many attempts, please try again later."
+                  : "Demo login failed. Please try again."}
+              </p>
             )}
             <p className="text-[18px] leading-[1.4] tracking-[-0.3px] text-neutral-2 font-light">
               Haven't got an account?{" "}

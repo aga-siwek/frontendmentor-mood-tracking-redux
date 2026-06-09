@@ -14,8 +14,11 @@ export interface AuthState {
   userName?: string;
   userEmail?: string;
   userID?: string;
+  isDemo: boolean;
   loginLoading: boolean;
   loginError: string | null;
+  demoLoginLoading: boolean;
+  demoLoginError: string | null;
   loginToken: string | null;
   registerLoading: boolean;
   registerError: string | null;
@@ -29,8 +32,11 @@ const initialState: AuthState = {
   userName: undefined,
   userEmail: undefined,
   userID: undefined,
+  isDemo: false,
   loginLoading: false,
   loginError: null,
+  demoLoginLoading: false,
+  demoLoginError: null,
   loginToken: null,
   registerLoading: false,
   registerError: null,
@@ -73,6 +79,33 @@ export const fetchLogin = createAsyncThunk(
     } catch (err) {
       const error = err as AxiosError;
       return rejectWithValue(error.response?.data || "Log Error");
+    }
+  },
+);
+
+export const fetchLogout = createAsyncThunk(
+  "auth/fetchLogout",
+  async (_, { dispatch }) => {
+    const token = localStorage.getItem("token");
+    dispatch(logout());
+    axios.post(`${API_URL}/logout`, null, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+  },
+);
+
+export const fetchDemoLogin = createAsyncThunk(
+  "auth/demoLogin",
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await axios.post(`${API_URL}/demo/login`);
+      return response.data;
+    } catch (err) {
+      const error = err as AxiosError;
+      if (error.response?.status === 429) {
+        return rejectWithValue("rate_limited");
+      }
+      return rejectWithValue("error");
     }
   },
 );
@@ -142,6 +175,7 @@ const authSlice = createSlice({
         state.userName = undefined;
         state.userEmail = undefined;
         state.userID = undefined;
+        state.isDemo = false;
         state.loginToken = null;
         localStorage.clear();
       })
@@ -164,6 +198,26 @@ const authSlice = createSlice({
         state.loginLoading = false;
         state.loginError = action.payload as string;
       })
+      .addCase(fetchDemoLogin.pending, (state) => {
+        state.demoLoginLoading = true;
+        state.demoLoginError = null;
+      })
+      .addCase(fetchDemoLogin.fulfilled, (state, action) => {
+        state.demoLoginLoading = false;
+        state.loginToken = action.payload.access_token;
+        state.userName = action.payload.user_name;
+        state.userEmail = action.payload.user_email;
+        state.isDemo = true;
+        localStorage.setItem("token", action.payload.access_token);
+        localStorage.setItem("isDemo", "true");
+        state.appState = state.userName
+          ? APP_STATE.TODAY_LOG_NOT_ADDED
+          : APP_STATE.USER_NAME_NOT_ADDED;
+      })
+      .addCase(fetchDemoLogin.rejected, (state, action) => {
+        state.demoLoginLoading = false;
+        state.demoLoginError = action.payload as string;
+      })
       .addCase(fetchCurrentUser.pending, (state) => {
         state.sessionLoading = true;
       })
@@ -172,6 +226,7 @@ const authSlice = createSlice({
         state.loginToken = localStorage.getItem("token");
         state.userName = action.payload.user_name;
         state.userEmail = action.payload.user_email;
+        state.isDemo = localStorage.getItem("isDemo") === "true";
         state.appState = APP_STATE.TODAY_LOG_NOT_ADDED;
       })
       .addCase(fetchCurrentUser.rejected, (state) => {

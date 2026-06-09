@@ -2,7 +2,7 @@ import { ReactSVG } from "react-svg";
 import settingIcon from "@/assets/icon-settings.svg";
 import logOutIcon from "@/assets/icon-logout.svg";
 import { useAppSelector, useAppDispatch } from "@/store/store";
-import { logout } from "@/store/actions";
+import { fetchLogout } from "@/store/slices/authSlice";
 import { openSetting } from "@/store/slices/uiSlice";
 
 export function SettingMenu() {
@@ -15,7 +15,7 @@ export function SettingMenu() {
   };
 
   const onLogOutClick = () => {
-    dispatch(logout());
+    dispatch(fetchLogout());
   };
 
   const showUserEmail = () => {

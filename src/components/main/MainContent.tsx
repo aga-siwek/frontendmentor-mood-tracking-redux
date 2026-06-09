@@ -1,4 +1,5 @@
 import Header from "@/components/main/header/Header.tsx";
+import DemoBanner from "@/components/main/header/DemoBanner.tsx";
 import Title from "@/components/main/mood_content/title/Title.tsx";
 import MoodContent from "@/components/main/mood_content/MoodContent.tsx";
 import { useAppSelector } from "@/store/store";
@@ -37,6 +38,7 @@ function MainContent() {
     <div className="">
       <div className="flex flex-col gap-12 p-3 relative">
         <Header />
+        <DemoBanner />
         <Title />
         <MoodContent />
       </div>
