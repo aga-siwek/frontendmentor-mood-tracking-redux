@@ -185,6 +185,7 @@ function Login() {
               </a>
               .
             </p>
+            <p className="text-[12px] leading-[1.4] tracking-[-0.3px] text-neutral-2 font-light">As this is a portfolio project hosted on Render's free tier, the first launch may take up to 30 seconds due to the server waking up. Thank you for your patience!</p>
           </Field>
         </CardFooter>
       </Card>
